@@ -38,7 +38,7 @@ Felipe:Hola, soy Felipe Agudelo,  Relojero con gran pasión por la programación
 
 Julian: hola soy julian vera, estudiante de lc educacion fisica, deportista de alto rendimiento apasionado por el mundo digital y la programacion
 
-Mario:
+Mario: Soy Mario, me dedico a la fotografía y me gusta mucho trabajar la madera. Siempre tuve interés por todo lo que se pueda hacer desde una computadora y es por esto que estoy aquí programando.
 
 - Link del tablero de trabajo en donde se encuentran trabajando
 
