@@ -4,14 +4,14 @@ Tienda de muebles y diseño
 - Temática y descripción del sitio
  
 - Temática:
-Sitio Web de ventas de muebles para hogares.
+Sitio Web de ventas de muebles y accsesorios para el hogar.
 
 -Descripción del sitio:
 Berte-Deco, es más que una tienda virtual de muebles, es un espacio diseñado para brindar una variedad de objetos decorativos con la finalidad de hacer de su casa un verdadero hogar con elegancia y estilo.
 
 - Publico objetivo:
 Nuestro sitio, está dirigido a todas aquellas personas mayores de edad, que deseen amoblar, decorar o mejorar el interior de sus hogares.
-- 
+ 
 - Listado de 5 páginas referentes en las que se basa su proyecto:
 
 https://escarabajomuebles.mitiendanube.com
@@ -32,7 +32,7 @@ https://modernurbanjungle.com
 
 - Listado del grupo con una breve descripción de cada uno:
 
- Francys: "Soy Francys Mata, ingeniero de Petróleo,  con experiencia activa en todos los niveles de  Calidad, documentación, análisis de procesos. marketing, ventas y calidad de servicio, amante de la tecnología y los deportes"
+Francys: "Soy Francys Mata, ingeniero de Petróleo,  con experiencia activa en todos los niveles de  Calidad, documentación, análisis de procesos. marketing, ventas y calidad de servicio, amante de la tecnología y los deportes"
 
 Felipe:Hola, soy Felipe Agudelo,  Relojero con gran pasión por la programación, Actualmente trabajo en servicio al cliente para "Swatch Group" en Colombia.
 
