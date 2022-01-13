@@ -1,0 +1,22 @@
+{
+  "name": "bertedeco",
+  "version": "1.0.0",
+  "description": "proyecto grupo 3",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariogzabala/grupo_3_bertedeco.git"
+  },
+  "author": "grupo 3",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mariogzabala/grupo_3_bertedeco/issues"
+  },
+  "homepage": "https://github.com/mariogzabala/grupo_3_bertedeco#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
