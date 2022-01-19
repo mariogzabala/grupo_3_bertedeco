@@ -1,3 +1,144 @@
-h1 {
-    color: red;
+/* Body Header y otros generales */
+
+body {
+  font-family: "Bahnschrift", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: normal;
+  background: #fafafa;
+  color: gray;
+  text-align: left;
 }
+
+.cuotas-head {
+  padding: 0px;
+  background-color: rgb(199, 178, 153);
+}
+
+.div-head {
+  --bs-gutter-x: 0rem!important;
+}
+
+.heading-section {
+  background-color: rgb(199, 178, 153);
+  color: #fafafa;
+  margin-top: 1vh;
+}
+
+.justify-content-between {
+    -webkit-box-pack: justify !important;
+    -ms-flex-pack: justify !important;
+    justify-content: space-between !important;
+}
+
+.row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+ /*  margin-right: -15px;
+  margin-left: -15px; */
+}
+
+.navbar-brand {
+  display: inline-block;
+  color: #000;
+  margin-right: 0px;
+ /*  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  margin-bottom: 30px; */
+}
+
+/* .navbar-brand span {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.3);
+} */
+
+.searchform {
+  height: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  border-radius: 40px;
+}
+
+.searchform .search {
+  width: 50px;
+  height: 50px;
+  background: rgb(199, 178, 153) !important;
+}
+
+.searchform .form-control {
+  border: none;
+}
+
+.searchform .search span {
+  font-size: 16px;
+  color: #fff;
+}
+
+.social-media p a {
+  border: 1px solid rgb(199, 178, 153);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 4px;
+  text-decoration: none;
+}
+
+.social-media p a span {
+  color: #363531;
+}
+
+@media (max-width: 767px) {
+  .user-section {
+    justify-content: center!important;
+  }
+}
+
+/* @media (min-width: 768px) {
+  .order-md-last {
+    -webkit-box-ordinal-group: 14;
+    -ms-flex-order: 13;
+    order: 13;
+  }
+
+  .col-md-8 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 66.66667%;
+    flex: 0 0 66.66667%;
+    max-width: 66.66667%;
+  }
+
+  .col-md-6 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+} */
+
+/* Body Header y otros generales */
+
+/* Carousel */
+
+.carousel-item {
+  height: 65vh;
+  min-height: 350px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/* Carousel */

@@ -3,6 +3,7 @@ const path = require('path')
 
 const app = express()
 
+//npm run serve
 app.listen(3030, () => console.log('Servidor corriendo'))
 
 //pagina home
@@ -14,13 +15,13 @@ app.get('/', function(req, res) {
 //pagina detalle producto
 //usar localhost:3030/product
 app.get('/product', function(req, res) {
-    res.sendFile(path.resolve(__dirname, './views/product.html'))
+    res.sendFile(path.resolve(__dirname, './views/productDetail.html'))
 })
 
 //pagina carrito
-//usar localhost:3030/product
-app.get('/shop', function(req, res) {
-    res.sendFile(path.resolve(__dirname, './views/shop.html'))
+//usar localhost:3030/cart
+app.get('/cart', function(req, res) {
+    res.sendFile(path.resolve(__dirname, './views/productCart.html'))
 })
 
 //pagina registro usuario
