@@ -1,4 +1,4 @@
-/* Body Header y otros generales */
+/* Body Header, Footer y otros generales */
 
 body {
   font-family: "Bahnschrift", Arial, sans-serif;
@@ -10,6 +10,10 @@ body {
   text-align: left;
 }
 
+a {
+  text-decoration: none;
+}
+
 .cuotas-head {
   padding: 0px;
   background-color: rgb(199, 178, 153);
@@ -17,6 +21,10 @@ body {
 
 .div-head {
   --bs-gutter-x: 0rem!important;
+}
+
+.img-icon {
+  margin-bottom: 0px!important;
 }
 
 .heading-section {
@@ -43,13 +51,17 @@ body {
 
 .navbar-brand {
   display: inline-block;
-  color: #000;
+  color: rgba(0,0,0,.55);
   margin-right: 0px;
  /*  text-transform: uppercase;
   font-weight: 700;
   font-size: 20px;
   line-height: 1.2;
   margin-bottom: 30px; */
+}
+
+.navbar-brand:hover {
+  color: #58574f;
 }
 
 /* .navbar-brand span {
@@ -94,9 +106,96 @@ body {
   color: #363531;
 }
 
+.navbar-light .navbar-toggler {
+  color: rgba(0,0,0,.55);
+  border-color: rgb(199, 178, 153);
+}
+
+.navbar-toggler:focus {
+  text-decoration: none;
+  outline: 0;
+  box-shadow: 0 0 0 1px;
+}
+
+.nav-link {
+  font-size: 11px;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: 500;
+  /* color: #fff; */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  opacity: 1 !important;
+}
+
+.dropdown-menu {
+  background-color: #fafafa;
+  border: 1px solid rgb(199, 178, 153);
+}
+
+.dropdown-item {
+  color: gray;
+}
+
+.cid-qySuWQglmK {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: rgb(199, 178, 153);
+}
+
+.cid-qySuWQglmK .first-column ul, .cid-qySuWQglmK .second-column ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.display-4 {
+  font-size: 1rem;
+  margin-bottom: 1rem
+}
+
+.cid-qySuWQglmK .mbr-iconfont {
+  padding: 0 0.5rem;
+}
+
+.cid-qySuWQglmK .mbr-section-title, .cid-qySuWQglmK .card-support {
+  text-align: left;
+  color: #ffffff;
+}
+
+.cid-qySuWQglmK .card-support {
+  margin-top: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.cid-qySuWQglmK .card-support li {
+  margin-bottom: 0.4rem;
+  margin-right: 0.4rem;
+  display: inline-block;
+}
+
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-nav .nav-link {
+      padding-right: 20px;
+      padding-left: 20px;
+  }
+}
+
 @media (max-width: 767px) {
   .user-section {
     justify-content: center!important;
+  }
+
+  .nav-link {
+    border-bottom: 1px solid rgb(199, 178, 153);
+  }
+
+  .first-column, .second-column {
+    text-align: center;
   }
 }
 
@@ -106,14 +205,12 @@ body {
     -ms-flex-order: 13;
     order: 13;
   }
-
   .col-md-8 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 66.66667%;
     flex: 0 0 66.66667%;
     max-width: 66.66667%;
   }
-
   .col-md-6 {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 50%;
@@ -124,21 +221,63 @@ body {
     padding-right: 15px;
     padding-left: 15px;
   }
-
 } */
 
-/* Body Header y otros generales */
+/* Body Header, Footer y otros generales */
 
-/* Carousel */
+*{box-sizing:border-box;}
 
-.carousel-item {
-  height: 65vh;
-  min-height: 350px;
-  background: no-repeat center center scroll;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+.formbox{
+	width:800px;
+	padding:140px;
+	border-radius:50px;
+	margin:auto;
+	background-color:none;
+  color:black;
+  font-family: "Bahnschrift";
+  font-size: 16px;
+  
+ 
+}
+#submitbutton{
+  height:50px;
+  width: 100%;
+  color:white;
+  font-family: "Bahnschrift";
+  font-size: 30px;
+  text-align: center;
+  border:none;
+  background-color: grey;
+  text-transform: uppercase;
+
 }
 
-/* Carousel */
+
+.form-border{
+  border: black 1px solid;
+  color:#888C67;
+  padding:3px 0 3px 0;
+}
+.numero{
+  height:30px;
+  width: 100%;
+  border: black 1px solid;
+}
+#titulo{
+  text-align:center;
+}
+
+#parent {
+  display: table;
+  width: 100%;
+}
+#form_login {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#centrado {
+  text-align: center;
+  font-size: 16px;
+
+}
