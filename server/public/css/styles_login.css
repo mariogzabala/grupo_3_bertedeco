@@ -228,23 +228,25 @@ a {
 *{box-sizing:border-box;}
 
 .formbox{
-	width:800px;
-	padding:140px;
+	width:100%;
+  padding-left:20%;
+  padding-right:20%;
 	border-radius:50px;
 	margin:auto;
 	background-color:none;
   color:black;
   font-family: "Bahnschrift";
   font-size: 16px;
-  
- 
+  justify-items: center;
+  justify-content: center;
 }
+
 #submitbutton{
   height:50px;
   width: 100%;
   color:white;
   font-family: "Bahnschrift";
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
   border:none;
   background-color: grey;
@@ -257,21 +259,31 @@ a {
   border: black 1px solid;
   color:#888C67;
   padding:3px 0 3px 0;
+  width:100%;
+  justify-content: center;
+  justify-items: center;
 }
-
+.numero{
+  height:30px;
+  width: 100%;
+  border: black 1px solid;
+}
+#titulo{
+  text-align:center;
+  }
 
 #parent {
   display: table;
-  width: 100%;
+  width: 90%;
 }
 #form_login {
   display: table-cell;
   vertical-align: middle;
+  width: 100%;
 }
 
 #centrado {
   text-align: center;
   font-size: 16px;
-
-}
+}  
 
