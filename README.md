@@ -7,6 +7,12 @@ Tienda de muebles y diseño
 Ingrese a el siguiente Link
 https://mario-zabala.herokuapp.com/
 
+## Metodologia de trabajo con git
+
+Se usó el flujo de trabajo de ramas descrito en el siguiente documento de [Atlassian](https://www.atlassian.com/es/git/tutorials/comparing-workflows/feature-branch-workflow).
+
+Las ramas se eliminaran despues de cada Sprint, solo se conservan para revision del docente.
+
 ## Instalacion
 
 Clone el repositorio y use npm para instalar lo modulos necesarios.
