@@ -199,33 +199,6 @@ a {
   }
 }
 
-/* @media (min-width: 768px) {
-  .order-md-last {
-    -webkit-box-ordinal-group: 14;
-    -ms-flex-order: 13;
-    order: 13;
-  }
-
-  .col-md-8 {
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 66.66667%;
-    flex: 0 0 66.66667%;
-    max-width: 66.66667%;
-  }
-
-  .col-md-6 {
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
-    max-width: 50%;
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-  }
-
-} */
-
 /* Body Header, Footer y otros generales */
 
 /* Detail Product */

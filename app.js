@@ -4,7 +4,7 @@ const path = require('path')
 const app = express()
 
 //npm run serve
-app.listen(3030, () => console.log('Servidor corriendo'))
+app.listen(process.env.PORT || 3030, () => console.log('Servidor corriendo'))
 
 //pagina home
 //usar localhost:3030/
