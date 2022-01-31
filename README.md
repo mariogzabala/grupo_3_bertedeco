@@ -5,7 +5,7 @@ Tienda de muebles y diseño
 ## Heroku
 
 Ingrese a el siguiente Link
-https://mario-zabala.herokuapp.com/
+https://bertedeco.herokuapp.com/
 
 ## Metodologia de trabajo con git
 

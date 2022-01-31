@@ -24,7 +24,7 @@
     <link
     href="https://http2.mlstatic.com/resources/frontend/statics/buyingflow-frontend-core/styles/cho__large-01a75e881b.css"
     rel="stylesheet" type="text/css">
-         <!-- plantilla html-->   
+    <!-- plantilla html-->   
 </head>
 <body>
     <!-- Header and Navbar-->
@@ -100,7 +100,7 @@
         </nav>
     </section>
     <!-- Cart -->
-    <main >
+    <main class="container-fluid">
         <div
              data-js="external-js">
         </div>
@@ -113,10 +113,10 @@
                 </path>
             </symbol>
         </svg>
-        <div>
-            
-        <div class="cart-main-container cart-main-container--aside-present" data-js="cart-main-container">
-            <div id="app-container" class="cart-content">
+        </div>
+        <div>    
+        <div class="cart-main-container cart-main-container--aside-present row" data-js="cart-main-container">
+            <div id="app-container" class="cart-content col-md-5 col-sm-12 col-xs-12">
                 <div>
                     <div data-component="shipping-selection">
                         <div data-component="shipping-context">
@@ -385,7 +385,7 @@
 
                                                         <div class="summary__actions">
                                                             <input data-id="summary-action-button" type="submit"
-                                                            class="btn btn-secondary btn-lg"  value="Continuar">
+                                                            class="btn btn-secondary btn-outline-dark btn-lg"  value="Continuar">
                                                         </div>
                                                     </form>
                                                 </section>
@@ -395,10 +395,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="aside-container" class="cart-aside">
-
-                            <!-- resumen de compra -->
-                            
+                        <!-- resumen de compra -->
+                        <div id="aside-container" class="cart-aside col-md-5 col-sm-12 col-xs-12">
                             <div>
                                 <div data-component="aside">
                                     <aside class="" data-aside="target">
