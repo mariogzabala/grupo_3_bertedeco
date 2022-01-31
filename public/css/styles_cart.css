@@ -207,7 +207,7 @@ a {
 
 /* Cart */
 
-button {
+.navbar-toggler {
   width: auto!important;
 }
 
