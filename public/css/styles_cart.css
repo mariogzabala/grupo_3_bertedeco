@@ -8,6 +8,7 @@ body {
   background: #fafafa!important;
   color: gray;
   text-align: left;
+  min-width: auto!important;
 }
 
 
@@ -205,6 +206,17 @@ a {
 /* Body Header, Footer y otros generales */
 
 /* Cart */
+
+button {
+  width: auto!important;
+}
+
+.hero--ellipsis .hero__info-subtitle, .hero--ellipsis .hero__info-title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: normal!important;
+  display: block;
+}
 
 .btn-secondary {
   color: #fff;
