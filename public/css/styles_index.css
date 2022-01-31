@@ -253,6 +253,15 @@ h3{
   text-align: center;
 }
 
+h5.fw-bolder{
+  color: gray;
+}
+
+h5.fw-bolder:hover {
+  text-decoration: underline;
+
+}
+
 .py-5 {
   padding-top: 1rem !important;
   padding-bottom: 3rem !important;
