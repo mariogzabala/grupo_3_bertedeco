@@ -23,8 +23,8 @@ a {
   --bs-gutter-x: 0rem!important;
 }
 
-.img-icon {
-  margin-bottom: 0px!important;
+.main-header {
+  align-items: center;
 }
 
 .heading-section {
@@ -93,17 +93,18 @@ a {
   color: #fff;
 }
 
-.social-media p a {
+.social-media p .user-icons {
   border: 1px solid rgb(199, 178, 153);
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  margin-right: 4px;
+  margin: 0px 5px;
   text-decoration: none;
 }
 
 .social-media p a span {
   color: #363531;
+  margin: 0px 5px;
 }
 
 .navbar-light .navbar-toggler {
