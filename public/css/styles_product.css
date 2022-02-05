@@ -626,14 +626,18 @@ textarea {
   border: 1px solid rgb(199, 178, 153);
 }
 
+.link-image {
+  height: 60%;
+}
+
 .card-img-top {
-  height: 60%
+  height: 100%
 }
 
 @media (max-width: 767px) {
 
-  .card-img-top {
-    height: 40%
+  .link-image {
+    height: 45%
   }
   
 }
