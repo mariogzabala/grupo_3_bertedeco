@@ -212,6 +212,7 @@ a {
 	width:100%;
   padding-left:20%;
   padding-right:20%;
+  padding-top:7%;
 	border-radius:50px;
 	margin:auto;
 	background-color:transparent;
@@ -235,6 +236,10 @@ a {
 
 }
 
+#submitbutton:hover {
+  background-color:rgb(199, 178, 153);
+
+}
 
 .form-border{
   border: black 1px solid;
