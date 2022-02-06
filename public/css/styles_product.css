@@ -612,6 +612,10 @@ textarea {
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+h5.fw-bolder {
+  color: gray;
+}
+
 .label-line {
   border-color: rgb(199, 178, 153);
   color: rgb(199, 178, 153);
@@ -626,20 +630,8 @@ textarea {
   border: 1px solid rgb(199, 178, 153);
 }
 
-.link-image {
-  height: 60%;
-}
-
 .card-img-top {
   height: 100%
-}
-
-@media (max-width: 767px) {
-
-  .link-image {
-    height: 45%
-  }
-  
 }
 
 /* Related Products */
