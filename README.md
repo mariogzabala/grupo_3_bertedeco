@@ -26,7 +26,7 @@ npm install
 Inicie el servidor
 
 ```bash
-npm run serve
+npm start
 ```
 
 ## Navegador

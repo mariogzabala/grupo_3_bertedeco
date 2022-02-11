@@ -201,9 +201,19 @@ header{
     border-bottom: 1px solid rgb(199, 178, 153);
   }
 
+  .footer-lists {
+    justify-content: space-around!important;
+  }
+
   .first-column, .second-column {
+    display: contents;
+  }
+
+  .cid-qySuWQglmK .mbr-section-title, .cid-qySuWQglmK .card-support {
+    margin-top: 3%;
     text-align: center;
   }
+  
 }
   
 /* Body Header, Footer y otros generales */
@@ -248,6 +258,7 @@ header{
   padding: 1px 1px;
   margin-bottom: 1px;
   border: 1px solid;
+  border-radius: 0.25rem;
   font-size: 12px;
   text-transform: none;
 }

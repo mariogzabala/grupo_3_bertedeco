@@ -72,7 +72,6 @@ a {
 } */
 
 .searchform {
-  margin: 1.5em;
   height: 50px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
@@ -121,9 +120,8 @@ a {
 
 .nav-link {
   font-size: 11px;
-  padding: 0.5rem 1rem;
-  /* padding-top: 1.5rem;
-  padding-bottom: 1.5rem; */
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
   padding-left: 20px;
   padding-right: 20px;
   font-weight: 500;
@@ -197,9 +195,19 @@ a {
     border-bottom: 1px solid rgb(199, 178, 153);
   }
 
+  .footer-lists {
+    justify-content: space-around!important;
+  }
+
   .first-column, .second-column {
+    display: contents;
+  }
+
+  .cid-qySuWQglmK .mbr-section-title, .cid-qySuWQglmK .card-support {
+    margin-top: 3%;
     text-align: center;
   }
+
 }
 
 /* Body Header, Footer y otros generales */

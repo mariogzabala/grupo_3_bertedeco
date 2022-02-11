@@ -12,75 +12,12 @@
     <!-- Bootstrap icons Fontawesome icons-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="img/icon.jpg" />
+    <link rel="icon" type="image/x-icon" href="/img/icon.jpg" />
 </head>
 <body>
     <!-- Header and Navbar-->
-    <section class="ftco-section">
-        <div class="container-fluid cuotas-head">
-            <div class="div-head row justify-content-center">
-                <div class="col-md text-center">
-                    <h6 class="heading-section">3 Y 6 CUOTAS SIN INTERES</h6>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid px-md-5">
-            <div class="main-header row justify-content-between">
-                <div class="col-md-8 order-md-last">
-                    <div class="main-header row">
-                        <div class="col-md-6 text-center">
-                            <a href="/index.html"><img src="/img/icono-bertedeco.png" class="img-fluid" alt="bertedeco" height="400" width="300"></a>
-                        </div>
-                        <div class="col-md-6 d-flex justify-content-end mb-md-0 mb-3 user-section">
-                            <div class="social-media">
-                            <p class="mb-0 d-flex">
-                                <a href="/register.html" class="user-text-link d-flex align-items-center justify-content-center"><span class="user-text">Registrarse</span></a>
-                                <a href="/login.html" class="user-text-link d-flex align-items-center justify-content-center"><span class="user-text">Ingresar</span></a>
-                                <a href="#" class="user-icons d-flex align-items-center justify-content-center"><span class="fa fa-user"><i class="sr-only">Perfil</i></span></a>
-                                <a href="/productCart.html" class="user-icons d-flex align-items-center justify-content-center"><span class="fa fa-shopping-cart"><i class="sr-only">Carro</i></span></a>
-                            </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 d-md-flex">
-                    <form method="get" action="#" class="searchform order-lg-last">
-                <div class="form-group d-flex">
-                <input type="search" class="form-control pl-3" placeholder="Buscar">
-                <button type="submit" class="form-control search"><span class="fa fa-search"></span></button>
-                </div>
-            </form>
-                </div>
-            </div>
-        </div>
-        <!-- navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light ftco_navbar bg-ligh ftco-navbar-dark" id="ftco-navbar">
-        <div class="container-fluid">
-        
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="fa fa-bars"></span> Menu
-            </button>
-            <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav m-auto">
-                <li class="nav-item active"><a href="/index.html" class="nav-link">Inicio</a></li>
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Productos</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown04">
-                    <a class="dropdown-item" href="#">Bancos</a>
-                <a class="dropdown-item" href="#">Jardin</a>
-                <a class="dropdown-item" href="#">Espejos</a>
-                <a class="dropdown-item" href="#">Mesas y Escritorios</a>
-                <a class="dropdown-item" href="#">Percheros y Repisas</a>
-                </div>
-            </li>
-                <li class="nav-item"><a href="#" class="nav-link">Cómo Comprar</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Preuntas Frecuentes</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Contacto</a></li>
-            </ul>
-            </div>
-        </div>
-        </nav>
-    </section>
+    <%- include('../partials/header') %>
+
     <!--Main Product-->
     <div class="container">
         <!-- product -->
@@ -258,7 +195,7 @@
                     <hr />
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-lg-6">
-                            <a href="/productCart.html" class="btn btn-outline-dark btn-lg">Añadir al Carro</a>
+                            <a href="/cart/resume" class="btn btn-outline-dark btn-lg">Añadir al Carro</a>
                         </div>
                         <!-- <div class="col-sm-12 col-md-6 col-lg-6">
                             <div class="btn-group pull-right">
@@ -280,12 +217,12 @@
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Product image-->
-                        <a href="/productDetail.html"><img class="card-img-top" src="img/escalera-2.jpg" alt="perchero escalera"/></a>
+                        <a class="link-image" href="/products/detail/productDetail"><img class="card-img-top" src="/img/escalera-2.jpg" alt="perchero escalera"/></a>
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
-                                <a href="productDetail.html"><h5 class="fw-bolder">Perchero escalera</h5></a>
+                                <a href="/products/detail/productDetail"><h5 class="fw-bolder">Perchero escalera</h5></a>
                                 <!-- Product price-->
                                 $15.000<br>
                                 <div class="label-line">6 cuotas sin interés de <strong>$2500.</strong></div>
@@ -293,7 +230,7 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/productCart.html">Agregar al carro</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
                         </div>
                     </div>
                 </div>
@@ -302,12 +239,12 @@
                         <!-- Sale badge-->
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                         <!-- Product image-->
-                        <a href="/productDetail.html"><img class="card-img-top" src="img/espejo-2.jpg" alt="espejos redondos"/></a>
+                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/espejo-2.jpg" alt="espejos redondos"/></a>
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
-                                <a href="productDetail.html"><h5 class="fw-bolder">Espejo Redondo</h5></a>
+                                <a href="/products/detail/"><h5 class="fw-bolder">Espejo Redondo</h5></a>
                                 <!-- Product reviews-->
                                 <div class="d-flex justify-content-center small text-warning mb-2">
                                     <div class="fa fa-star"></div>
@@ -324,7 +261,7 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/productCart.html">Agregar al carro</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
                         </div>
                     </div>
                 </div>
@@ -333,12 +270,12 @@
                         <!-- Sale badge-->
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                         <!-- Product image-->
-                        <a href="/productDetail.html"><img class="card-img-top" src="img/estante-2.jpg" alt="estantes vitrinas"/></a>
+                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/estante-2.jpg" alt="estantes vitrinas"/></a>
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
-                                <a href="productDetail.html"><h5 class="fw-bolder">Estante Vitrina</h5></a>
+                                <a href="/products/detail/"><h5 class="fw-bolder">Estante Vitrina</h5></a>
                                 <!-- Product price-->
                                 <span class="text-muted text-decoration-line-through">$60.000</span>
                                 $54.000
@@ -347,19 +284,19 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/productCart.html">Agregar al carro</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
                         </div>
                     </div>
                 </div>
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Product image-->
-                        <a href="/productDetail.html"><img class="card-img-top" src="img/mesa-grande-2.jpg" alt="mesa de arrime"/></a>
+                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/mesa-grande-2.jpg" alt="mesa de arrime"/></a>
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
-                                <a href="productDetail.html"><h5 class="fw-bolder">Mesa de Arrime</h5></a>
+                                <a href="/products/detail/"><h5 class="fw-bolder">Mesa de Arrime</h5></a>
                                 <!-- Product reviews-->
                                 <div class="d-flex justify-content-center small text-warning mb-2">
                                     <div class="fa fa-star"></div>
@@ -374,91 +311,16 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/productCart.html">Agregar al carro</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Footer-->
-    <section class="cid-qySuWQglmK" id="footer4-2k" data-rv-view="3177">
 
-        <div class="mbr-overlay" style="background-color: rgb(35, 35, 35); opacity: 0.4;"></div>
-    
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="first-column col-md-4 align-left">
-                    <ul>
-                        <li class="first-column-item mbr-fonts-style display-4">
-                            <a href="#" class="text-white">Ayuda</a>
-                        </li>
-                        <li class="first-column-item mbr-fonts-style display-4">
-                            <a href="#" class="text-white">Nuestra Tienda</a>
-                        </li>
-                        <li class="first-column-item mbr-fonts-style display-4">
-                            <a href="#" class="text-white">Blog</a>
-                        </li>
-                        <li class="first-column-item mbr-fonts-style display-4">
-                            <a href="#" class="text-white">Formas De Envio</a>
-                        </li>
-                        <li class="first-column-item mbr-fonts-style display-4">
-                            <a href="#" class="text-white">Sobre BerteDeco</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="second-column align-left col-md-4">
-                    <ul>
-                        <li class="second-column-item mbr-fonts-style display-4">
-                            <span class="fa fa-facebook-square mbr-iconfont" style="color: rgb(255, 255, 255);"></span>
-                            <a href="#" class="text-white">Facebook</a>
-                        </li>
-                        <li class="second-column-item mbr-fonts-style display-4">
-                            <span class="fa fa-twitter mbr-iconfont" style="color: rgb(255, 255, 255);"></span>
-                            <a href="#" class="text-white">Twitter</a>
-                        </li>
-                        <li class="second-column-item mbr-fonts-style display-4">
-                            <span class="fa fa-instagram mbr-iconfont" style="color: rgb(255, 255, 255);"></span>
-                            <a href="#" class="text-white">Instagram</a>
-                        </li>
-                        <li class="second-column-item mbr-fonts-style display-4">
-                            <span class="fa fa-youtube mbr-iconfont" style="color: rgb(255, 255, 255);"></span>
-                            <a href="#" class="text-white">Youtube</a>
-                        </li>
-                        <li class="second-column-item mbr-fonts-style display-4">
-                            <span class="fa fa-google-plus mbr-iconfont" style="color: rgb(255, 255, 255);"></span>
-                            <a href="#" class="text-white">Google+</a>
-                        </li>
-                        
-                    </ul>
-                </div>
-                <div class="align-right col-md-4">
-                    <h3 class="mbr-section-title mbr-fonts-style display-7">
-                        Medios De Pago
-                    </h3>
-                    <ul class="card-support">
-                        <li>
-                            <img src="/img/visa.png" height="30" alt="Visa">
-                        </li>
-                        <li>
-                            <img src="/img/master-card.png" height="30" alt="Master Card">
-                        </li>
-                        <li>
-                            <img src="/img/american-express.png" height="30" alt="American Express">
-                        </li>
-                        <li>
-                            <img src="/img/paypal.png" height="30" alt="PayPal">
-                        </li> 
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- JavaScript: Bootstrap 5 Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <!-- jQuery first, then Popper.js, then Bootstrap 4 JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Footer-->
+    <%- include('../partials/footer') %>
+
 </body>
 </html>

@@ -1,0 +1,15 @@
+/* Body, Header y otros generales */
+
+body {
+    font-family: "Bahnschrift", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    font-weight: normal;
+    background: #fafafa;
+    color: gray;
+    text-align: left;
+  }
+  
+  a {
+    text-decoration: none;
+  }
