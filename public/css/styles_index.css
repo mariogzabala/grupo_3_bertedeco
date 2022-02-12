@@ -76,7 +76,6 @@ header{
 } */
 
 .searchform {
-  margin: 1.5em;
   height: 50px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
@@ -275,11 +274,6 @@ h5.fw-bolder{
   color: gray;
 }
 
-h5.fw-bolder:hover {
-  text-decoration: underline;
-
-}
-
 .py-5 {
   padding-top: 1rem !important;
   padding-bottom: 3rem !important;
@@ -296,28 +290,13 @@ h5.fw-bolder:hover {
 .text-center {
   text-align: center !important;
 }
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-hoja de estilo del usuario-agente
-section {
-  display: block;
-}
+
 .card {
   border: 1px solid rgb(199, 178, 153);
 }
 
 .card-img-top {
   height: 100%;
-  
-}
-
-@media (max-width: 767px) {
-
-  .card-img-top {
-    height: 100%;
-    
-  }
   
 }
 

@@ -545,7 +545,7 @@ a {
   color: gray;
 }
   
-form {
+.well {
   margin: 1.5em;
   border: 1.2em solid rgba(245, 241, 241, 0.5);
   border-radius: 0.2em;
