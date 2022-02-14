@@ -15,10 +15,6 @@ let productsController = {
 
     admin: function(req, res) {
         res.render('./products/adminProducts')
-    },
-
-    empty: function(req, res) {
-        res.send("Producto No encontrado")
     }
 }
 

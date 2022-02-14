@@ -10,6 +10,4 @@ router.get('/list', productsController.list)
 
 router.get('/admin', productsController.admin)
 
-router.get('/', productsController.empty)
-
 module.exports = router
