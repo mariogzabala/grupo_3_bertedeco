@@ -1,27 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>BerteDeco</title>
     <!-- Bootstrap CSS and CSS Style-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/styles_admin_header.css" />
     <link rel="stylesheet" href="/css/styles_admin_product.css" />
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     <!-- Bootstrap icons Fontawesome icons-->
+    <script src="https://kit.fontawesome.com/b7e173690e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/img/icon.jpg" />
 </head>
+
 <body>
     <!-- Header and Navbar-->
     <%- include('../partials/admin_header') %>
 
-    <!-- Create and Edit Product -->
+    <!--Search Bar-->
+  
+    <form method="get" action="#" class="searchform order-lg-last">
+      <span class="form-group d-flex">
+      <input type="search" class="form-control pl-3" placeholder="Buscar producto">
+      <button type="submit" class="form-control search"><span> Buscar y Editar</span></button>
+      </span>
+  </form>
+   
 
-    <h1>FORMULARIO</h1>
 
+        <!--Main Product-->
+        <div class="container">
+            <!-- product -->
+
+            <div class="card">
+                <div class="card-header">
+                 producto
+                </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Espejo redondo</h5>
+                  <p class="card-text">#3435465745</p>
+                  <nav class="navbar navbar-light bg-light">
+                    <form class="container-fluid">
+                      <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">Titulo</span>
+                        <input type="text" class="form-control" placeholder="Espejo redondo" aria-label="Espejo redondo" aria-describedby="basic-addon1">
+                      </div>
+                    </form>
+                  </nav>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Caracteristicas</h5>
+                    <p class="card-text">Espejo circular decorativo con marco metálico,
+
+                        Marco metálico ancho de 2 cm y pintura electrostática color dorado
+                        Es muy fácil de montar y desmontar,
+                        
+                        Diametro 80cm. 
+                        
+                        El toque moderno y especial que estabas buscando.
+                        Nuestro espejo redondo es minimalista y vanguardista.
+                        Contrastará muy bien con tus muebles.
+                        
+                        Los espejos son fundamentales a la hora de decorar para lograr "agrandar" el espacio y aportar luminosidad.</p>
+                        <button type="button" class="btn btn-outline-dark">Editar</button>
+                  </div>
+
+            </div>
+        </div>
+
+                 
+                  <div class="container">
+                    <div class="card">
+
+                  <div class="card-group">
+                    <div class="card">
+                        <i class="fas fa-camera" width auto></i>
+                      <div class="card-body">
+                        
+                      </div>
+                      <div class="card-footer">
+                        <div class="mb-3">
+                            <small class="text-muted">Fotos</small>
+                            <input class="form-control" type="file" id="formFile">
+                          </div>
+                          
+                          
+                      </div>
+                    </div>
+                    
+                    <div class="card">
+                        <i class="fas fa-camera" width auto></i>
+                      <div class="card-body">
+                        
+                      </div>
+                      <div class="card-footer">
+                        <div class="mb-3">
+                            <small class="text-muted">Fotos</small>
+                            <input class="form-control" type="file" id="formFile">
+                          </div>
+                          
+                          
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="card">
+
+        <form class="row g-3 needs-validation" novalidate >
+            <div class="col-md-4 position-relative">
+              <label for="validationTooltip01" class="form-label">Precio</label>
+              <input type="text" class="form-control" id="validationTooltip01" value="$24.000" required>
+              <div class="valid-tooltip">
+                Looks good!
+              </div>
+            </div>
+            <div class="col-md-4 position-relative">
+              <label for="validationTooltip02" class="form-label">ID</label>
+              <input type="text" class="form-control" id="validationTooltip02" value="#3435465745" required>
+              <div class="valid-tooltip">
+                Looks good!
+              </div>
+            </div>
+            <div class="col-md-4 position-relative">
+              <label for="validationTooltipUsername" class="form-label">Categoria</label>
+              <div class="input-group has-validation">
+                
+                <input type="text" class="form-control" id="validationTooltip02" value="Pared" required>
+                <div class="invalid-tooltip">
+                  Please choose a unique and valid username.
+                </div>
+              </div>
+            </div>
+           
+            <div class="col-md-3 position-relative">
+              <label for="validationTooltip04" class="form-label">metodo de envio</label>
+              <select class="form-select" id="validationTooltip04" required>
+                <option selected disabled value="">...</option>
+                <option selected disabled value="">Contra entrega</option>
+                <option selected disabled value="">pre pago</option>
+              </select>
+              <div class="invalid-tooltip">
+                Please select a valid state.
+              </div>
+            </div>
+            
+            <div class="col-12">
+              <button class="btn btn-primary" type="submit">Guardar</button>
+            </div>
+          </form>
+
+        </div>
+    </div>
+
+        
+                  
+
+  
+
+
+
+            
 </body>
+
 </html>
