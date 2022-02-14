@@ -13,7 +13,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 //npm start
-app.listen(process.env.PORT || 3030, () => console.log('Servidor corriendo'))
+app.listen(process.env.PORT || 3030, () => console.log('Servidor corriendo en puerto 3030'))
 
 //pagina home
 //usar localhost:3030/

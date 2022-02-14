@@ -12,4 +12,38 @@ body {
   
   a {
     text-decoration: none;
+    
   }
+
+  nav {
+    background-color: rgb(199,178,153);
+    
+  }
+
+  li .nav-link{
+    color: white;
+  }
+
+  .user-icons {
+    border: 1px solid white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0px 5px;
+    text-decoration: none;
+    color: white;
+}
+
+  h1{
+    text-align: center;
+    margin-top: 10px;
+    
+  }
+
+  h5{
+    color: white;
+    align-self: center;
+    margin-top: 5px;
+  }
+
+ 
