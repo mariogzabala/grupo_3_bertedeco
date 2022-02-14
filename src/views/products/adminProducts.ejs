@@ -23,6 +23,17 @@
     <!-- Header and Navbar-->
     <%- include('../partials/admin_header') %>
 
+    <!--Search Bar-->
+  
+    <form method="get" action="#" class="searchform order-lg-last">
+      <span class="form-group d-flex">
+      <input type="search" class="form-control pl-3" placeholder="Buscar producto">
+      <button type="submit" class="form-control search"><span> Buscar y Editar</span></button>
+      </span>
+  </form>
+   
+
+
         <!--Main Product-->
         <div class="container">
             <!-- product -->
@@ -105,7 +116,7 @@
         <div class="container">
             <div class="card">
 
-        <form class="row g-3 needs-validation" novalidate>
+        <form class="row g-3 needs-validation" novalidate >
             <div class="col-md-4 position-relative">
               <label for="validationTooltip01" class="form-label">Precio</label>
               <input type="text" class="form-control" id="validationTooltip01" value="$24.000" required>
