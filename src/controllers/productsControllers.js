@@ -1,11 +1,13 @@
+const fs = require('fs')
+
 let productsController = {
     detail: function(req, res) { /* SE ESPECIFICA LA RUTA /products/deatil/productid */
         let prodId = req.params.productid
-        if ( prodId === undefined) {
-            res.render('error')
-        } else {
-            let prodPath = `./products/${prodId}`
+        let prodPath = `./products/${prodId}`
+        if (fs.existsSync(prodPath)) {
             res.render(prodPath)
+        } else {
+            res.render('error')
         }  
     },
 
