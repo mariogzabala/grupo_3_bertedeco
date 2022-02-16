@@ -1,7 +1,7 @@
 const express = require('express')
+const router = express.Router()
 
-let indexController = require('../controllers/indexControllers.js')
-let router = express.Router()
+const indexController = require('../controllers/indexControllers.js')
 
 router.get('/', indexController.home)
 

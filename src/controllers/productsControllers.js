@@ -3,7 +3,7 @@ const path = require('path')
 
 let productsController = {
     detail: function(req, res) {
-        let prodId = req.params.productid /* id del producto */
+        let prodId = req.params.id /* id del producto */
         let prodPath = `./products/${prodId}` /* ruta a renderizar */
         let relativePath = `../views/${prodPath}.ejs` /* ruta relativa a comprobar */
         /* si la ruta relativa existe (si el archivo existe), se renderiza */
@@ -18,8 +18,24 @@ let productsController = {
         res.render('./products/productList')
     },
 
-    admin: function(req, res) {
-        res.render('./products/adminProducts')
+    create: function(req, res) {
+        res.render('./products/createProduct')
+    },
+
+    store: function(req, res) {
+        res.render('error')
+    },
+
+    edit: function(req, res) {
+        res.render('./products/editProduct')
+    },
+
+    update: function(req, res) {
+        res.render('error')
+    },
+
+    destroy: function(req, res) {
+        res.render('error')
     }
 }
 

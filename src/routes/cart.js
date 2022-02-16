@@ -1,7 +1,7 @@
 const express = require('express')
+const router = express.Router()
 
-let cartController = require('../controllers/cartControllers.js')
-let router = express.Router()
+const cartController = require('../controllers/cartControllers.js')
 
 router.get('/resume', cartController.resume)
 

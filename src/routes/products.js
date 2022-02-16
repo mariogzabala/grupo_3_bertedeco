@@ -1,13 +1,27 @@
 const express = require('express')
+const router = express.Router()
 
-let productsController = require('../controllers/productsControllers.js')
-let router = express.Router()
+const productsController = require('../controllers/productsControllers.js')
 
-/* productid es el nombre del archivo html que es un detalle de producto */
-router.get('/detail/:productid?', productsController.detail)
+/* Lista de productos */
+router.get('/', productsController.list)
 
-router.get('/list', productsController.list)
+/* Detalle de producto */
+router.get('/detail/:id?', productsController.detail)
 
-router.get('/admin', productsController.admin)
+/* Mostrar formulario */
+router.get('/create', productsController.create)
+
+/* Guardar porducto */
+router.post('/create', productsController.store)
+
+/* Mostrar formulario a editar */
+router.get('/edit/:id?', productsController.edit); 
+
+/* Modificar producto */
+router.put('/edit/:id?', productsController.update);
+
+/* Elimiar producto desde formulari de edicion*/
+router.delete('/delete/:id?', productsController.destroy); 
 
 module.exports = router
