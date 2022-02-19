@@ -14,14 +14,14 @@ let productsController = {
     /* Detalle de producto */
     detail: function(req, res) {
         let idProductoSeleccionado = req.params.id
-		let productoEncontrado = null
+        let productoEncontrado = null
 
-		for (let p of products){
-			if (p.id == idProductoSeleccionado){
-				productoEncontrado = p
-				break
-			}
-		}
+        for (let p of products){
+            if (p.id == idProductoSeleccionado){
+                productoEncontrado = p
+                break
+            }
+        }
 
         res.render('./products/productDetail', {productos: products, producto: productoEncontrado})
     },
