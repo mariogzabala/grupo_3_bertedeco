@@ -25,7 +25,7 @@
         <div class="search-div col-md-12 d-md-flex">
           <form method="get" action="/products/edit/" class="searchform order-lg-last">
             <span class="form-group d-flex">
-            <input type="search" name="q" class="form-control pl-3" placeholder="Buscar producto">
+            <input type="search" name="id" class="form-control pl-3" placeholder="Id del Producto">
             <button type="submit" class="form-control search"><span>Buscar y Editar</span></button>
           </form>
         </div>
@@ -41,7 +41,7 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="prodId">Identificador</label>
-                <input type="text" class="form-control" id="prodId" placeholder="" value="7" required>
+                <input type="text" class="form-control" id="prodId" placeholder="" value="7" required disabled> <!-- Para no cambiar el id -->
                 <div class="invalid-feedback">
                   Se require un id de producto.
                 </div>
@@ -102,8 +102,8 @@
                 <select class="custom-select d-block w-100" id="category" required>
                   <option value="">Categorias</option>
                   <option value="Bancos">Bancos</option>
-                  <option value="Jardin">Jardin</option>
                   <option value="Espejos">Espejos</option>
+                  <option value="Accesorios">Accesorios</option>
                   <option selected value="Mesas y Escritorios">Mesas y Escritorios</option>
                   <option value="Percheros y Repisas">Percheros y Repisas</option>
                 </select>

@@ -7,21 +7,21 @@ const productsController = require('../controllers/productsControllers.js')
 router.get('/', productsController.list)
 
 /* Detalle de producto */
-router.get('/detail/:id?', productsController.detail)
+router.get('/detail/:id', productsController.detail)
 
-/* Mostrar formulario */
+/* Mostrar formulario crear*/
 router.get('/create', productsController.create)
 
 /* Guardar porducto */
 router.post('/create', productsController.store)
 
-/* Mostrar formulario a editar */
-router.get('/edit/:id?', productsController.edit); 
+/* Mostrar formulario editar */
+router.get('/edit', productsController.edit); 
 
 /* Modificar producto */
-router.put('/edit/:id?', productsController.update);
+router.put('/edit/:id', productsController.update);
 
-/* Elimiar producto desde formulari de edicion*/
-router.delete('/delete/:id?', productsController.destroy); 
+/* Elimiar producto desde formulario de edicion*/
+router.delete('/delete/:id', productsController.destroy); 
 
 module.exports = router

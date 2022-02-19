@@ -32,12 +32,12 @@
                         </div>
                         <div class="form-group">
                             <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                <option selected value="Vendidos">Más Vendidos</option>
-                                <option value="Valorados">Mejor Valorados</option>
-                                <option value="Ascendente">Precio Menor a Mayor</option>
-                                <option value="Descendente">Precio Mayor a Menor</option>
-                                <option value="Recientes">Recientes</option>
-                                <option value="Alpha">Alfabeticamente</option>        
+                                <option selected >Más Vendidos</option>
+                                <option >Mejor Valorados</option>
+                                <option >Precio Menor a Mayor</option>
+                                <option >Precio Mayor a Menor</option>
+                                <option >Recientes</option>
+                                <option >Alfabeticamente</option>        
                             </select>                              
                         </div>
                     </div>
@@ -50,37 +50,26 @@
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <% for (let p of productos) { %>
                 <div class="col mb-5">
                     <div class="card h-100">
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/productDetail"><img class="card-img-top" src="/img/escalera-2.jpg" alt="perchero escalera"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/productDetail"><h5 class="fw-bolder">Perchero escalera</h5></a>
-                                <!-- Product price-->
-                                $15.000<br>
-                                <div class="label-line">6 cuotas sin interés de <strong>$2500.</strong></div>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
+                        <% if (typeof p.discount === 'number') { %>
                         <!-- Sale badge-->
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                        <% } %>
                         <!-- Product image-->
-                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/espejo-2.jpg" alt="espejos redondos"/></a>
+                        <a class="link-image" href="/products/detail/<%=p.id %>"><img class="card-img-top" src="/img/productos/<%=p.image[0] %>" alt="<%=productos[i].name %>"/></a>
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Espejo Redondo</h5></a>
+                                <a href="/products/detail/<%=p.id %>"><h5 class="fw-bolder"><%=p.name %></h5></a>
+                                <% if (typeof p.discount === 'number') { %>
+                                <!-- Product price and Discount-->
+                                <span class="text-muted text-decoration-line-through">$<%=p.price %></span>
+                                $<%=p.discount %><br>
+                                <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(p.discount / 6) %></strong></div>
+                                <% } else { %>
                                 <!-- Product reviews-->
                                 <div class="d-flex justify-content-center small text-warning mb-2">
                                     <div class="fa fa-star"></div>
@@ -88,11 +77,11 @@
                                     <div class="fa fa-star"></div>
                                     <div class="fa fa-star"></div>
                                     <div class="fa fa-star-half"></div>
-                                </div>
+                                </div> 
                                 <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">$28.000</span>
-                                $24.000
-                                <div class="label-line">6 cuotas sin interés de <strong>$4000.</strong></div>
+                                $<%=p.price %><br>
+                                <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(p.price / 6) %></strong></div>
+                                <% } %>
                             </div>
                         </div>
                         <!-- Product actions-->
@@ -101,349 +90,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/estante-2.jpg" alt="estantes vitrinas"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Estante Vitrina</h5></a>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">$60.000</span>
-                                $54.000
-                                <div class="label-line">6 cuotas sin interés de <strong>$9000.</strong></div>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/mesa-grande-2.jpg" alt="mesa de arrime"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Mesa de Arrime</h5></a>
-                                <!-- Product reviews-->
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                </div>
-                                    <!-- Product price-->
-                                    $24.000
-                                <div class="label-line">6 cuotas sin interés de <strong>$4000.</strong></div>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/lampara.jpeg" alt="lapmaras"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Lámpara</h5></a>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">$29.500</span>
-                                $24.000
-                                <div class="label-line">6 cuotas sin interés de <strong>$4000.</strong></div>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/mesita-1.jpg" alt="mesa de arrime"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Mesa redonda</h5></a>
-                                <!-- Product reviews-->
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star-half"></div>
-                                </div>
-                                <!-- Product price-->
-                                $18.000
-                                <div class="label-line">6 cuotas sin interés de <strong>$3000.</strong></div>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/espejo-1.jpg" alt="espejos"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Espejo bóbeda</h5></a>                               
-                                    <!-- Product price-->
-                                        <span class="text-muted text-decoration-line-through">$15.000</span>
-                                    $12.000
-                                <div class="label-line">6 cuotas sin interés de <strong>$2000.</strong></div>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/" ><img class="card-img-top" src="/img/mesa-grande-1.jpg" alt="banco de madera"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Banco de madera</h5></a>
-                                    <!-- Product price-->
-                                    $15.000
-                                    <div class="label-line">6 cuotas sin interés de <strong>$2500.</strong></div>
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/abanico-kenia.jpg" alt="kenia"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Abanico Kenia</h5></a>
-                                <!-- Product price-->
-                                $3.800<br>
-                                <div class="label-line">6 cuotas sin interés de <strong>$637.</strong></div>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">New</div>
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/bandeja-naos.jpg" alt="naos"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Bandeja Naos</h5></a>
-                                <!-- Product reviews-->
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star-half"></div>
-                                </div>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">$7.000</span>
-                                $5.500
-                                <div class="label-line">6 cuotas sin interés de <strong>$916.</strong></div>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/camino-victoria.jpeg" alt="victoria"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Camino Victoria</h5></a>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">$3.000</span>
-                                $2.650
-                                <div class="label-line">6 cuotas sin interés de <strong>$441.</strong></div>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/cuchara.jpg" alt="cuchara"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Cuchara</h5></a>
-                                <!-- Product reviews-->
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                </div>
-                                    <!-- Product price-->
-                                    $450
-                                <div class="label-line">6 cuotas sin interés de <strong>$75.</strong></div>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/espejo-samara.jpeg" alt="samara"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Espejo Samara</h5></a>
-                                <!-- Product price-->
-                                <span class="text-muted text-decoration-line-through">$13.000</span>
-                                $11.850
-                                <div class="label-line">6 cuotas sin interés de <strong>$1975.</strong></div>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/mesa-java.jpg" alt="java"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Mesa Java</h5></a>
-                                <!-- Product reviews-->
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star-half"></div>
-                                </div>
-                                <!-- Product price-->
-                                $21.250
-                                <div class="label-line">6 cuotas sin interés de <strong>$3541.</strong></div>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">New</div>
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/"><img class="card-img-top" src="/img/puff-tai.jpeg" alt="puff"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Puff Tai</h5></a>                               
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$17.000</span>
-                                    $15.250
-                                <div class="label-line">6 cuotas sin interés de <strong>$2541.</strong></div>
-                            </div>
-                        </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/" ><img class="card-img-top" src="/img/silla-wishbone.jpeg" alt="wishbone"/></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/"><h5 class="fw-bolder">Silla Wishbone</h5></a>
-                                    <!-- Product price-->
-                                    $36.500
-                                    <div class="label-line">6 cuotas sin interés de <strong>$6803.</strong></div>
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
-                    </div>
-                </div>
+                <% } %> 
             </div>
         </div>
     </section>
-    
 
     <!-- Footer-->
     <%- include('../partials/footer') %>
