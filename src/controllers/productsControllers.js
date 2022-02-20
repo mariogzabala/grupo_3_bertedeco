@@ -28,8 +28,9 @@ let productsController = {
 
     /* Mostrar formulario crear producto */
     create: function(req, res) {
-        /* console.log(products.length) */
-        res.render('./products/createProduct')
+        let idNuevo = products[products.length-1].id + 1;
+
+        res.render('./products/createProduct', {idNuevo: idNuevo})
     },
 
     /* Guardar producto desde crear */
