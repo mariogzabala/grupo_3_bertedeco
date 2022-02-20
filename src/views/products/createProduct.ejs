@@ -24,9 +24,10 @@
       <div class="row justify-content-between">
         <div class="search-div col-md-12 d-md-flex">
           <form method="GET" action="/products/edit/" class="searchform order-lg-last">
-            <span class="form-group d-flex">
-            <input type="search" name="id" class="form-control pl-3" placeholder="Id del Producto">
-            <button type="submit" class="form-control search"><span>Buscar y Editar</span></button>
+            <div class="form-group d-flex">
+              <input type="search" name="id" class="form-control pl-3" placeholder="Id del Producto">
+              <button type="submit" class="form-control search"><span>Buscar y Editar</span></button>
+            </div>
           </form>
         </div>
       </div>
@@ -41,7 +42,7 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="prodId">Identificador</label>
-                <input type="text" class="form-control" id="prodId" name="" value="<%=idNuevo %>" required disabled>
+                <input type="text" class="form-control" id="prodId" value="<%=idNuevo %>" required disabled>
                 <div class="invalid-feedback">
                   Se requiere un id de producto.
                 </div>
@@ -82,7 +83,7 @@
 
             <div class="mb-3">
               <label for="description">Descripción</label>
-              <textarea rows="2" class="form-control" id="description" value="" required></textarea>
+              <textarea rows="2" class="form-control" id="description" required></textarea>
               <div class="invalid-feedback">
                 Se requiere una descripción.
               </div>
