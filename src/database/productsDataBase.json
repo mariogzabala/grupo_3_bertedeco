@@ -47,7 +47,7 @@
    "category": "Espejos",
    "delivery": 3,
    "description": "Espejo de Bambú Natural Trenzado a mano.",
-   "image": ["espejo-samara-0.jpeg", "espejo-samara-1.jpeg", "espejo-samara-2.jpeg"]
+   "image": ["espejo-samara-0.jpg", "espejo-samara-1.jpg", "espejo-samara-2.jpg"]
  },
  {
    "id": 6,
@@ -77,7 +77,7 @@
    "category": "Bancos",
    "delivery": 7,
    "description": "Madera maciza Olmo, Hilado trenzado Natural. Hans Wegner",
-   "image": ["silla-wishbone-0.jpeg", "silla-wishbone-1.jpeg","silla-wishbone-2.jpeg"]
+   "image": ["silla-wishbone-0.jpg", "silla-wishbone-1.jpg","silla-wishbone-2.jpg"]
  },
  {
    "id": 9,
@@ -127,7 +127,7 @@
    "category": "Accesorios",
    "delivery": 3,
    "description": "Pantalla de Fibras Naturales, Tejida a Mano.",
-   "image": ["lampara-0.jpeg", "lampara-1.jpeg","lampara-2.jpeg"]
+   "image": ["lampara-0.jpg", "lampara-1.jpg","lampara-2.jpg"]
  },
  {
    "id": 14,
