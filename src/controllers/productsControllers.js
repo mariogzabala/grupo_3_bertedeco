@@ -33,25 +33,55 @@ let productsController = {
         res.render('./products/createProduct', {idNuevo: idNuevo})
     },
 
-    /* Guardar producto desde crear */
+    /* Guardar producto desde crear Francys*/
     store: function(req, res) {
-        res.render('error')
+        /* Guardar el producto y sus imagenes, redireccionar al detalle
+        de producto creado*/
+
+        let idProductoNuevo = req.body.prodId - 16
+        /* console.log(idProductoSeleccionado); */
+        let productoCreado = null
+
+        for (let p of products){
+            if (p.id == idProductoNuevo){
+                productoCreado = p
+                break
+            }
+        }
+
+        /* console.log(req.files); */
+        const objImagen = req.files.foto
+        const name = objImagen.name
+        objImagen.mv(__dirname + '../../../public/img/productos/' + name, (err) => {
+        if (err) {res.send(err)}
+        res.render('./products/productDetail', {productos: products, producto: productoCreado})
+        })
+
+        /* sharp opcional */
     },
 
-    /* Mostrar formulario editar producto */
+    /* Mostrar formulario editar producto Mario*/
     edit: function(req, res) {
         /* let idProductoSeleccionado = req.query.id
         console.log(idProductoSeleccionado) */
+
+        /* Con la id que llega por query encontrar el producto en la base de datos (JSON)
+        Autocompletar el formulario con los datos del JSON execpto las imagenes y pasarle el id al delete
+        
+        Si no se encontro el producto renderizar el formulario con el mensaje de que no es encontro */
         res.render('./products/editProduct')
     },
 
-    /* Actualizar producto desde editar */
+    /* Actualizar producto desde editar Mario*/
     update: function(req, res) {
+        /* Actualizar el JSON con los nuevos valores y las imagenes de ser necesario
+         y redireccionar al detalle de producto editado*/
         res.render('error')
     },
 
-    /* Eliminar producto desde editar */
+    /* Eliminar producto desde editar Julian*/
     destroy: function(req, res) {
+        /* Eliminar el producto y sus imagenes y redireccionar a la lista de productos */
         res.render('error')
     }
 }

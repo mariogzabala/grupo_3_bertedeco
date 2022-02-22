@@ -19,7 +19,7 @@ router.post('/create', productsController.store)
 router.get('/edit', productsController.edit); 
 
 /* Modificar producto */
-router.put('/edit/:id', productsController.update);
+router.put('/edit/:id?', productsController.update);
 
 /* Elimiar producto desde formulario de edicion*/
 router.delete('/delete/:id', productsController.destroy); 
