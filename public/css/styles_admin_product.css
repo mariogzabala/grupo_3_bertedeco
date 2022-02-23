@@ -1,133 +1,78 @@
 /* Body, Header y otros generales */
 
 body {
-    font-family: "Bahnschrift", Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.8;
-    font-weight: normal;
-    background: #fafafa;
-    color: gray;
-    text-align: left;
-  
-  }
-  
-  a {
-    text-decoration: none;
-  }
-  row g-3 needs-validation {
-    margin-left: 4%;
+  font-family: "Bahnschrift", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: normal;
+  background: #fafafa;
+  color: gray;
+  text-align: left;
 
-  }
+}
+
+a {
+  text-decoration: none;
+}
+
 /*dandole estilo a la barra de buscar producto */
-    .searchform {
-    height: 50px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    overflow: hidden;
-    border-radius: 40px;
-    margin-top: 3%;
-    margin-left:9%;
-    width: 50%;
-    justify-items: center;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-  }
 
- 
-  
-  .searchform .search {
-    width:  40%;
-    height: 50px;
-    background: rgb(199, 178, 153) !important;
-    justify-items: center;
+.search-div {
+  justify-content: space-around;
+}
+.searchform {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  border-radius: 0.25rem;
+  margin-top: 3%;
+  width: auto;
+}
+
+.searchform .search {
+  width: auto;
+  background: rgb(199, 178, 153) !important;
+  justify-items: center;
   justify-content: center;
   text-align: center;
   align-items:center;
-  }
+}
 
-  
-
- 
-
-  .searchform .form-control {
-    border: none;
-
-  }
-  
-  @media (max-width: 1200px) {
-    .searchform {
-      
-      width: 70%;
-      justify-items: center;
-      justify-content: center;
-      text-align: center;
-      align-items: center;
-      margin-left: 15%;
-  }
-  
-  
-  }
-  @media (max-width: 720px) {
-    .searchform {
-      
-      width: 70%;
-      justify-items: center;
-      justify-content: center;
-      text-align: center;
-      align-items: center;
-      margin-left: 15%;
-  }
-  
-  }
- 
-  .searchform .search span {
-    font-size: 16px;
-    color: #fff;
-  }
- .container {
-   margin-top: 3%;
- }
-
-
- /*estoy dandole estilo a los botones*/
- .btn1 {
-  
-  color:white;
-  font-family: "Bahnschrift";
-  font-size: 18px;
-  text-align: center;
+.searchform .form-control {
   border: none;
-  background-color: grey;
-  margin-left: 9%;
+
+}
+
+.searchform .search span {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.container {
   margin-top: 3%;
- width: 18%;
-  }
-  
- .btn {
-  color:white;
-  font-family: "Bahnschrift";
-  font-size: 20px;
-  text-align: center;
+}
+
+/*estoy dandole estilo a los botones*/
+
+.btn {
   border: none;
-  background-color: grey;
-  margin-left: 2%;
-  margin-top: 3%;
-  }
-  
+  background-color: rgb(199, 178, 153);
+}
 
-  btn btn-outline-dark {
-    margin-left: 10%;
-    border:none;
-  }
+.btn-danger {
+  border: none;
+  background-color: rgb(197, 25, 25);
+}
 
-  btn btn-outline-dark:hover {
-    background-color:rgb(199, 178, 153);
-  }
+.btn:hover {
+  background-color:#0a1316;
+}
 
+.btn-danger:hover {
+  background-color: rgb(241, 11, 11);
+}
 
-  .btn:hover {
-    background-color:rgb(199, 178, 153);
-  
-  }
+/* Footer */
 
-  
+footer {
+  height: 10vh;
+}

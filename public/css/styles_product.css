@@ -215,8 +215,8 @@ a {
 /* Detail Product */
 
 .carousel-item {
-  /* height: 65vh; */
-  min-height: 350px;
+  /* height: max-content; */
+  min-height: 427px;
   background: no-repeat center center scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -243,7 +243,7 @@ a {
 .product-content .product-image {
   background-color: #fff;
   display: block;
-  min-height: 238px;
+  min-height: 427px;
   overflow: hidden;
   position: relative
 }
