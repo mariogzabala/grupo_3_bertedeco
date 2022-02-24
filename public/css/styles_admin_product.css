@@ -15,6 +15,13 @@ a {
   text-decoration: none;
 }
 
+h6 {
+  color: red;
+  text-align: center;
+  margin-top: 2vh;
+
+}
+
 /*dandole estilo a la barra de buscar producto */
 
 .search-div {

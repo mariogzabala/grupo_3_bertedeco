@@ -33,25 +33,27 @@
       </div>
     </div>
 
-    <!-- Agregar aqui un mensaje en caso de no encontrar el producto -->
+    <% if (producto.id == '') { %>
+      <h6>No se encuentra el producto: <%=busqueda%>. Por favor intruduzca un ID válido.</h6>
+      <% } %>
 
     <!--Form-->
     <div class="container">
       <div class="row">
         <div class="col-md-12 order-md-1">
           <h4 class="mb-3">Editar Producto</h4>
-          <form class="needs-validation" novalidate> <!-- method="POST" action="#" -->
+          <form class="needs-validation" method="POST" action="/products/edit/<%=producto.id%>?_method=PUT"  enctype="multipart/form-data" novalidate> <!-- method="POST" action="#" -->
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="prodId">Identificador</label>
-                <input type="text" class="form-control" id="prodId" value="7" required readonly> <!-- Para no cambiar el id -->
+                <input type="text" class="form-control" id="prodId" value="<%=producto.id%>" name="id" required readonly> <!-- Para no cambiar el id -->
                 <div class="invalid-feedback">
                   Se require un id de producto.
                 </div>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="prodName">Nombre</label>
-                <input type="text" class="form-control" id="prodName" placeholder="" value="Mesa Comedor Griffin" required>
+                <input type="text" class="form-control" id="prodName" name="name" value="<%=producto.name%>" required>
                 <div class="invalid-feedback">
                   Se requiere un nombre de producto.
                 </div>
@@ -65,7 +67,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">$</span>
                   </div>
-                  <input type="text" class="form-control" id="price" value="229.100" required>
+                  <input type="text" class="form-control" id="price" name="price" value="<%=producto.price%>" required>
                   <div class="invalid-feedback">
                     Se requiere un precio.
                   </div>
@@ -78,14 +80,14 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">%</span>
                   </div>
-                  <input type="text" class="form-control" id="discount" value="">
+                  <input type="text" class="form-control" id="discount" name="discount" value="<%=producto.discount%>">
                 </div>
               </div>
             </div>
 
             <div class="mb-3">
               <label for="description">Descripción</label>
-              <textarea rows="2" class="form-control" id="description" required>Combinación de acero con pino recuperado Esta mesa es una llamativa pieza central para el entretenimiento. Las marcas de sierra y el cepillado a mano le dan un aspecto tosco a la parte superior gruesa.</textarea>
+              <textarea rows="2" class="form-control" id="description" name="description" value="<%=producto.description%>" required>"<%=producto.description%>"</textarea>
               <div class="invalid-feedback">
                 Se requiere una descripción.
               </div>
@@ -94,12 +96,12 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="category">Categoria</label>
-                <select class="custom-select d-block w-100" id="category" required>
+                <select class="custom-select d-block w-100" id="category" name="category" required>
                   <option value="">Categorias</option>
                   <option value="Bancos">Bancos</option>
                   <option value="Espejos">Espejos</option>
                   <option value="Accesorios">Accesorios</option>
-                  <option selected value="Mesas y Escritorios">Mesas y Escritorios</option>
+                  <option value="Mesas y Escritorios">Mesas y Escritorios</option>
                   <option value="Percheros y Repisas">Percheros y Repisas</option>
                 </select>
                 <div class="invalid-feedback">
@@ -109,7 +111,7 @@
 
               <div class="col-md-6 mb-3">
                 <label for="delivery">Tiempo de entrega minimo</label>
-                <select class="custom-select d-block w-100" id="delivery" required>
+                <select class="custom-select d-block w-100" id="delivery" name="delivery" required>
                   <option value="">Días</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -117,7 +119,7 @@
                   <option value="4">4</option>
                   <option value="5">5</option>
                   <option value="6">6</option>
-                  <option selected value="7">7</option>
+                  <option value="7">7</option>
                 </select>
                 <div class="invalid-feedback">
                   Se requiere un tiempo de entrega.
@@ -139,13 +141,21 @@
               </div>
             </div>
 
-            <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Editar Producto</button>
+            <hr class="mb-4">            
+            <% if (producto.id == '') { %> 
+              <button class="btn btn-primary btn-lg btn-block" type="submit" style="display:none">Editar Producto</button>
+              <% } else { %>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Editar Producto</button>  
+                <% } %>
           </form>
           
           <hr class="mb-4">
-          <form action="/products/delete/?_method=DELETE" method="POST"> <!-- Agregar el id del producto  -->
-            <button class="btn btn-danger btn-lg btn-block" type="submit">Eliminar Producto</button>
+          <form action="/products/delete/<%=producto.id%>?_method=DELETE" method="POST"> <!-- Agregar el id del producto  -->
+            <% if (producto.id == '') { %>  
+            <button class="btn btn-danger btn-lg btn-block" type="submit" style="display:none">Eliminar Producto</button>
+            <% } else { %>
+              <button class="btn btn-danger btn-lg btn-block" type="submit">Eliminar Producto</button>
+            <% } %>
           </form>
 
         </div>

@@ -62,21 +62,69 @@ let productsController = {
 
     /* Mostrar formulario editar producto Mario*/
     edit: function(req, res) {
-        /* let idProductoSeleccionado = req.query.id
-        console.log(idProductoSeleccionado) */
+         let idProductoSeleccionado = req.query.id
+         let productoEditado = {
+            id:"",
+            name:"",
+            price:"",
+            discount:"",
+            category:"",
+            delivery:"",
+            description:"",
+            image:[]
+            
+        }
+        
+        for (let item of products){
+            if (item.id == idProductoSeleccionado){
+                productoEditado.id=item.id;
+                productoEditado.name=item.name;
+                productoEditado.price=item.price;
+                productoEditado.discount=item.discount;
+                productoEditado.category=item.category;
+                productoEditado.delivery= item.delivery
+                productoEditado.description=item.description;
+                productoEditado.image=item.image                
+                break
+            }
+        }
+
+       /*
 
         /* Con la id que llega por query encontrar el producto en la base de datos (JSON)
         Autocompletar el formulario con los datos del JSON execpto las imagenes y pasarle el id al delete
         
         Si no se encontro el producto renderizar el formulario con el mensaje de que no es encontro */
-        res.render('./products/editProduct')
+        res.render('./products/editProduct', {producto: productoEditado, busqueda: idProductoSeleccionado});
     },
 
     /* Actualizar producto desde editar Mario*/
     update: function(req, res) {
         /* Actualizar el JSON con los nuevos valores y las imagenes de ser necesario
          y redireccionar al detalle de producto editado*/
-        res.render('error')
+         const productoEditado = req.body
+         const idBuscado = req.params.id
+         let productosNuevos = products
+         for(let item of productosNuevos){
+             if (item.id == idBuscado){
+                 item.id = parseInt(productoEditado.id);
+                 item.name = productoEditado.name;
+                 item.price = parseInt(productoEditado.price);
+                 if (!isNaN(productoEditado.discount) && !isNaN(parseFloat(productoEditado.discount))){
+                     item.discount = parseInt(productoEditado.discount);                    
+                 } else {
+                    item.discount = '';
+                 }                 
+                 item.category = productoEditado.category;
+                 item.delivery = parseInt(productoEditado.delivery);
+                 item.description = productoEditado.description;
+                 /*item.image = productoEditado.image;*/
+                 break
+             }                
+         }
+       
+         fs.writeFileSync(productsFilePath, JSON.stringify(productosNuevos,null,' '));        
+         res.render('error')
     },
 
     /* Eliminar producto desde editar Julian*/
