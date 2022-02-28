@@ -3,6 +3,7 @@ const path = require('path')
 
 const productsFilePath = path.join(__dirname, '../database/productsDataBase.json');
 const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+const storepath = path.join(__dirname, '../../public/img/productos/');
 
 let productsController = {
 
@@ -13,6 +14,7 @@ let productsController = {
     
     /* Detalle de producto */
     detail: function(req, res) {
+        const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
         let idProductoSeleccionado = req.params.id
         let productoEncontrado = null
 
@@ -38,24 +40,41 @@ let productsController = {
         /* Guardar el producto y sus imagenes, redireccionar al detalle
         de producto creado*/
 
-        let idProductoNuevo = req.body.prodId - 16
-        /* console.log(idProductoSeleccionado); */
-        let productoCreado = null
+        let productoCreado = {
+            id: parseInt(req.body.id),
+            name:req.body.name,
+            price: parseInt(req.body.price),
+            discount:'',
+            category:req.body.category,
+            delivery: parseInt(req.body.delivery),
+            description:req.body.description,
+            image:[]
+        };
 
-        for (let p of products){
-            if (p.id == idProductoNuevo){
-                productoCreado = p
-                break
-            }
+        if (!isNaN(req.body.discount) && !isNaN(parseFloat(req.body.discount))){
+            productoCreado.discount = parseInt(req.body.discount);                    
+        }
+        const fotos = req.files.foto;
+        for (let image of req.files.foto) {
+            let name = image.name;
+            productoCreado.image.push(name);
+        }
+        
+        for (let image of fotos) {
+            let name = image.name;
+            image.mv(storepath + name, (err) => {
+                if (err) {res.send(err)}
+                console.log('todo bien')
+            })  
         }
 
-        /* console.log(req.files); */
-        const objImagen = req.files.foto
-        const name = objImagen.name
-        objImagen.mv(__dirname + '../../../public/img/productos/' + name, (err) => {
-        if (err) {res.send(err)}
-        res.render('./products/productDetail', {productos: products, producto: productoCreado})
-        })
+        console.log (productoCreado);             
+        
+        products.push(productoCreado);
+	
+		fs.writeFileSync(productsFilePath, JSON.stringify(products,null,' '));
+
+		res.redirect(`/products/detail/${productoCreado.id}`)
 
         /* sharp opcional */
     },
