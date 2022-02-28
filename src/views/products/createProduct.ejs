@@ -40,16 +40,17 @@
           <h4 class="mb-3">Crear Producto</h4>
           <form class="needs-validation" method="POST" action="/products/create" enctype="multipart/form-data" novalidate> <!-- method="POST" action="#" -->
             <div class="row">
+
               <div class="col-md-6 mb-3">
                 <label for="prodId">Identificador</label>
-                <input type="text" class="form-control" id="prodId" name="prodId" value="<%=idNuevo %>" required readonly>
+                <input type="text" class="form-control" id="prodId" name="id" value="<%=idNuevo %>" required readonly>
                 <div class="invalid-feedback">
                   Se requiere un id de producto.
                 </div>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="prodName">Nombre</label>
-                <input type="text" class="form-control" id="prodName" placeholder="" value="" required>
+                <input type="text" class="form-control" id="prodName"  name="name" placeholder=""  required>
                 <div class="invalid-feedback">
                   Se requiere un nombre de producto.
                 </div>
@@ -63,7 +64,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">$</span>
                   </div>
-                  <input type="text" class="form-control" id="price" value="" required>
+                  <input type="text" class="form-control" id="price"  name="price" required>
                   <div class="invalid-feedback">
                     Se requiere un precio.
                   </div>
@@ -76,14 +77,14 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">%</span>
                   </div>
-                  <input type="text" class="form-control" id="discount" value="">
+                  <input type="text" class="form-control" id="discount" name="discount">
                 </div>
               </div>
             </div>
 
             <div class="mb-3">
               <label for="description">Descripción</label>
-              <textarea rows="2" class="form-control" id="description" required></textarea>
+              <textarea rows="2" class="form-control" id="description"  name="description" required></textarea>
               <div class="invalid-feedback">
                 Se requiere una descripción.
               </div>
@@ -92,7 +93,7 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="category">Categoria</label>
-                <select class="custom-select d-block w-100" id="category" required>
+                <select class="custom-select d-block w-100" id="category" name ="category" required>
                   <option value="">Categorias</option>
                   <option value="Bancos">Bancos</option>
                   <option value="Espejos">Espejos</option>
@@ -108,7 +109,7 @@
             <!-- <div class="row"> -->
               <div class="col-md-6 mb-3">
                 <label for="delivery">Tiempo de entrega minimo</label>
-                <select class="custom-select d-block w-100" id="delivery" required>
+                <select class="custom-select d-block w-100" id="delivery" name= "delivery" required>
                   <option value="">Días</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
