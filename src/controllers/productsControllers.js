@@ -3,11 +3,12 @@ const path = require('path')
 
 const productsFilePath = path.join(__dirname, '../database/productsDataBase.json');
 const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-
+const storepath = path.join(__dirname, '../../public/img/productos/');
 let productsController = {
 
     /* Lista de productos */
     list: function(req, res) {
+        const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
         res.render('./products/productList', {productos: products})
     },
     
@@ -62,14 +63,14 @@ let productsController = {
 
     /* Mostrar formulario editar producto Mario*/
     edit: function(req, res) {
-        let producto = req.query
-        /* console.log(producto) */
+        /* let idProductoSeleccionado = req.query.id
+        console.log(idProductoSeleccionado) */
 
         /* Con la id que llega por query encontrar el producto en la base de datos (JSON)
         Autocompletar el formulario con los datos del JSON execpto las imagenes y pasarle el id al delete
         
         Si no se encontro el producto renderizar el formulario con el mensaje de que no es encontro */
-        res.render('./products/editProduct',{producto: producto})
+        res.render('./products/editProduct')
     },
 
     /* Actualizar producto desde editar Mario*/
@@ -90,31 +91,21 @@ let productsController = {
 				encontrado=item;
 				break;
 			}
-
 		}
 
-              /*  hacer un for que recorra encontrado.image las encuentre y las borre 
-              
-              que hacer en caso de que el id de producto sea invalido 
-              como borrar la imagenes
-              (idea desabilitar botones)
-              
-              renderisar la lista de productos
-              
-              */
-
-
-        /* console.log(encontrado); */
-		 let produtosNew = products.filter(function(item){
+		let produtosNew = products.filter(function(item){
 			return item.id!=encontrado.id;
 		})
 
-       /*  console.log(produtosNew); */
+        for(let image of encontrado.image){
+
+            console.log(storepath + image)
+            fs.unlinkSync(storepath + image);
+        }
 
 		fs.writeFileSync(productsFilePath, JSON.stringify(produtosNew, null,' ')); 
 
-
-        res.render('error')
+        res.redirect('/products/') 
     }
 }
 
