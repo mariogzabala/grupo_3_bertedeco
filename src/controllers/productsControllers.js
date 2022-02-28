@@ -3,11 +3,12 @@ const path = require('path')
 
 const productsFilePath = path.join(__dirname, '../database/productsDataBase.json');
 const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-
+const storepath = path.join(__dirname, '../../public/img/productos/');
 let productsController = {
 
     /* Lista de productos */
     list: function(req, res) {
+        const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
         res.render('./products/productList', {productos: products})
     },
     
@@ -130,7 +131,29 @@ let productsController = {
     /* Eliminar producto desde editar Julian*/
     destroy: function(req, res) {
         /* Eliminar el producto y sus imagenes y redireccionar a la lista de productos */
-        res.render('error')
+        let eliminar = req.params.id;
+        let encontrado = null;
+
+        for (let item of products){
+			if (item.id==eliminar){
+				encontrado=item;
+				break;
+			}
+		}
+
+		let produtosNew = products.filter(function(item){
+			return item.id!=encontrado.id;
+		})
+
+        for(let image of encontrado.image){
+
+            console.log(storepath + image)
+            fs.unlinkSync(storepath + image);
+        }
+
+		fs.writeFileSync(productsFilePath, JSON.stringify(produtosNew, null,' ')); 
+
+        res.redirect('/products/') 
     }
 }
 
