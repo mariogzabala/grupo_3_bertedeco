@@ -4,6 +4,7 @@ const path = require('path')
 const productsFilePath = path.join(__dirname, '../database/productsDataBase.json');
 const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
 const storepath = path.join(__dirname, '../../public/img/productos/');
+
 let productsController = {
 
     /* Lista de productos */
@@ -54,21 +55,14 @@ let productsController = {
         if (!isNaN(req.body.discount) && !isNaN(parseFloat(req.body.discount))){
             productoCreado.discount = parseInt(req.body.discount);                    
         }
-        const fotos = req.files.foto;
+
         for (let image of req.files.foto) {
             let name = image.name;
             productoCreado.image.push(name);
-        }
-        
-        for (let image of fotos) {
-            let name = image.name;
             image.mv(storepath + name, (err) => {
                 if (err) {res.send(err)}
-                console.log('todo bien')
-            })  
+            })
         }
-
-        console.log (productoCreado);             
         
         products.push(productoCreado);
 	
@@ -137,13 +131,22 @@ let productsController = {
                  item.category = productoEditado.category;
                  item.delivery = parseInt(productoEditado.delivery);
                  item.description = productoEditado.description;
-                 /*item.image = productoEditado.image;*/
+                 item.image = item.image;
+                  if (req.files!== null){
+                    for (let image of req.files.foto) {
+                        let name = image.name;
+                        item.image.push(name);
+                        image.mv(storepath + name, (err) => {
+                            if (err) {res.send(err)}
+                        })
+                    }
+                 } 
                  break
              }                
          }
        
          fs.writeFileSync(productsFilePath, JSON.stringify(productosNuevos,null,' '));        
-         res.render('error')
+         res.redirect(`/products/detail/${idBuscado}`)
     },
 
     /* Eliminar producto desde editar Julian*/

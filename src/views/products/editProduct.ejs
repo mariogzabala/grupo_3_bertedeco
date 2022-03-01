@@ -34,7 +34,7 @@
     </div>
 
     <% if (producto.id == '') { %>
-      <h6>No se encuentra el producto: <%=busqueda%>. Por favor intruduzca un ID válido.</h6>
+      <div class="file-not-found">No se encuentra el producto: <strong><%=busqueda%></strong>. Por favor intruduzca un ID válido.</div>
       <% } %>
 
     <!--Form-->
@@ -42,7 +42,7 @@
       <div class="row">
         <div class="col-md-12 order-md-1">
           <h4 class="mb-3">Editar Producto</h4>
-          <form class="needs-validation" method="POST" action="/products/edit/<%=producto.id%>?_method=PUT"  enctype="multipart/form-data" novalidate> <!-- method="POST" action="#" -->
+          <form class="needs-validation" method="POST" action="/products/edit/<%=producto.id%>" enctype="multipart/form-data" novalidate> <!-- method="POST" action="#" -->
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="prodId">Identificador</label>
@@ -87,7 +87,7 @@
 
             <div class="mb-3">
               <label for="description">Descripción</label>
-              <textarea rows="2" class="form-control" id="description" name="description" value="<%=producto.description%>" required>"<%=producto.description%>"</textarea>
+              <textarea rows="2" class="form-control" id="description" name="description" value="<%=producto.description%>" required><%=producto.description%></textarea>
               <div class="invalid-feedback">
                 Se requiere una descripción.
               </div>
@@ -98,11 +98,15 @@
                 <label for="category">Categoria</label>
                 <select class="custom-select d-block w-100" id="category" name="category" required>
                   <option value="">Categorias</option>
-                  <option value="Bancos">Bancos</option>
-                  <option value="Espejos">Espejos</option>
-                  <option value="Accesorios">Accesorios</option>
-                  <option value="Mesas y Escritorios">Mesas y Escritorios</option>
-                  <option value="Percheros y Repisas">Percheros y Repisas</option>
+                  <%  
+										let categorias = ['Bancos', 'Espejos', 'Accesorios', 'Mesas y Escritorios', 'Percheros y Repisas'];
+									%>
+									<% for (const categoria of categorias) { %>
+										<option 
+											value="<%= categoria %>"
+											<%= categoria == producto.category ? 'selected' : null %> 
+										> <%= categoria %> </option>
+									<% } %>
                 </select>
                 <div class="invalid-feedback">
                   Se requiere una categoria.
@@ -113,13 +117,15 @@
                 <label for="delivery">Tiempo de entrega minimo</label>
                 <select class="custom-select d-block w-100" id="delivery" name="delivery" required>
                   <option value="">Días</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
+                  <%  
+										let dias = ['1', '2', '3', '4', '5','6','7'];
+									%>
+									<% for (const dia of dias) { %>
+										<option 
+											value="<%= dia %>"
+											<%= dia == producto.delivery ? 'selected' : null %> 
+										> <%= dia %> </option>
+									<% } %>
                 </select>
                 <div class="invalid-feedback">
                   Se requiere un tiempo de entrega.
@@ -133,7 +139,7 @@
             
             <div class="row">
               <div class="input-group mb-3">
-                <input type="file" class="form-control" id="inputFile" multiple>
+                <input type="file" class="form-control" name="foto" id="inputFile" multiple>
                 <label class="input-group-text" for="inputFile">Imagenes</label>
                 <div class="invalid-feedback">
                   Se requieren imagenes del producto.

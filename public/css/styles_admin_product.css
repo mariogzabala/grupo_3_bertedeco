@@ -15,12 +15,18 @@ a {
   text-decoration: none;
 }
 
-h6 {
-  color: red;
+.file-not-found {
+  color: gray;
   text-align: center;
   margin-top: 2vh;
-
 }
+
+.file-not-found > strong{
+  color: red;
+  text-transform: uppercase;
+}
+
+
 
 /*dandole estilo a la barra de buscar producto */
 
