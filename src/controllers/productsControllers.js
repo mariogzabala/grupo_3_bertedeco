@@ -2,7 +2,6 @@ const fs = require('fs')
 const path = require('path')
 
 const productsFilePath = path.join(__dirname, '../database/productsDataBase.json')
-const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'))
 const storepath = path.join(__dirname, '../../public/img/productos/')
 const imgList = ['image/png', 'image/jpeg']
 
@@ -11,36 +10,37 @@ let productsController = {
     /* Lista de productos */
     list: function(req, res) {
         
-        const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'))
-        res.render('./products/productList', {productos: products})
+        let productsList = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'))
+        res.render('./products/productList', {productos: productsList})
     },
     
     /* Detalle de producto */
     detail: function(req, res) {
 
-        const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'))
+        let productsDet = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'))
         let idProductoSeleccionado = req.params.id
         let productoEncontrado = null
 
-        for (let p of products){
+        for (let p of productsDet){
             if (p.id == idProductoSeleccionado) {
                 productoEncontrado = p
                 break
             }
         }
 
-        res.render('./products/productDetail', {productos: products, producto: productoEncontrado})
+        res.render('./products/productDetail', {productos: productsDet, producto: productoEncontrado})
     },
 
     /* Mostrar formulario crear producto */
     create: function(req, res) {
 
+        let productsCre = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'))
         let idNuevo
         
-        if (products[products.length-1] === undefined) {
+        if (productsCre[productsCre.length-1] === undefined) {
             idNuevo = 1
         } else {
-            idNuevo = products[products.length-1].id + 1
+            idNuevo = productsCre[productsCre.length-1].id + 1
         }
 
         res.render('./products/createProduct', {idNuevo: idNuevo})
@@ -49,6 +49,7 @@ let productsController = {
     /* Guardar producto desde crear Francys*/
     store: function(req, res) {
 
+        let productsStor = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'))
         let notSave = []
 
         let productoCreado = {
@@ -90,9 +91,9 @@ let productsController = {
             }
         }
         
-        products.push(productoCreado);
+        productsStor.push(productoCreado);
 
-        fs.writeFileSync(productsFilePath, JSON.stringify(products,null,' '))
+        fs.writeFileSync(productsFilePath, JSON.stringify(productsStor,null,' '))
 
         if (notSave.length > 0) {
             res.render('./products/editProduct', {producto: productoCreado, noguardado: notSave})
@@ -106,6 +107,7 @@ let productsController = {
     /* Mostrar formulario editar producto Mario*/
     edit: function(req, res) {
 
+        let productsEdit = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'))
         let notSave = []
         let idProductoSeleccionado = req.query.id
         let productoEditado = {
@@ -119,7 +121,7 @@ let productsController = {
             image: []  
         }
         
-        for (let item of products){
+        for (let item of productsEdit){
             if (item.id == idProductoSeleccionado) {
                 productoEditado.id = item.id
                 productoEditado.name = item.name
@@ -141,7 +143,7 @@ let productsController = {
 
         const productoEditado = req.body
         const idBuscado = req.body.id
-        let productosNuevos = products
+        let productosNuevos = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'))
         let fotos = []
         let notSave = []
         
@@ -205,17 +207,18 @@ let productsController = {
     /* Eliminar producto desde editar Julian*/
     destroy: function(req, res) {
 
+        let productosDes = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'))
         let eliminar = req.params.id
         let encontrado = null
 
-        for (let item of products) {
+        for (let item of productosDes) {
             if (item.id == eliminar) {
                 encontrado = item
                 break
             }
         }
 
-        let produtosNew = products.filter(function(item) {
+        let produtosNew = productosDes.filter(function(item) {
             return item.id != encontrado.id
         })
 
