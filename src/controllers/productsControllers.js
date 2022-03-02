@@ -78,10 +78,11 @@ let productsController = {
 
         for (let image of fotos) {
             let name = image.name
+            let uniqName = 'Prod' + Date.now() + name
             let extName = image.mimetype
             if (imgList.includes(extName) && image.size <= 512000) {
-                productoCreado.image.push(name)
-                image.mv(storepath + name, (err) => {
+                productoCreado.image.push(uniqName)
+                image.mv(storepath + uniqName, (err) => {
                     if (err) {res.send(err)}
                 })
             } else {
@@ -172,10 +173,11 @@ let productsController = {
                 if (req.files !== null) {
                     for (let image of fotos) {
                         let name = image.name
+                        let uniqName = 'Prod' + Date.now() + name
                         let extName = image.mimetype
                         if (imgList.includes(extName) && image.size <= 512000) {
-                            item.image.push(name)
-                            image.mv(storepath + name, (err) => {
+                            item.image.push(uniqName)
+                            image.mv(storepath + uniqName, (err) => {
                                 if (err) {res.send(err)}
                             })
                         } else {
