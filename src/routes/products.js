@@ -13,15 +13,15 @@ router.get('/detail/:id', productsController.detail)
 router.get('/create', productsController.create)
 
 /* Guardar porducto */
-router.post('/create', productsController.store)
+router.post('/create/:id', productsController.store)
 
 /* Mostrar formulario editar */
-router.get('/edit', productsController.edit); 
+router.get('/edit', productsController.edit) 
 
 /* Modificar producto */
-router.post('/edit/:id', productsController.update);
+router.post('/edit/:id', productsController.update)
 
 /* Elimiar producto desde formulario de edicion*/
-router.delete('/delete/:id', productsController.destroy); 
+router.delete('/delete/:id', productsController.destroy) 
 
 module.exports = router

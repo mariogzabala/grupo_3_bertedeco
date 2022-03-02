@@ -19,258 +19,260 @@
     <%- include('../partials/header') %>
 
     <!--Main Product-->
-    <div class="container">
-        <!-- product -->
-        <div class="product-content product-wrap clearfix product-deatil">
-            <div class="container-product row">
-                <div class="col-md-5 col-sm-12 col-xs-12">
-                    <div class="product-image">
-                        <div id="myCarousel-2" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#myCarousel-2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#myCarousel-2" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#myCarousel-2" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
-                            <div class="carousel-inner">
-                                <!-- Slide 1 -->
-                                <div class="carousel-item active" style="background-image: url('/img/productos/<%=producto.image[0] %>')">
+    <% if (productos.length > 1) { %>
+        <div class="container">
+            <!-- product -->
+            <div class="product-content product-wrap clearfix product-deatil">
+                <div class="container-product row">
+                    <div class="col-md-5 col-sm-12 col-xs-12">
+                        <div class="product-image">
+                            <div id="myCarousel-2" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#myCarousel-2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#myCarousel-2" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#myCarousel-2" data-bs-slide-to="2" aria-label="Slide 3"></button>
                                 </div>
-                                <!-- Slide 2 -->
-                                <div class="carousel-item" style="background-image: url('/img/productos/<%=producto.image[1] %>')">
-                                </div>
-                                <!-- Slide 3 -->
-                                <div class="carousel-item" style="background-image: url('/img/productos/<%=producto.image[2] %>')">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel-2" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel-2" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-    
-                <div class="col-md-6 col-md-offset-1 col-sm-12 col-xs-12">
-                    <h2 class="name">
-                        <%=producto.name %>
-                    </h2>
-                    <% if (typeof producto.discount === 'number') { %>
-                    <h3 class="price-container">
-                    $<%=producto.discount %>
-                    <!-- <small>*includes tax</small> -->
-                    </h3>
-                    <% }  else { %>
-                    <h3 class="price-container">
-                    $<%=producto.price %>
-                    <!-- <small>*includes tax</small> -->
-                    </h3>
-                    <% } %>
-                    <!-- <small>Product by <a href="javascript:void(0);">Adeline</a></small> -->
-                    <i class="fa fa-star text-primary"></i>
-                    <i class="fa fa-star text-primary"></i>
-                    <i class="fa fa-star text-primary"></i>
-                    <i class="fa fa-star text-primary"></i>
-                    <i class="fa fa-star-half text-muted"></i>
-                    <span class="votos fa fa-2x">(109) Votos</span>
-                    <a href="javascript:void(0);">27 reseñas</a>
-                    <hr />
-                    <div class="certified">
-                        <ul>
-                            <li>
-                                <% if (producto.delivery == 1) { %>
-                                <a href="javascript:void(0);">Tiempo De Entrega<span><%=producto.delivery %> Día Habil</span></a>
-                                <% }  else { %>
-                                <a href="javascript:void(0);">Tiempo De Entrega<span><%=producto.delivery %> Días Habiles</span></a>
-                                <% } %>
-                            </li>
-                            <li>
-                                <% if (typeof producto.discount === 'number') { %>
-                                <a href="javascript:void(0);">6 Cuotas Sin Interés De<span>$<%=Math.round(producto.discount / 6) %></span></a>
-                                <% }  else { %>
-                                <a href="javascript:void(0);">6 Cuotas Sin Interés De<span>$<%=Math.round(producto.price / 6) %></span></a>
-                                <% } %>
-                            </li>
-                        </ul>
-                    </div>
-                    <hr />
-                    <div class="description description-tabs">
-                        <nav id="myTab" class="nav nav-pills flex-column flex-sm-row">
-                            <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="#more-information" data-bs-toggle="tab">Descripción</a>
-                            <a class="flex-sm-fill text-sm-center nav-link" href="#specifications" data-bs-toggle="tab">Especificaciones</a>
-                            <a class="flex-sm-fill text-sm-center nav-link" href="#reviews" data-bs-toggle="tab">Reseñas</a>
-                        </nav>
-                        <div id="myTabContent" class="tab-content">
-                            <div class="tab-pane fade show active" id="more-information">
-                                <br />
-                                <!-- <strong>Combinación de acero con pino recuperado</strong> -->
-                                <p><%=producto.description %></p>
-                            </div>
-                            <div class="tab-pane fade" id="specifications">
-                                <br />
-                                    <h6>Fuente Sostenible</h6>
-                                    <p>Elejido de materiales reciclados, recuperados, alternativos o 
-                                        recolectados de manera responsable que cumplen con altos
-                                        estándares sociales y ambientales.
-                                    </p>
-                                    <br>
-
-                                    <h6>Esta Compra Planta Un Arbol</h6>
-                                    <p>Juntos, podemos plantar 3 millones de árboles para 2023 y
-                                        restaurar bosques a nivel mundial.
-                                    </p>
-                                    <br>
-
-                                    <h6>Categoria</h6>
-                                    <p><%=producto.category %></p>
-                            </div>
-                            <div class="tab-pane fade" id="reviews">
-                                <br />
-                                <form method="post" class="well padding-bottom-10" onsubmit="return false;">
-                                    <textarea rows="2" class="form-control" placeholder="Tu reseña"></textarea>
-                                    <div class="review margin-top-10">
-                                        <button type="submit" class="btn btn-sm btn-outline-dark pull-right">
-                                            Publicar
-                                        </button>
-                                        <a href="javascript:void(0);" class="review-buttons btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Add Location"><i class="fa fa-location-arrow"></i></a>
-                                        <!-- <a href="javascript:void(0);" class="review-buttons btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Add Voice"><i class="fa fa-microphone"></i></a> -->
-                                        <a href="javascript:void(0);" class="review-buttons btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Add Photo"><i class="fa fa-camera"></i></a>
-                                        <a href="javascript:void(0);" class="review-buttons btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Add File"><i class="fa fa-file"></i></a>
+                                <div class="carousel-inner">
+                                    <!-- Slide 1 -->
+                                    <div class="carousel-item active" style="background-image: url('/img/productos/<%=producto.image[0] %>')">
                                     </div>
-                                </form>
+                                    <!-- Slide 2 -->
+                                    <div class="carousel-item" style="background-image: url('/img/productos/<%=producto.image[1] %>')">
+                                    </div>
+                                    <!-- Slide 3 -->
+                                    <div class="carousel-item" style="background-image: url('/img/productos/<%=producto.image[2] %>')">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel-2" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel-2" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-6 col-md-offset-1 col-sm-12 col-xs-12">
+                        <h2 class="name">
+                            <%=producto.name %>
+                        </h2>
+                        <% if (typeof producto.discount === 'number') { %>
+                        <h3 class="price-container">
+                        $<%=producto.discount %>
+                        <!-- <small>*includes tax</small> -->
+                        </h3>
+                        <% }  else { %>
+                        <h3 class="price-container">
+                        $<%=producto.price %>
+                        <!-- <small>*includes tax</small> -->
+                        </h3>
+                        <% } %>
+                        <!-- <small>Product by <a href="javascript:void(0);">Adeline</a></small> -->
+                        <i class="fa fa-star text-primary"></i>
+                        <i class="fa fa-star text-primary"></i>
+                        <i class="fa fa-star text-primary"></i>
+                        <i class="fa fa-star text-primary"></i>
+                        <i class="fa fa-star-half text-muted"></i>
+                        <span class="votos fa fa-2x">(109) Votos</span>
+                        <a href="javascript:void(0);">27 reseñas</a>
+                        <hr />
+                        <div class="certified">
+                            <ul>
+                                <li>
+                                    <% if (producto.delivery == 1) { %>
+                                    <a href="javascript:void(0);">Tiempo De Entrega<span><%=producto.delivery %> Día Habil</span></a>
+                                    <% }  else { %>
+                                    <a href="javascript:void(0);">Tiempo De Entrega<span><%=producto.delivery %> Días Habiles</span></a>
+                                    <% } %>
+                                </li>
+                                <li>
+                                    <% if (typeof producto.discount === 'number') { %>
+                                    <a href="javascript:void(0);">6 Cuotas Sin Interés De<span>$<%=Math.round(producto.discount / 6) %></span></a>
+                                    <% }  else { %>
+                                    <a href="javascript:void(0);">6 Cuotas Sin Interés De<span>$<%=Math.round(producto.price / 6) %></span></a>
+                                    <% } %>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr />
+                        <div class="description description-tabs">
+                            <nav id="myTab" class="nav nav-pills flex-column flex-sm-row">
+                                <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="#more-information" data-bs-toggle="tab">Descripción</a>
+                                <a class="flex-sm-fill text-sm-center nav-link" href="#specifications" data-bs-toggle="tab">Especificaciones</a>
+                                <a class="flex-sm-fill text-sm-center nav-link" href="#reviews" data-bs-toggle="tab">Reseñas</a>
+                            </nav>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane fade show active" id="more-information">
+                                    <br />
+                                    <!-- <strong>Combinación de acero con pino recuperado</strong> -->
+                                    <p><%=producto.description %></p>
+                                </div>
+                                <div class="tab-pane fade" id="specifications">
+                                    <br />
+                                        <h6>Fuente Sostenible</h6>
+                                        <p>Elejido de materiales reciclados, recuperados, alternativos o 
+                                            recolectados de manera responsable que cumplen con altos
+                                            estándares sociales y ambientales.
+                                        </p>
+                                        <br>
     
-                                <div class="chat-body no-padding profile-message">
-                                    <ul>
-                                        <li class="message">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" class="online" />
-                                            <span class="message-text">
-                                                <a href="javascript:void(0);" class="username">
-                                                    Mario
-                                                    <span class="badge">Compra Verificada</span>
-                                                    <span class="pull-right">
-                                                        <i class="fa fa-star fa-2x text-primary"></i>
-                                                        <i class="fa fa-star fa-2x text-primary"></i>
-                                                        <i class="fa fa-star fa-2x text-primary"></i>
-                                                        <i class="fa fa-star fa-2x text-primary"></i>
-                                                        <i class="fa fa-star fa-2x text-muted"></i>
-                                                    </span>
-                                                </a>
+                                        <h6>Esta Compra Planta Un Arbol</h6>
+                                        <p>Juntos, podemos plantar 3 millones de árboles para 2023 y
+                                            restaurar bosques a nivel mundial.
+                                        </p>
+                                        <br>
+    
+                                        <h6>Categoria</h6>
+                                        <p><%=producto.category %></p>
+                                </div>
+                                <div class="tab-pane fade" id="reviews">
+                                    <br />
+                                    <form method="post" class="well padding-bottom-10" onsubmit="return false;">
+                                        <textarea rows="2" class="form-control" placeholder="Tu reseña"></textarea>
+                                        <div class="review margin-top-10">
+                                            <button type="submit" class="btn btn-sm btn-outline-dark pull-right">
+                                                Publicar
+                                            </button>
+                                            <a href="javascript:void(0);" class="review-buttons btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Add Location"><i class="fa fa-location-arrow"></i></a>
+                                            <!-- <a href="javascript:void(0);" class="review-buttons btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Add Voice"><i class="fa fa-microphone"></i></a> -->
+                                            <a href="javascript:void(0);" class="review-buttons btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Add Photo"><i class="fa fa-camera"></i></a>
+                                            <a href="javascript:void(0);" class="review-buttons btn btn-link profile-link-btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Add File"><i class="fa fa-file"></i></a>
+                                        </div>
+                                    </form>
+        
+                                    <div class="chat-body no-padding profile-message">
+                                        <ul>
+                                            <li class="message">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar" class="online" />
+                                                <span class="message-text">
+                                                    <a href="javascript:void(0);" class="username">
+                                                        Mario
+                                                        <span class="badge">Compra Verificada</span>
+                                                        <span class="pull-right">
+                                                            <i class="fa fa-star fa-2x text-primary"></i>
+                                                            <i class="fa fa-star fa-2x text-primary"></i>
+                                                            <i class="fa fa-star fa-2x text-primary"></i>
+                                                            <i class="fa fa-star fa-2x text-primary"></i>
+                                                            <i class="fa fa-star fa-2x text-muted"></i>
+                                                        </span>
+                                                    </a>
+                                                    <br>
+                                                    Me llegó en un plazo mínimo y es tal cual se aprecia en la foto, fantástica cálidad.
+                                                </span>
+                                                <ul class="list-inline font-xs">
+                                                    <li>
+                                                        <a href="javascript:void(0);" class="text-info"><i class="fa fa-thumbs-up"></i> Esto fue util (22)</a>
+                                                    </li>
+                                                    <li class="pull-right">
+                                                        <small class="text-muted pull-right ultra-light"> Publicado hace un año </small>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
                                                 <br>
-                                                Me llegó en un plazo mínimo y es tal cual se aprecia en la foto, fantástica cálidad.
-                                            </span>
-                                            <ul class="list-inline font-xs">
-                                                <li>
-                                                    <a href="javascript:void(0);" class="text-info"><i class="fa fa-thumbs-up"></i> Esto fue util (22)</a>
-                                                </li>
-                                                <li class="pull-right">
-                                                    <small class="text-muted pull-right ultra-light"> Publicado hace un año </small>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <br>
-                                        </li>
-                                        <li class="message">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" class="online" />
-                                            <span class="message-text">
-                                                <a href="javascript:void(0);" class="username">
-                                                    Julian
-                                                    <span class="badge">Compra verificada</span>
-                                                    <span class="pull-right">
-                                                        <i class="fa fa-star fa-2x text-primary"></i>
-                                                        <i class="fa fa-star fa-2x text-primary"></i>
-                                                        <i class="fa fa-star fa-2x text-primary"></i>
-                                                        <i class="fa fa-star fa-2x text-primary"></i>
-                                                        <i class="fa fa-star fa-2x text-primary"></i>
-                                                    </span>
-                                                </a>
-                                                <br>
-                                                Excelente Producto, Me Encantó!
-                                            </span>
-                                            <ul class="list-inline font-xs">
-                                                <li>
-                                                    <a href="javascript:void(0);" class="text-info"><i class="fa fa-thumbs-up"></i> Esto fue util (18)</a>
-                                                </li>
-                                                <li class="pull-right">
-                                                    <small class="text-muted pull-right ultra-light"> Publicado hace 6 meses </small>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                            </li>
+                                            <li class="message">
+                                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" class="online" />
+                                                <span class="message-text">
+                                                    <a href="javascript:void(0);" class="username">
+                                                        Julian
+                                                        <span class="badge">Compra verificada</span>
+                                                        <span class="pull-right">
+                                                            <i class="fa fa-star fa-2x text-primary"></i>
+                                                            <i class="fa fa-star fa-2x text-primary"></i>
+                                                            <i class="fa fa-star fa-2x text-primary"></i>
+                                                            <i class="fa fa-star fa-2x text-primary"></i>
+                                                            <i class="fa fa-star fa-2x text-primary"></i>
+                                                        </span>
+                                                    </a>
+                                                    <br>
+                                                    Excelente Producto, Me Encantó!
+                                                </span>
+                                                <ul class="list-inline font-xs">
+                                                    <li>
+                                                        <a href="javascript:void(0);" class="text-info"><i class="fa fa-thumbs-up"></i> Esto fue util (18)</a>
+                                                    </li>
+                                                    <li class="pull-right">
+                                                        <small class="text-muted pull-right ultra-light"> Publicado hace 6 meses </small>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6 col-lg-6">
-                            <a href="/cart/resume" class="btn btn-outline-dark btn-lg">Añadir al Carro</a>
-                        </div>
-                        <!-- <div class="col-sm-12 col-md-6 col-lg-6">
-                            <div class="btn-group pull-right">
-                                <button class="btn btn-sm btn-primary pull-right"><i class="fa fa-star"></i>Agregar a Favoritos</button>
-                                <button class="btn btn-sm btn-primary pull-right"><i class="fa fa-envelope"></i>Preguntas</button>
+                        <hr />
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <a href="/cart/resume" class="btn btn-outline-dark btn-lg">Añadir al Carro</a>
                             </div>
-                        </div> -->
+                            <!-- <div class="col-sm-12 col-md-6 col-lg-6">
+                                <div class="btn-group pull-right">
+                                    <button class="btn btn-sm btn-primary pull-right"><i class="fa fa-star"></i>Agregar a Favoritos</button>
+                                    <button class="btn btn-sm btn-primary pull-right"><i class="fa fa-envelope"></i>Preguntas</button>
+                                </div>
+                            </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- end product -->
         </div>
-        <!-- end product -->
-    </div>
-    
-    <!-- Related items section-->
-    <section class="py-5 bg-light">
-        <div class="container px-4 px-lg-5 mt-5">
-            <h2 class="fw-bolder mb-4">TE PUEDE INTERESAR</h2>
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <% for (i = 0; i < 4; i++) { %>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <% if (typeof productos[i].discount === 'number') { %>
-                        <!-- Sale badge-->
-                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                        <% } %>
-                        <!-- Product image-->
-                        <a class="link-image" href="/products/detail/<%=productos[i].id %>"><img class="card-img-top" src="/img/productos/<%=productos[i].image[0] %>" alt="<%=productos[i].name %>" /></a>
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <a href="/products/detail/<%=productos[i].id %>"><h5 class="fw-bolder"><%=productos[i].name %></h5></a>
-                                <% if (typeof productos[i].discount === 'number') { %>
-                                <!-- Product price and Discount-->
-                                <span class="text-muted text-decoration-line-through">$<%=productos[i].price %></span>
-                                $<%=productos[i].discount %><br>
-                                <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(productos[i].discount / 6) %></strong></div>
-                                <% } else { %>
-                                <!-- Product reviews-->
-                                <div class="d-flex justify-content-center small text-warning mb-2">
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star"></div>
-                                    <div class="fa fa-star-half"></div>
-                                </div> 
-                                <!-- Product price-->
-                                $<%=productos[i].price %><br>
-                                <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(productos[i].price / 6) %></strong></div>
-                                <% } %>
+        
+        <!-- Related items section-->
+        <section class="py-5 bg-light">
+            <div class="container px-4 px-lg-5 mt-5">
+                <h2 class="fw-bolder mb-4">TE PUEDE INTERESAR</h2>
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    <% for (i = 0; i < 4; i++) { %>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <% if (typeof productos[i].discount === 'number') { %>
+                            <!-- Sale badge-->
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                            <% } %>
+                            <!-- Product image-->
+                            <a class="link-image" href="/products/detail/<%=productos[i].id %>"><img class="card-img-top" src="/img/productos/<%=productos[i].image[0] %>" alt="<%=productos[i].name %>" /></a>
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <a href="/products/detail/<%=productos[i].id %>"><h5 class="fw-bolder"><%=productos[i].name %></h5></a>
+                                    <% if (typeof productos[i].discount === 'number') { %>
+                                    <!-- Product price and Discount-->
+                                    <span class="text-muted text-decoration-line-through">$<%=productos[i].price %></span>
+                                    $<%=productos[i].discount %><br>
+                                    <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(productos[i].discount / 6) %></strong></div>
+                                    <% } else { %>
+                                    <!-- Product reviews-->
+                                    <div class="d-flex justify-content-center small text-warning mb-2">
+                                        <div class="fa fa-star"></div>
+                                        <div class="fa fa-star"></div>
+                                        <div class="fa fa-star"></div>
+                                        <div class="fa fa-star"></div>
+                                        <div class="fa fa-star-half"></div>
+                                    </div> 
+                                    <!-- Product price-->
+                                    $<%=productos[i].price %><br>
+                                    <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(productos[i].price / 6) %></strong></div>
+                                    <% } %>
+                                </div>
+                            </div>
+                            <!-- Product actions-->
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
                             </div>
                         </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
-                        </div>
                     </div>
+                    <% } %>
                 </div>
-                <% } %>
             </div>
-        </div>
-    </section>
+        </section>
+    <% } %>
 
     <!-- Footer-->
     <%- include('../partials/footer') %>

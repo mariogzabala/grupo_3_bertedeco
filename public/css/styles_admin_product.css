@@ -15,19 +15,6 @@ a {
   text-decoration: none;
 }
 
-.file-not-found {
-  color: gray;
-  text-align: center;
-  margin-top: 2vh;
-}
-
-.file-not-found > strong{
-  color: red;
-  text-transform: uppercase;
-}
-
-
-
 /*dandole estilo a la barra de buscar producto */
 
 .search-div {
@@ -63,6 +50,46 @@ a {
 .container {
   margin-top: 3%;
 }
+
+.file-not-found {
+  color: gray;
+  text-align: center;
+  margin-top: 2vh;
+}
+
+.file-not-found > strong{
+  color: rgb(241, 11, 11);
+  text-transform: uppercase;
+}
+
+input:invalid+.invalid-feedback > .must-number:before {
+  content: 'Solo ingrese numeros';/* add text untill patterns matches */
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: .875em;
+  color: #dc3545;
+}
+
+input:invalid+.invalid-feedback > .must-number+[type="submit"] {
+  display: none; /* hide input submit untill pattern matches */
+}
+
+.must-number2 {
+  display: contents;
+}
+
+input:invalid+.must-number2:before {
+  content: 'Solo ingrese numeros';/* add text untill patterns matches */
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: .875em;
+  color: #dc3545;
+}
+
+input:invalid+.must-number2+[type="submit"] {
+  display: none; /* hide input submit untill pattern matches */
+}
+
 
 /*estoy dandole estilo a los botones*/
 

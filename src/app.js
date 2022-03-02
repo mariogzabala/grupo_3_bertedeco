@@ -11,12 +11,7 @@ app.use(express.static(path.join(__dirname, '../public')))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(methodOverride('_method')); // Para poder pisar el method="POST" en el formulario por PUT y DELETE
-app.use(expressFileUpload({
-  limits: { fileSize: 512000 }, // 500kb
-  abortOnLimit: true,
-  responseOnLimit: "El peso del archivo que intentas subir supera el limite permitido",
-})
-)
+app.use(expressFileUpload())
 
 //view engine setup
 app.set('views', path.join(__dirname, 'views'))
