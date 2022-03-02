@@ -58,18 +58,12 @@
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                         <% } %>
                         <!-- Product image-->
-                        <a class="link-image" href="/products/detail/<%=p.id %>"><img class="card-img-top" src="/img/productos/<%=p.image[0] %>" alt="<%=p.name %>"/></a>
+                        <a class="link-image" href="/products/detail/<%=p.id %>"><img class="card-img-top" src="/img/productos/<%= p.image[0] ? p.image[0] : 'image-needed.png' %>" alt="<%=p.name %>"/></a>
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <!-- Product name-->
                                 <a href="/products/detail/<%=p.id %>"><h5 class="fw-bolder"><%=p.name %></h5></a>
-                                <% if (typeof p.discount === 'number') { %>
-                                <!-- Product price and Discount-->
-                                <span class="text-muted text-decoration-line-through">$<%=p.price %></span>
-                                $<%=p.discount %><br>
-                                <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(p.discount / 6) %></strong></div>
-                                <% } else { %>
                                 <!-- Product reviews-->
                                 <div class="d-flex justify-content-center small text-warning mb-2">
                                     <div class="fa fa-star"></div>
@@ -78,6 +72,12 @@
                                     <div class="fa fa-star"></div>
                                     <div class="fa fa-star-half"></div>
                                 </div> 
+                                <% if (typeof p.discount === 'number') { %>
+                                <!-- Product price and Discount-->
+                                <span class="text-muted text-decoration-line-through">$<%=p.price %></span>
+                                $<%=p.discount %><br>
+                                <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(p.discount / 6) %></strong></div>
+                                <% } else { %>
                                 <!-- Product price-->
                                 $<%=p.price %><br>
                                 <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(p.price / 6) %></strong></div>

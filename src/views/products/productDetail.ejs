@@ -28,20 +28,22 @@
                         <div class="product-image">
                             <div id="myCarousel-2" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-indicators">
-                                    <button type="button" data-bs-target="#myCarousel-2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                    <button type="button" data-bs-target="#myCarousel-2" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                    <button type="button" data-bs-target="#myCarousel-2" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                    <% for (j = 0; j < producto.image.length; j++) { %>
+                                    <button type="button" data-bs-target="#myCarousel-2" data-bs-slide-to="<%= j %>" class="active" aria-current="true" aria-label="Slide <%= j + 1 %>"></button>
+                                    <% } %>
+                                    <% if (producto.image.length < 1) { %>
+                                        <button type="button" data-bs-target="#myCarousel-2" data-bs-slide-to="0"mnclass="active" aria-current="true" aria-label="Slide 1"></button>
+                                    <% } %>
                                 </div>
                                 <div class="carousel-inner">
-                                    <!-- Slide 1 -->
-                                    <div class="carousel-item active" style="background-image: url('/img/productos/<%=producto.image[0] %>')">
-                                    </div>
-                                    <!-- Slide 2 -->
-                                    <div class="carousel-item" style="background-image: url('/img/productos/<%=producto.image[1] %>')">
-                                    </div>
-                                    <!-- Slide 3 -->
-                                    <div class="carousel-item" style="background-image: url('/img/productos/<%=producto.image[2] %>')">
-                                    </div>
+                                    <% for (k = 0; k < producto.image.length; k++) { %>
+                                        <div class="carousel-item<%= k == 0 ? " active" : null %>" style="background-image: url('/img/productos/<%= producto.image[k] ? producto.image[k] : "image-needed.png" %>')">
+                                        </div>
+                                    <% } %>
+                                    <% if (producto.image.length < 1) { %>
+                                        <div class="carousel-item active" style="background-image: url('/img/productos/image-needed.png')">
+                                        </div>
+                                    <% } %>
                                 </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel-2" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -228,7 +230,7 @@
             <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">TE PUEDE INTERESAR</h2>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <% for (i = 0; i < 4; i++) { %>
+                    <% for (i = 0; i < 4 && i < productos.length; i++) { %>
                     <div class="col mb-5">
                         <div class="card h-100">
                             <% if (typeof productos[i].discount === 'number') { %>
@@ -236,18 +238,12 @@
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <% } %>
                             <!-- Product image-->
-                            <a class="link-image" href="/products/detail/<%=productos[i].id %>"><img class="card-img-top" src="/img/productos/<%=productos[i].image[0] %>" alt="<%=productos[i].name %>" /></a>
+                            <a class="link-image" href="/products/detail/<%=productos[i].id %>"><img class="card-img-top" src="/img/productos/<%= productos[i].image[0] ? productos[i].image[0] : 'image-needed.png' %>" alt="<%=productos[i].name %>" /></a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
                                     <a href="/products/detail/<%=productos[i].id %>"><h5 class="fw-bolder"><%=productos[i].name %></h5></a>
-                                    <% if (typeof productos[i].discount === 'number') { %>
-                                    <!-- Product price and Discount-->
-                                    <span class="text-muted text-decoration-line-through">$<%=productos[i].price %></span>
-                                    $<%=productos[i].discount %><br>
-                                    <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(productos[i].discount / 6) %></strong></div>
-                                    <% } else { %>
                                     <!-- Product reviews-->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
                                         <div class="fa fa-star"></div>
@@ -256,6 +252,12 @@
                                         <div class="fa fa-star"></div>
                                         <div class="fa fa-star-half"></div>
                                     </div> 
+                                    <% if (typeof productos[i].discount === 'number') { %>
+                                    <!-- Product price and Discount-->
+                                    <span class="text-muted text-decoration-line-through">$<%=productos[i].price %></span>
+                                    $<%=productos[i].discount %><br>
+                                    <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(productos[i].discount / 6) %></strong></div>
+                                    <% } else { %>
                                     <!-- Product price-->
                                     $<%=productos[i].price %><br>
                                     <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(productos[i].price / 6) %></strong></div>

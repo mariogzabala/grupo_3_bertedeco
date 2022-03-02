@@ -100,7 +100,7 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <% for (i = 0; i < 8; i++) { %>
+                    <% for (i = 0; i < 8 && i < productos.length; i++) { %>
                     <div class="col mb-5">
                         <div class="card h-100">
                             <% if (typeof productos[i].discount === 'number') { %>
@@ -108,18 +108,12 @@
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <% } %>
                             <!-- Product image-->
-                            <a class="link-image" href="/products/detail/<%=productos[i].id %>"><img class="card-img-top" src="/img/productos/<%=productos[i].image[0] %>" alt="<%=productos[i].name %>" /></a>
+                            <a class="link-image" href="/products/detail/<%=productos[i].id %>"><img class="card-img-top" src="/img/productos/<%= productos[i].image[0] ? productos[i].image[0] : 'image-needed.png' %>" alt="<%=productos[i].name %>" /></a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
                                     <a href="/products/detail/<%=productos[i].id %>"><h5 class="fw-bolder"><%=productos[i].name %></h5></a>
-                                    <% if (typeof productos[i].discount === 'number') { %>
-                                    <!-- Product price and Discount-->
-                                    <span class="text-muted text-decoration-line-through">$<%=productos[i].price %></span>
-                                    $<%=productos[i].discount %><br>
-                                    <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(productos[i].discount / 6) %></strong></div>
-                                    <% } else { %>
                                     <!-- Product reviews-->
                                     <div class="d-flex justify-content-center small text-warning mb-2">
                                         <div class="fa fa-star"></div>
@@ -128,6 +122,12 @@
                                         <div class="fa fa-star"></div>
                                         <div class="fa fa-star-half"></div>
                                     </div> 
+                                    <% if (typeof productos[i].discount === 'number') { %>
+                                    <!-- Product price and Discount-->
+                                    <span class="text-muted text-decoration-line-through">$<%=productos[i].price %></span>
+                                    $<%=productos[i].discount %><br>
+                                    <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(productos[i].discount / 6) %></strong></div>
+                                    <% } else { %>
                                     <!-- Product price-->
                                     $<%=productos[i].price %><br>
                                     <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(productos[i].price / 6) %></strong></div>

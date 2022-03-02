@@ -49,10 +49,12 @@ let productsController = {
     /* Guardar producto desde crear Francys*/
     store: function(req, res) {
 
+        let notSave = []
+
         let productoCreado = {
             id: parseInt(req.body.id),
             name: req.body.name,
-            price: parseInt(req.body.price.replace(/[.,/#!$%^&*;:"{}=-_`~()' ]+/g, "")),
+            price: parseInt(req.body.price.replace(/\D+/g, "")),
             discount: '',
             category: req.body.category,
             delivery: parseInt(req.body.delivery),
@@ -60,25 +62,21 @@ let productsController = {
             image: []
         }
 
-        let discount = req.body.discount.replace(/[.,/#!$%^&*;:"{}=-_`~()' ]+/g, "")
+        let discount = req.body.discount.replace(/\D+/g, "")
 
         if (!isNaN(discount) && !isNaN(parseFloat(discount))) {
             productoCreado.discount = parseInt(discount)                    
         }
 
-        if (Array.isArray(req.files.foto)) {
-            for (let image of req.files.foto) {
-                let name = image.name
-                let extName = image.mimetype
-                if (imgList.includes(extName) && image.size <= 512000) {
-                    productoCreado.image.push(name)
-                    image.mv(storepath + name, (err) => {
-                        if (err) {res.send(err)}
-                    })
-                }
-            }
+        let fotos = []
+
+        if (!Array.isArray(req.files.foto)) {
+            fotos.push(req.files.foto)
         } else {
-            let image = req.files.foto
+            fotos = req.files.foto
+        }
+
+        for (let image of fotos) {
             let name = image.name
             let extName = image.mimetype
             if (imgList.includes(extName) && image.size <= 512000) {
@@ -86,6 +84,8 @@ let productsController = {
                 image.mv(storepath + name, (err) => {
                     if (err) {res.send(err)}
                 })
+            } else {
+                notSave.push(name)
             }
         }
         
@@ -93,7 +93,11 @@ let productsController = {
 
         fs.writeFileSync(productsFilePath, JSON.stringify(products,null,' '))
 
-        res.redirect(`/products/detail/${productoCreado.id}`)
+        if (notSave.length > 0) {
+            res.render('./products/editProduct', {producto: productoCreado, noguardado: notSave})
+        } else {
+            res.redirect(`/products/detail/${productoCreado.id}`)
+        }
 
         /* sharp opcional */
     },
@@ -101,6 +105,7 @@ let productsController = {
     /* Mostrar formulario editar producto Mario*/
     edit: function(req, res) {
 
+        let notSave = []
         let idProductoSeleccionado = req.query.id
         let productoEditado = {
             id: "",
@@ -127,7 +132,7 @@ let productsController = {
             }
         }
 
-        res.render('./products/editProduct', {producto: productoEditado, busqueda: idProductoSeleccionado})
+        res.render('./products/editProduct', {producto: productoEditado, busqueda: idProductoSeleccionado, noguardado: notSave})
     },
 
     /* Actualizar producto desde editar Mario*/
@@ -136,24 +141,36 @@ let productsController = {
         const productoEditado = req.body
         const idBuscado = req.body.id
         let productosNuevos = products
+        let fotos = []
+        let notSave = []
         
         for(let item of productosNuevos) {
             if (item.id == idBuscado) {
                 item.id = parseInt(productoEditado.id)
                 item.name = productoEditado.name
-                item.price = parseInt(productoEditado.price.replace(/[.,/#!$%^&*;:"{}=-_`~()' ]+/g, ""))
-                let discount = productoEditado.discount.replace(/[.,/#!$%^&*;:"{}=-_`~()' ]+/g, "")
+                item.price = parseInt(productoEditado.price.replace(/\D+/g, ""))
+                
+                let discount = productoEditado.discount.replace(/\D+/g, "")
+                
                 if (!isNaN(discount) && !isNaN(parseFloat(discount))) {
                     item.discount = parseInt(discount)                   
                 } else {
                     item.discount = ''
                 }                 
+                
                 item.category = productoEditado.category
                 item.delivery = parseInt(productoEditado.delivery)
                 item.description = productoEditado.description
                 item.image = item.image
-                if (req.files !== null && Array.isArray(req.files.foto)) {
-                    for (let image of req.files.foto) {
+                
+                if (req.files !== null && !Array.isArray(req.files.foto)) {
+                    fotos.push(req.files.foto)
+                } else if (req.files !== null && Array.isArray(req.files.foto)) {
+                    fotos = req.files.foto
+                }
+                
+                if (req.files !== null) {
+                    for (let image of fotos) {
                         let name = image.name
                         let extName = image.mimetype
                         if (imgList.includes(extName) && image.size <= 512000) {
@@ -161,26 +178,26 @@ let productsController = {
                             image.mv(storepath + name, (err) => {
                                 if (err) {res.send(err)}
                             })
+                        } else {
+                            notSave.push(name)
                         }
                     }
-                } else if (req.files !== null) {
-                    let image = req.files.foto
-                    let name = image.name
-                    let extName = image.mimetype
-                    if (imgList.includes(extName) && image.size <= 512000) {
-                        item.image.push(name)
-                        image.mv(storepath + name, (err) => {
-                            if (err) {res.send(err)}
-                        })
-                    }
                 }
-                break
+                
+            break
+
             }                
         }
        
         fs.writeFileSync(productsFilePath, JSON.stringify(productosNuevos,null,' '))       
         
-        res.redirect(`/products/detail/${idBuscado}`)
+        if (notSave.length > 0) {
+            res.render('./products/editProduct', {producto: productoEditado, noguardado: notSave})
+        } else {
+            res.redirect(`/products/detail/${idBuscado}`)
+        }
+
+        /* sharp opcional */
     },
 
     /* Eliminar producto desde editar Julian*/

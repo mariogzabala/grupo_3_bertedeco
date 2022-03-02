@@ -58,8 +58,7 @@ a {
 }
 
 .file-not-found > strong{
-  color: rgb(241, 11, 11);
-  text-transform: uppercase;
+  color: #dc3545;
 }
 
 input:invalid+.invalid-feedback > .must-number:before {
@@ -79,7 +78,7 @@ input:invalid+.invalid-feedback > .must-number+[type="submit"] {
 }
 
 input:invalid+.must-number2:before {
-  content: 'Solo ingrese numeros';/* add text untill patterns matches */
+  content: 'Ingrese solo numeros';/* add text untill patterns matches */
   width: 100%;
   margin-top: 0.25rem;
   font-size: .875em;
@@ -88,6 +87,11 @@ input:invalid+.must-number2:before {
 
 input:invalid+.must-number2+[type="submit"] {
   display: none; /* hide input submit untill pattern matches */
+}
+
+.not-saved > p {
+  margin-top: 1rem;
+  color: #dc3545;
 }
 
 
