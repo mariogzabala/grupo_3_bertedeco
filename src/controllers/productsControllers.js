@@ -120,19 +120,19 @@ let productsController = {
             /* Si la foto (image) es del tipo que queremos y pesa menos de 500 kb, se guarda*/
             if (imgList.includes(extName) && image.size <= 512000) {
                 
-                productoCreado.image.push(uniqName) /* Guardamos en el nuevo producto (mirar linea 94) */
+                productoCreado.image.push(uniqName) /* Guardamos en el nuevo producto (mirar linea 93) */
                 
-                /* Guardamos en la carpeta public/img/productos (mirar linea 9)*/
+                /* Guardamos en la carpeta public/img/productos (mirar linea 8)*/
                 image.mv(storepath + uniqName, (err) => {
                     if (err) {res.send(err)}
                 })
             } else {
-                /* Si no es aceptado se agrega a este array (mirar linea 83) */
+                /* Si no es aceptado se agrega a este array (mirar linea 82) */
                 notSave.push(name)
             }
         }
         
-        /* Se agrega el produco a la variable que contiene el JSON (mirar linea 80) */
+        /* Se agrega el produco a la variable que contiene el JSON (mirar linea 79) */
         productsStor.push(productoCreado);
 
         /* Se sobre-escribe el JSON con el nuevo producto */
@@ -149,7 +149,7 @@ let productsController = {
         /* sharp opcional para comprimir imagenes*/
     },
 
-    /* Mostrar formulario editar producto Mario*/
+    /* Mostrar formulario editar producto */
     edit: function(req, res) {
 
         /* Lee y guarda el JSON en esta variable cada vez que se abre editar producto,
@@ -176,7 +176,7 @@ let productsController = {
         
         /* Buscamos el producto en el JSON */
         for (let item of productsEdit){
-            /* Si lo encontramos, actualizamos el producto de la linea 167 con esos valores */
+            /* Si lo encontramos, actualizamos el producto de la linea 166 con esos valores */
             if (item.id == idProductoSeleccionado) {
                 productoEditado.id = item.id
                 productoEditado.name = item.name
@@ -195,7 +195,7 @@ let productsController = {
         res.render('./products/editProduct', {producto: productoEditado, busqueda: idProductoSeleccionado, noguardado: notSave})
     },
 
-    /* Actualizar producto desde editar Mario*/
+    /* Actualizar producto desde editar */
     update: function(req, res) {
 
         /* Del formulario (body) obtenemos los datos (objeto)*/
@@ -216,10 +216,10 @@ let productsController = {
         
          /* Buscamos el producto en el JSON */
         for(let item of productsUpd) {
-             /* Si lo encontramos, actualizamos el producto con los datos de la linea 203 */
+             /* Si lo encontramos, actualizamos el producto con los datos de la linea 202 */
             if (item.id == idBuscado) {
 
-                /* Parte de esto ya se explicó desde la linea 87 hasta la 131 (cambia el orden un poquito)*/
+                /* Parte de esto ya se explicó desde la linea 86 hasta la 130 (cambia el orden un poquito)*/
                 item.id = parseInt(productoEditado.id)
                 item.name = productoEditado.name
                 item.price = parseInt(productoEditado.price.replace(/\D+/g, ""))
@@ -279,7 +279,7 @@ let productsController = {
         /* sharp opcional para comprimir imagenes*/
     },
 
-    /* Eliminar producto desde editar Julian*/
+    /* Eliminar producto desde editar */
     destroy: function(req, res) {
 
         
