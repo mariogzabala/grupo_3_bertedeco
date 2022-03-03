@@ -62,7 +62,7 @@ a {
 }
 
 input:invalid+.invalid-feedback > .must-number:before {
-  content: 'Solo ingrese numeros';/* add text untill patterns matches */
+  content: 'Ingrese solo numeros';/* add text untill patterns matches */
   width: 100%;
   margin-top: 0.25rem;
   font-size: .875em;
