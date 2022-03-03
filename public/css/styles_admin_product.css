@@ -51,13 +51,13 @@ a {
   margin-top: 3%;
 }
 
-.file-not-found {
+.user-fail {
   color: gray;
   text-align: center;
   margin-top: 2vh;
 }
 
-.file-not-found > strong{
+.user-fail > strong{
   color: #dc3545;
 }
 

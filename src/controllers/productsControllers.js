@@ -55,6 +55,9 @@ let productsController = {
         /* Lee y guarda el JSON en esta variable cada vez que se abre crear producto,
         para tener todo actualizado */
         let productsCre = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'))
+
+        /* Por ahora el producto no existe */
+        let existProduct = false
         
         /* se inicializa como nada (undefined) */
         let idNuevo
@@ -68,7 +71,7 @@ let productsController = {
         }
 
          /* Se renderiza crear producto pasandole la id del producto que sera creado*/
-        res.render('./products/createProduct', {idNuevo: idNuevo})
+        res.render('./products/createProduct', {idNuevo: idNuevo, existe: existProduct})
     },
 
     /* Guardar producto desde crear */
@@ -80,6 +83,31 @@ let productsController = {
         
         /* Aqui guardaremos los archivos que no sean aceptados */
         let notSave = []
+
+        /* se inicializa como nada (undefined) */
+        let idNuevo
+        
+        /* Miramos si hay al menos un producto en el JSON */
+        if (productsStor[productsStor.length-1] === undefined) {
+            idNuevo = 1 /* No hay, empezamos en 1 */
+        } else {
+            /* Si hay, pasamos el id del producto que sera creado */
+            idNuevo = productsStor[productsStor.length-1].id + 1
+        }
+
+        /* Por ahora el producto no existe */
+        let existProduct = false
+
+        /* Buscamos en el JSON para ver si existe el producto */
+        for (let p of productsStor){
+            if (p.id == req.body.id) {
+                /* Se encontró, No debemos guardarlo de nuevo */
+                existProduct = true
+                /* Se renderiza el formulario para mostrar un mensaje de que ya existe */
+                /* El return es super importante para no ejecutar nada despues de renderizar el formulario */
+                return res.render('./products/createProduct', {idNuevo: idNuevo, existe: existProduct})
+            }
+        }
 
         /* Del formulario (body) creamos un nuevo producto (objeto)*/
         let productoCreado = {
