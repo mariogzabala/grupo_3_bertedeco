@@ -148,19 +148,19 @@ let productsController = {
             /* Si la foto (image) es del tipo que queremos y pesa menos de 500 kb, se guarda*/
             if (imgList.includes(extName) && image.size <= 512000) {
                 
-                productoCreado.image.push(uniqName) /* Guardamos en el nuevo producto (mirar linea 93) */
+                productoCreado.image.push(uniqName) /* Guardamos en el nuevo producto (mirar linea 121) */
                 
                 /* Guardamos en la carpeta public/img/productos (mirar linea 8)*/
                 image.mv(storepath + uniqName, (err) => {
                     if (err) {res.send(err)}
                 })
             } else {
-                /* Si no es aceptado se agrega a este array (mirar linea 82) */
+                /* Si no es aceptado se agrega a este array (mirar linea 85) */
                 notSave.push(name)
             }
         }
         
-        /* Se agrega el produco a la variable que contiene el JSON (mirar linea 79) */
+        /* Se agrega el produco a la variable que contiene el JSON (mirar linea 82) */
         productsStor.push(productoCreado);
 
         /* Se sobre-escribe el JSON con el nuevo producto */
@@ -204,7 +204,7 @@ let productsController = {
         
         /* Buscamos el producto en el JSON */
         for (let item of productsEdit){
-            /* Si lo encontramos, actualizamos el producto de la linea 166 con esos valores */
+            /* Si lo encontramos, actualizamos el producto de la linea 194 con esos valores */
             if (item.id == idProductoSeleccionado) {
                 productoEditado.id = item.id
                 productoEditado.name = item.name
@@ -244,10 +244,10 @@ let productsController = {
         
          /* Buscamos el producto en el JSON */
         for(let item of productsUpd) {
-             /* Si lo encontramos, actualizamos el producto con los datos de la linea 202 */
+             /* Si lo encontramos, actualizamos el producto con los datos de la linea 233 */
             if (item.id == idBuscado) {
 
-                /* Parte de esto ya se explicó desde la linea 86 hasta la 130 (cambia el orden un poquito)*/
+                /* Parte de esto ya se explicó desde la linea 113 hasta la 161 (cambia el orden un poquito)*/
                 item.id = parseInt(productoEditado.id)
                 item.name = productoEditado.name
                 item.price = parseInt(productoEditado.price.replace(/\D+/g, ""))
