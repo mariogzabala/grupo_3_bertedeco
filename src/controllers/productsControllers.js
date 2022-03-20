@@ -265,6 +265,24 @@ let productsController = {
                 item.description = productoEditado.description
                 item.image = item.image
                 
+                /*borrar imagenes*/
+                let eliminar=[]
+                for( let index = 0; index < item.image.length; index++ ) {
+                    let borrar='borrar'+index
+            
+                    if (productoEditado[borrar]!==undefined){
+                        eliminar.push(productoEditado[borrar])
+                    }
+                }   
+            
+                let updateImages = item.image.filter(imagen => !eliminar.includes(imagen))
+                
+                item.image=updateImages
+                /* Se elimina cada imagen del producto */
+                for (let eliminada of eliminar) {
+                    fs.unlinkSync(storepath + eliminada)
+                }
+                    
                 if (req.files !== null && !Array.isArray(req.files.foto)) {
                     fotos.push(req.files.foto)
                 } else if (req.files !== null && Array.isArray(req.files.foto)) {
@@ -292,7 +310,7 @@ let productsController = {
 
             }                
         }
-       
+
         /* Se sobre-escribe el JSON con el producto editado*/
         fs.writeFileSync(productsFilePath, JSON.stringify(productsUpd,null,' '))       
         
