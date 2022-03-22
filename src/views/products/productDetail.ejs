@@ -63,6 +63,7 @@
                         </h2>
                         <% if (typeof producto.discount === 'number') { %>
                         <h3 class="price-container">
+                        <span class="text-muted text-decoration-line-through">$<%=producto.price %></span>
                         $<%=producto.discount %>
                         <!-- <small>*includes tax</small> -->
                         </h3>
@@ -80,6 +81,7 @@
                         <i class="fa fa-star-half text-muted"></i>
                         <span class="votos fa fa-2x">(109) Votos</span>
                         <a href="javascript:void(0);">27 reseñas</a>
+                        <h6>SKU: 000<%=producto.id %></h6>
                         <hr />
                         <div class="certified">
                             <ul>
