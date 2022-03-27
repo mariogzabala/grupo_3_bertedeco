@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const bcrypt = require('bcryptjs')
 
 /* Donde esta el JSON */
 const usersFilePath = path.join(__dirname, '../database/usersDataBase.json')
@@ -32,7 +33,9 @@ let userController = {
 
     register: function(req, res) {
         /* Mostrar el formulario de registro */
-        res.render('./users/register')
+        let existe = false;
+        
+        res.render('./users/register', {existe: existe})
     },
 
     store: function(req, res) {
@@ -41,7 +44,31 @@ let userController = {
         ya esta registrado el email, devolver un mensaje de error indicando esto
         cifrar la contraseña, hacer el proceso de las cookies o session
         si se tiene exito redireccionar a la pagina de perfil del usuario */
+    /*buscar el e-mail para saber que no esta registrado el usuario */
+        let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))  
+        let existe = true;        
+        for (let user of users){
+            if (user.email == req.body.email) {
+                return res.render('./users/register', {existe: existe})
+            }
+        }
+        let new_user = {
+            id: users[users.length-1].id + 1,
+            first_name:req.body.first_name,
+            last_name: req.body.last_name,
+            email: req.body.email,
+            password: bcrypt.hashSync(req.body.password, 8),
+            category: "users",
+            image:""
+        }
+
+        users.push(new_user);
+        fs.writeFileSync(usersFilePath, JSON.stringify(users,null,' '))
+        res.redirect ('/users/login')
+
+        console.log (req.body)
     },
+
 
     profile: function(req, res) {
         /* Mostrar el perfil del usuario */

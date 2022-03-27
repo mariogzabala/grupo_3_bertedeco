@@ -19,41 +19,99 @@
     <%- include('../partials/header') %>
 
     <!-- Formulario-->
-    <section class= "formbox">
-        
-        <div><form >
-            <p id="titulo"><strong>Comprá más rápido y llevá el control de tus pedidos, ¡en un solo lugar!!</strong></p>
-            <label>Nombre</label>
-            <p>
-            <input type="text" class="form-border" placeholder="ej. María Pérez"/>
-            </p>
-            <label>E-mail</label>
-            <p>       
-                <input type="email" class="form-border" placeholder="ej. nombre@correo.com"/>
-            </p>
-            <label>teléfono (opcional)</label>
-            <p>       
-                <input type="number" class="numero" placeholder="ej. 1137651432"/>
-            </p>
-
-            <label> Contraseña</label>
-            <p>
-                <input type="password"  class="form-border" placeholder="Ingrese Contraseña"/>
-            </p>
-            <label> Confirmar contraseña</label>
-            <p>
-                <input type="password"  class="form-border"/>
-            </p>
-            <p>
-                <button id="submitbutton" type="button">Crear Cuenta</button>
-                </p>
+    <div class="container">
+        <div class=" row">
+            <div class="col-md-12 order-md-1">
+            <h4 class="mb-3">Crear Cuenta</h4>
+            <form class="needs-validation" method="POST" action="/users/register/" novalidate > 
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                <label for="firstName">Nombres</label>
+                <input type="text" class="form-control" id="firstName" placeholder="" name="first_name" required>
+                <div class="invalid-feedback">
+                    Este campo es obligatorio.
+                </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                <label for="lastName">Apellidos</label>
+                <input type="text" class="form-control" id="lastName" placeholder="" name="last_name" required>
+                <div class="invalid-feedback">
+                    Este campo es obligatorio.
+                </div>
+                </div>
+            </div>
+            
+    
+            <div class="mb-3">
+                <label for="email">Email </label>
+                <input type="email" class="form-control" id="email" name= "email" placeholder="tucorreo@mail.com" required>
+                <div class="invalid-feedback">
+                    Este campo es obligatorio.
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="inputPassword">Contraseña</label>
+                <input type="password" id="inputPassword" class="form-control" name="password"  placeholder="Contraseña" required>
                 
-            <p id="centrado"> Ya tenés cuenta <a href="/users/login" > <strong> Iniciá Sesión</strong> </a> </p>
-          </form></div>
-    </section>
+              </div>
 
+              <div class="mb-3">
+                <label for="inputPassword">Confirmar Contraseña</label>  
+                <input type="password" id="inputConfirmation" class="form-control" name="confirmation"  placeholder="Confirmar Contraseña" required>
+                
+              </div>  
+
+              <div class="mb-3">
+              <% if (existe) { %> 
+                  <p>El email registrado ya existe</p>
+              <% } %>  
+              </div>  
+
+              <button class="btn btn-lg btn-primary btn-block" type="submit">Registrarse</button>            
+            </form>
+        </div>
+        </div>
+    </div>
+</div> 
     <!-- Footer-->
     <%- include('../partials/footer') %>
+    <script>
+      var password = document.getElementById("inputPassword"),
+      confirm_password = document.getElementById("inputConfirmation");
 
+      function validatePassword(){
+        if(password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Contraseña no coinciden");
+        } 
+        else {
+        confirm_password.setCustomValidity('');
+        }
+      }
+      password.onchange = validatePassword;
+      confirm_password.onkeyup = validatePassword;
+    </script>
+
+    <script> 
+    (function () {
+        'use strict'
+      
+        window.addEventListener('load', function () {
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.getElementsByClassName('needs-validation')
+      
+          // Loop over them and prevent submission
+          Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault()
+                event.stopPropagation()
+              }
+              form.classList.add('was-validated')
+            }, false)
+          })
+        }, false)
+      }())
+      </script>
 </body>
 </html>
