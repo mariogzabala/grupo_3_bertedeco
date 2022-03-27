@@ -77,7 +77,7 @@
               </div>
 
               <div class="col-md-6 mb-3">
-                <label for="discount">Valor Con Descuento <span class="text-muted">(Opcional)</span></label>
+                <label for="discount">% de Descuento <span class="text-muted">(Opcional)</span></label>
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">%</span>
@@ -129,7 +129,19 @@
                 </div>
               </div>
             </div>
+            <hr class="mb-4">
+            <h4 class="mb-3">Seleccione las imágenes que desea borrar</h4>
+            <div class="row-image">
+            <% for( let index = 0; index < producto.image.length; index++ ) { %>
+               <img src="/img/productos/<%=producto.image[index]%>" style="width:100px;" alt="<%=producto.image[index]%>"/> 
+                <div class="checkbox mb-3">
+                    <label>
+                    <input type="checkbox" name="borrar<%=index%>" value="<%=producto.image[index]%>"> Borrar
+                  </label>
+                </div>
+            <% } %>
             
+            </div>
             <hr class="mb-4">
             
             <h4 class="mb-3">Cargar Imagenes</h4>

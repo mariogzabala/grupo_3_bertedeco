@@ -120,12 +120,12 @@ let productsController = {
             description: req.body.description,
             image: [] /* Aqui guardaremos las imagenes del producto */
         }
-
         let discount = req.body.discount.replace(/\D+/g, "")
-
+        
         /* Si hay descuento se convierte a numero y se guarda */
         if (!isNaN(discount) && !isNaN(parseFloat(discount))) {
-            productoCreado.discount = parseInt(discount)                    
+            discount = (productoCreado.price*parseInt(discount))/100;
+            productoCreado.discount = productoCreado.price - discount                    
         }
 
         /* Aqui pondremos la imagens para recorrelas mas adelante */
@@ -255,7 +255,8 @@ let productsController = {
                 let discount = productoEditado.discount.replace(/\D+/g, "")
                 
                 if (!isNaN(discount) && !isNaN(parseFloat(discount))) {
-                    item.discount = parseInt(discount)                   
+                    discount = (item.price*parseInt(discount))/100;
+                    item.discount = item.price - discount                  
                 } else {
                     item.discount = ''
                 }                 
@@ -265,6 +266,24 @@ let productsController = {
                 item.description = productoEditado.description
                 item.image = item.image
                 
+                /*borrar imagenes*/
+                let eliminar=[]
+                for( let index = 0; index < item.image.length; index++ ) {
+                    let borrar='borrar'+index
+            
+                    if (productoEditado[borrar]!==undefined){
+                        eliminar.push(productoEditado[borrar])
+                    }
+                }   
+            
+                let updateImages = item.image.filter(imagen => !eliminar.includes(imagen))
+                
+                item.image=updateImages
+                /* Se elimina cada imagen del producto */
+                for (let eliminada of eliminar) {
+                    fs.unlinkSync(storepath + eliminada)
+                }
+                    
                 if (req.files !== null && !Array.isArray(req.files.foto)) {
                     fotos.push(req.files.foto)
                 } else if (req.files !== null && Array.isArray(req.files.foto)) {
@@ -292,7 +311,7 @@ let productsController = {
 
             }                
         }
-       
+
         /* Se sobre-escribe el JSON con el producto editado*/
         fs.writeFileSync(productsFilePath, JSON.stringify(productsUpd,null,' '))       
         

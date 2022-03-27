@@ -67,6 +67,16 @@ a {
   color: #dc3545;
 }
 
+.row-image{
+  display: flex;/*add style to edit image*/
+  flex-wrap: nowrap;
+  width: 50%;
+  align-items: baseline;
+  justify-content: space-evenly;
+  text-align: left;
+  flex-direction: row;
+}
+
 input:invalid+.invalid-feedback > .must-number:before {
   content: 'Ingrese solo numeros';/* add text untill patterns matches */
   width: 100%;
