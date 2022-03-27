@@ -134,5 +134,35 @@
     "cvv": "321"
    }
   ]
+ },
+ {
+  "id": 12,
+  "first_name": "rocio",
+  "last_name": "gomez",
+  "email": "rociogomes@hotmail.com",
+  "password": "$2a$10$/5OTLst.BvCNzdzMy4S4se46CK9WCB9YiWFyqsDLeXi4b/32RwHdu",
+  "category": "users",
+  "image": "User1648410713729testimonial-4.jpg",
+  "phone": "3102458550",
+  "address_list": [
+   {
+    "address_id": 1,
+    "place": "Casa estela",
+    "address": "Calle 127D #57C-09",
+    "neighborhood": "Las villas",
+    "zipcode": "111111",
+    "country": "Colombia",
+    "estate": "Cundinamarca"
+   }
+  ],
+  "payment_list": [
+   {
+    "payment_id": 1,
+    "name": "rocio gomez",
+    "number": "123456789123456",
+    "date": "02/23",
+    "cvv": "123"
+   }
+  ]
  }
 ]

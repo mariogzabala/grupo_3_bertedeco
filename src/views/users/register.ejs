@@ -22,7 +22,8 @@
     <div class="container">
         <div class=" row">
             <div class="col-md-12 order-md-1">
-            <h4 class="mb-3">Crear Cuenta</h4>
+            <h3 class="mb-3 title">Bienvenido a BerteDeco</h3>
+            <h4 class="mb-3 title">Crea una Cuenta</h4>
             <form class="needs-validation" method="POST" action="/users/register/" novalidate > 
             <div class="row">
                 <div class="col-md-6 mb-3">
@@ -40,8 +41,7 @@
                 </div>
                 </div>
             </div>
-            
-    
+                
             <div class="mb-3">
                 <label for="email">Email </label>
                 <input type="email" class="form-control" id="email" name= "email" placeholder="tucorreo@mail.com" required>
@@ -62,9 +62,9 @@
                 
               </div>  
 
-              <div class="mb-3">
+              <div class="fail">
               <% if (existe) { %> 
-                  <p>El email registrado ya existe</p>
+                  <p>El email ingresado ya se encuentra registrado</p>
               <% } %>  
               </div>  
 
@@ -73,10 +73,11 @@
         </div>
         </div>
     </div>
-</div> 
+
     <!-- Footer-->
     <%- include('../partials/footer') %>
-    <script>
+    
+    <!-- <script>
       var password = document.getElementById("inputPassword"),
       confirm_password = document.getElementById("inputConfirmation");
 
@@ -90,7 +91,7 @@
       }
       password.onchange = validatePassword;
       confirm_password.onkeyup = validatePassword;
-    </script>
+    </script> -->
 
     <script> 
     (function () {
@@ -113,5 +114,6 @@
         }, false)
       }())
       </script>
+
 </body>
 </html>

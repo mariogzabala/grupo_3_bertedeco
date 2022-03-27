@@ -64,10 +64,6 @@ a {
   color: #58574f;
 }
 
-
-
-
-
 /* .navbar-brand span {
   display: block;
   font-size: 12px;
@@ -221,34 +217,31 @@ a {
 
 /* para el formulario Nuevo */
 
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-@media (min-width: 768px) {
-  .bd-placeholder-img-lg {
-    font-size: 3.5rem;
-  }
-}
-
 .container{
-  margin-bottom: 10%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.title {
+  text-align: center;
+  color: #0a1316;
+  margin-bottom: 2rem!important;
+}
+
+.fail {
+  text-align: center;
+  margin-top: 2vh;
+  color: #dc3545;
 }
 
 .btn {
-  background-color: grey;
+  background-color: rgb(199, 178, 153);
   border: none;
   margin-top:3%;
 }
 
 
 .btn:hover {
-  background-color:rgb(199, 178, 153);
-
+  background-color:#0a1316;
 }
 

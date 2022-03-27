@@ -44,29 +44,34 @@ let userController = {
         ya esta registrado el email, devolver un mensaje de error indicando esto
         cifrar la contraseña, hacer el proceso de las cookies o session
         si se tiene exito redireccionar a la pagina de perfil del usuario */
-    /*buscar el e-mail para saber que no esta registrado el usuario */
+    
         let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))  
+        
         let existe = true;        
+        
+        /*buscar el e-mail para saber que no esta registrado el usuario */
         for (let user of users){
             if (user.email == req.body.email) {
                 return res.render('./users/register', {existe: existe})
             }
         }
+
         let new_user = {
             id: users[users.length-1].id + 1,
-            first_name:req.body.first_name,
+            first_name: req.body.first_name,
             last_name: req.body.last_name,
             email: req.body.email,
-            password: bcrypt.hashSync(req.body.password, 8),
+            password: bcrypt.hashSync(req.body.password, 10),
             category: "users",
-            image:""
+            image: "",
+            phone: "",
+            address_list: [],
+            payment_list: []
         }
 
         users.push(new_user);
         fs.writeFileSync(usersFilePath, JSON.stringify(users,null,' '))
         res.redirect ('/users/login')
-
-        console.log (req.body)
     },
 
 
@@ -365,8 +370,9 @@ let userController = {
                 
                 /* hacer todo lo del cifrado */
                 /* Se actualiza la contraseña si se logra validar la antigua */
-                if (user.password == req.body.oldpass) {
-                    user.password = req.body.newpass
+        
+                if (bcrypt.compareSync(req.body.oldpass, user.password)) {
+                    user.password = bcrypt.hashSync(req.body.newpass, 10)
                 } else {
                     /* Se envia un mensaje de error */
                     userError = user
