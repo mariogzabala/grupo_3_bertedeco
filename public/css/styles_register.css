@@ -64,6 +64,10 @@ a {
   color: #58574f;
 }
 
+
+
+
+
 /* .navbar-brand span {
   display: block;
   font-size: 12px;
@@ -215,75 +219,36 @@ a {
 
 }
 
-/* Body Header, Footer y otros generales */
+/* para el formulario Nuevo */
 
-/* Formulario */
-
-*{box-sizing:border-box;}
-
-.formbox{
-	width:100%;
-  padding-left:20%;
-  padding-right:20%;
-  padding-top:7%;
-	border-radius:50px;
-	margin:auto;
-	background-color:transparent;
-  color:black;
-  font-family: "Bahnschrift";
-  font-size: 16px;
-  justify-items: center;
-  justify-content: center;
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-#submitbutton{
-  height:50px;
-  width: 100%;
-  color:white;
-  font-family: "Bahnschrift";
-  font-size: 20px;
-  text-align: center;
-  border:none;
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.container{
+  margin-bottom: 10%;
+}
+
+.btn {
   background-color: grey;
-  text-transform: uppercase;
-
+  border: none;
+  margin-top:3%;
 }
 
-#submitbutton:hover {
+
+.btn:hover {
   background-color:rgb(199, 178, 153);
 
 }
 
-.form-border{
-  border: black 1px solid;
-  color:#888C67;
-  padding:3px 0 3px 0;
-  width:100%;
-  justify-content: center;
-  justify-items: center;
-}
-.numero{
-  height:30px;
-  width: 100%;
-  border: black 1px solid;
-}
-#titulo{
-  text-align:center;
-  }
-
-#parent {
-  display: table;
-  width: 90%;
-}
-#form_login {
-  display: table-cell;
-  vertical-align: middle;
-  width: 100%;
-}
-
-#centrado {
-  text-align: center;
-  font-size: 16px;
-  
-
-}
