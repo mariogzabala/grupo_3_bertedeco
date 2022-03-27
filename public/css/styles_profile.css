@@ -211,3 +211,69 @@ a {
 }
 
 /* Body Header, Footer y otros generales */
+
+/* Profile */
+
+.profile {
+  border: 8px solid rgb(199, 178, 153);
+  padding: 2rem;
+}
+
+.fail {
+  text-align: center;
+  margin-top: 2vh;
+  color: #dc3545;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: rgba(0,0,0,.55)
+}
+
+.profile-button {
+  background: rgb(199, 178, 153);
+  box-shadow: none;
+  border: none
+}
+
+.profile-button:hover {
+  background: rgb(0,0,0)
+}
+
+.profile-button:focus {
+  background: rgb(0,0,0);
+  box-shadow: none
+}
+
+.profile-button:active {
+  background: rgb(0,0,0);
+  box-shadow: none
+}
+
+.back:hover {
+  color: rgb(0,0,0);
+  cursor: pointer
+}
+
+.labels {
+  font-size: 11px
+}
+
+.mx-1 {
+  margin: 0.25rem;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  color: #fff;
+  background-color: rgb(199, 178, 153);
+}
+
+.nav-link {
+  color: #0a1316;
+  padding: 0.5rem 1rem;
+}
+
+.nav-link:hover {
+  color: rgba(0,0,0,.55);
+  padding: 0.5rem 1rem;
+}

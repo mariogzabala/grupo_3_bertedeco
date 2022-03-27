@@ -20,8 +20,366 @@
 
     <!-- Main -->
 
+    <% if (passError) { %>
+        <div class="fail">La contraseña actual es incorrecta, no se pudo actualizar la contraseña</div>
+    <% } %>
+
+    <% if (imgError) { %>
+        <div class="fail">La imagen subida no cumple con los requisitos, no se pudo actualizar la imagen</div>
+    <% } %>
+
+    <div class="container rounded bg-white mt-5 mb-5 profile">
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="/img/users/<%= user.image ? user.image : "user.png" %>"></div>
+            </div>
+            <div class="col-md-8 border-right">
+                <nav class="nav nav-pills flex-column flex-sm-row">
+                    <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page" href="#main" data-bs-toggle="tab">Datos</a>
+                    <a class="flex-sm-fill text-sm-center nav-link" href="#direc" data-bs-toggle="tab">Direcciones</a>
+                    <a class="flex-sm-fill text-sm-center nav-link" href="#pay" data-bs-toggle="tab">Metodos de Pago</a>
+                    <a class="flex-sm-fill text-sm-center nav-link" href="#safe" data-bs-toggle="tab">Seguridad</a>
+                </nav>
+
+                
+                <div id="myTabContent" class="tab-content">
+                    <!-- Main Data -->
+                    <div class="tab-pane fade show active p-3 py-5" id="main">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">Tus Datos</h4>
+                        </div>
+                        <div class="mt-2"><button class="btn btn-primary profile-button" type="button" data-bs-toggle="modal" data-bs-target="#editMain">Editar</button></div>
+                        <div class="row mt-2">
+                            <div class="col-md-6"><label class="labels">Nombre</label><input type="text" class="form-control" value="<%=user.first_name%>" readonly></div>
+                            <div class="col-md-6"><label class="labels">Apellido</label><input type="text" class="form-control" value="<%=user.last_name%>" readonly></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12"><label class="labels">Telefono</label><input type="text" class="form-control" value="<%=user.phone%>" readonly></div>
+                            <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control"value="<%=user.email%>" readonly></div>
+                        </div>
+                    </div>
+
+                    <!-- Edit Main -->
+                    <div id="editMain" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form method="POST" action="/users/profile/edit/main/<%=user.id%>" enctype="multipart/form-data">
+                                    <div class="modal-header">						
+                                        <h4 class="modal-title">Edita tus Datos</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">					
+                                        <div class="form-group">
+                                            <label>Nombre</label>
+                                            <input type="text" name="first_name" class="form-control" value="<%=user.first_name%>" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Apellido</label>
+                                            <input type="text" name="last_name" class="form-control" value="<%=user.last_name%>" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telefono</label>
+                                            <input type="text" name="phone" class="form-control" value="<%=user.phone%>" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Subir imagen de perfil</label>
+                                            <input type="file" name="image" class="form-control">
+                                            <label>Solo se aceptan archivos .jpg .jpeg .png de 500kb o menos.</label>
+                                        </div>					
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary profile-button">Guardar Cambios</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Direcciones -->
+                    <div class="tab-pane fade p-3 py-5" id="direc">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">Libreta de Direcciones</h4>
+                            <div class="mt-2"><button class="btn btn-primary profile-button" type="button" data-bs-toggle="modal" data-bs-target="#addDirec">Agregar Direccion</button></div>
+                        </div>
+                        <% for (let address of user.address_list) { %>
+                            <div class="col-md-12"><label class="labels">Lugar</label><input type="text" class="form-control" value="<%=address.place%>" readonly></div>
+                            <div class="col-md-12"><label class="labels">Direccion</label><input type="text" class="form-control" value="<%=address.address%>" readonly></div>
+                            <div class="row mt-3">
+                                <div class="col-md-6"><label class="labels">Vecindario</label><input type="text" class="form-control" value="<%=address.neighborhood%>" readonly></div>
+                                <div class="col-md-6"><label class="labels">Código Postal</label><input type="text" class="form-control" value="<%=address.zipcode%>" readonly></div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6"><label class="labels">País</label><input type="text" class="form-control" value="<%=address.country%>" readonly></div>
+                                <div class="col-md-6"><label class="labels">Estado/Provincia</label><input type="text" class="form-control" value="<%=address.estate%>" readonly></div>
+                            </div>
+                            <div class="mt-3"><button class="btn btn-primary profile-button" type="button" data-bs-toggle="modal" data-bs-target="#editDirec<%=address.address_id%>">Editar</button></div>
+                            <hr class="mb-4">
+                            <!-- Edit Direccion -->
+                            <div id="editDirec<%=address.address_id%>" class="modal fade">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action="/users/profile/edit/address/<%=user.id%>/<%=address.address_id%>?_method=PUT" method="POST">
+                                            <div class="modal-header">						
+                                                <h4 class="modal-title">Edita <%=address.place%></h4>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">					
+                                                <div class="form-group">
+                                                    <label>Lugar</label>
+                                                    <input type="text" name="place" class="form-control" value="<%=address.place%>" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Direccion</label>
+                                                    <input type="text" name="address" class="form-control" value="<%=address.address%>" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Vecindario</label>
+                                                    <input type="text" name="neighborhood" class="form-control" value="<%=address.neighborhood%>" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Código Postal</label>
+                                                    <input type="text" name="zipcode" class="form-control" value="<%=address.zipcode%>" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>País</label>
+                                                    <input type="text" name="country" class="form-control" value="<%=address.country%>" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Estado/Provincia</label>
+                                                    <input type="text" name="estate" class="form-control" value="<%=address.estate%>" required>
+                                                </div>					
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary profile-button">Guardar Cambios</button>
+                                            </div>
+                                        </form>
+                                        <div class="modal-footer">
+                                            <form action="/users/profile/delete/address/<%=user.id%>/<%=address.address_id%>?_method=DELETE" method="POST">
+                                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %> 
+                    </div>
+
+                    <!-- Add Direccion -->
+                    <div id="addDirec" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form action="/users/profile/create/address/<%=user.id%>" method="POST">
+                                    <div class="modal-header">						
+                                        <h4 class="modal-title">Agregar Direccion</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">					
+                                        <div class="form-group">
+                                            <label>Lugar</label>
+                                            <input type="text" name="place" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Direccion</label>
+                                            <input type="text" name="address" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Vecindario</label>
+                                            <input type="text" name="neighborhood" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Código Postal</label>
+                                            <input type="text" name="zipcode" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>País</label>
+                                            <input type="text" name="country" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Estado/Provincia</label>
+                                            <input type="text" name="estate" class="form-control" required>
+                                        </div>					
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary profile-button">Agregar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metodos de Pago -->
+                    <div class="tab-pane fade p-3 py-5" id="pay">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">Metodos de Pago</h4>
+                            <div class="mt-2"><button class="btn btn-primary profile-button" type="button" data-bs-toggle="modal" data-bs-target="#addPay">Agregar Metodo de Pago</button></div>
+                        </div>
+                        <% for (let payment of user.payment_list) { %>
+                        <div class="form-group"><label class="labels">Numero de tarjeta</label>
+                            <div class="input-group"><input type="text" class="form-control" value="**** **** **** <%=payment.number.slice(-4)%>" readonly>
+                                <div class="input-group-append"> <span class="input-group-text text-muted"> <i class="fa fa-cc-visa mx-1"></i> <i class="fa fa-cc-mastercard mx-1"></i> <i class="fa fa-cc-amex mx-1"></i> </span> </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group"><label class="labels">Fecha de vencimiento</label>
+                                    <div class="input-group"><input type="text" class="form-control" value="<%=payment.date%>" readonly></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3"><button class="btn btn-primary profile-button" type="button" data-bs-toggle="modal" data-bs-target="#editPay<%=payment.payment_id%>">Editar</button></div>
+                        <hr class="mb-4">
+                        <!-- Edit Pago -->
+                        <div id="editPay<%=payment.payment_id%>" class="modal fade">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <form action="/users/profile/edit/payment/<%=user.id%>/<%=payment.payment_id%>?_method=PUT" method="POST">
+                                        <div class="modal-header">						
+                                            <h4 class="modal-title">Editar <%=payment.number.slice(-4)%></h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">					
+                                            <div class="form-group">
+                                                <label>Nombre del titular</label>
+                                                <input type="text" name="name" class="form-control" value="<%=payment.name%>" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Numero de tarjeta</label>
+                                                <input type="text" name="number" class="form-control" value="<%=payment.number%>" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Fecha de vencimiento</label>
+                                                <input type="text" name="date" class="form-control" value="<%=payment.date%>" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Código CVV</label>
+                                                <input type="text" name="cvv" class="form-control" required>
+                                            </div>				
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary profile-button">Guardar Cambios</button>
+                                        </div>
+                                    </form>
+                                    <div class="modal-footer">
+                                        <form action="/users/profile/delete/payment/<%=user.id%>/<%=payment.payment_id%>?_method=DELETE" method="POST">
+                                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                    </div>
+
+                    <!-- Add Pago -->
+                    <div id="addPay" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form action="/users/profile/create/payment/<%=user.id%>" method="POST">
+                                    <div class="modal-header">						
+                                        <h4 class="modal-title">Agregar Metodo de Pago</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">					
+                                        <div class="form-group">
+                                            <label>Nombre del titular</label>
+                                            <input type="text" name="name" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Numero de tarjeta</label>
+                                            <input type="text" name="number" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Fecha de vencimiento</label>
+                                            <input type="text" name="date" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Código CVV</label>
+                                            <input type="text" name="cvv" class="form-control" required>
+                                        </div>				
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary profile-button">Agregar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seguridad -->
+                    <div class="tab-pane fade p-3 py-5" id="safe">
+                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" data-bs-toggle="modal" data-bs-target="#editSafe">Cambiar Contraseña</button></div>
+                    </div>
+
+                    <!-- Edit Safe -->
+                    <div id="editSafe" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form action="/users/profile/edit/pass/<%=user.id%>?_method=PUT" method="POST">
+                                    <div class="modal-header">						
+                                        <h4 class="modal-title">Cambiar Contraseña</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">					
+                                        <div class="form-group">
+                                            <label>Contraseña Actual</label>
+                                            <input type="password" name="oldpass" id="oldpass" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Nueva Contraseña</label>
+                                            <input type="password" name="newpass" id="newpass" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Confirmar Contraseña</label>
+                                            <input type="password" name="confpass" id="confpass" class="form-control" required>
+                                        </div>			
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary profile-button">Guardar Cambios</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- <div class="col-md-4"> ULTIMAS COMPRAS - FAVORITOS
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
+                    <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
+                    <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    </div>
+    </div>
+
     <!-- Footer-->
     <%- include('../partials/footer') %>
+
+    <!-- <script>
+        var old_password = document.getElementById("oldpass");
+        var password = document.getElementById("newpass");
+        var confirm_password = document.getElementById("confpass");
+
+        function validatePassword(){
+            if (password.value == "" || old_password.value == ""){
+                confirm_password.setCustomValidity("Complete todos los campos");
+            } else if (password.value != confirm_password.value){
+                confirm_password.setCustomValidity("Contraseñas no coinciden"); 
+            } else if (old_password.value == password.value){
+                password.setCustomValidity("La contraseña nueva debe ser diferente a la actual");    
+            } else {
+                password.setCustomValidity('');
+            }
+        }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+    </script> -->
 
 </body>
 </html>

@@ -24,6 +24,27 @@ router.post('/register', usersController.store)
 router.get('/profile/:id?', usersController.profile) /* Borrar el ? */
 
 /* Editar perfil del usuario*/
-router.post('/profile/edit/:id', usersController.edit)
+router.post('/profile/edit/main/:id', usersController.editmain)
+
+/* Crear direccion para usuario*/
+router.post('/profile/create/address/:id', usersController.createaddress)
+
+/* Crear pago para usuario*/
+router.post('/profile/create/payment/:id', usersController.createpayment)
+
+/* Editar direccion del usuario*/
+router.put('/profile/edit/address/:id/:add_id', usersController.editaddress)
+
+/* Editar pago del usuario*/
+router.put('/profile/edit/payment/:id/:pay_id', usersController.editpayment)
+
+/* Eliminar direccion del usuario*/
+router.delete('/profile/delete/address/:id/:add_id', usersController.deleteaddress)
+
+/* Eliminar pago del usuario*/
+router.delete('/profile/delete/payment/:id/:pay_id', usersController.deletepayment)
+
+/* Editar contraseña del usuario*/
+router.put('/profile/edit/pass/:id', usersController.editpass)
 
 module.exports = router
