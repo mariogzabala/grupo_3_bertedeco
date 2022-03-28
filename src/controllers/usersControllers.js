@@ -11,40 +11,68 @@ const storepath = path.join(__dirname, '../../public/img/users/')
 /* Los tipos de archivos aceptados */
 const imgList = ['image/png', 'image/jpeg']
 
-/* POR FAVOR ESCRIBAN CODIGO BIEN BONITO Y COMENTARIOS */
-
-let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8')) /* usen esto donde lo necesiten */
-
 let userController = {
+    /* Mostrar el formulario de login */
     login: function(req, res) {
-        /* Mostrar el formulario de login */
-        res.render('./users/login')
+        res.render('./users/login', {error: false})
     },
 
+    /* Autenticar usuario */
     authentication: function(req, res) {
-        /* Recibe el email y el password por body
-        Se busca en el json el email, si se encuentra se
-        Comparan las contraseñas, si coinciden se da acceso,
-        De lo contrario se devuelve un mensaje indicando el error.
-        Al acceder se redirecciona a un pagina con un mensaje de exito
-        desde donde se puede acceder al resto del sitio web
-        TENER EN CUENTA LO DE LAS COOKIES O SESSION*/
+
+        /* felipeag */
+        /* asdfg */
+        /* bertedeco */
+
+        let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
+        
+        for (let user of users) {
+            if(user.email == req.body.email) {
+                /* console.log(bcrypt.hashSync(req.body.password, 10)) */
+                if (bcrypt.compareSync(req.body.password, user.password)) {
+                    /* borrar informacion sensible para no pasarla a la session */
+                    delete user.password
+                    delete user.phone
+                    delete user.address_list
+                    delete user.payment_list
+                    req.session.userLogged = user
+
+                    /* Crear cookie */
+                    if (req.body.remember) {
+                        /* let randomNumber = Math.random().toString()
+                        randomNumber = randomNumber.substring(2, randomNumber.length) */
+                        res.cookie("userEmail", user.email, { maxAge: 600000 * 144, httpOnly: true })
+                    }
+
+                    return res.redirect(`/users/profile/${user.id}`)
+                } else {
+                    /* Se envia un mensaje de error */
+                    return res.render('./users/login', {error: true})
+                }        
+            break
+            }
+        }
+
+        /* Se envia un mensaje de error */
+        return res.render('./users/login', {error: true})
     },
 
+    /* Cerrar sesión */
+    logout: function(req, res) {
+        res.clearCookie('userEmail')
+        req.session.destroy()
+        return res.redirect('/home')
+    },
+
+     /* Mostrar el formulario de registro */
     register: function(req, res) {
-        /* Mostrar el formulario de registro */
         let existe = false;
         
         res.render('./users/register', {existe: existe})
     },
 
+    /* Guardar un usuario nuevo */
     store: function(req, res) {
-        /* Hacer practicamente todo el proceso de crear el usario imitando
-        lo que se hizo en crear producto. Tener en cuenta no crear un usario si
-        ya esta registrado el email, devolver un mensaje de error indicando esto
-        cifrar la contraseña, hacer el proceso de las cookies o session
-        si se tiene exito redireccionar a la pagina de perfil del usuario */
-    
         let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))  
         
         let existe = true;        
@@ -74,9 +102,8 @@ let userController = {
         res.redirect ('/users/login')
     },
 
-
+    /* Mostrar el perfil del usuario */
     profile: function(req, res) {
-        /* Mostrar el perfil del usuario */
         let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
         
         for (let user of users) {
@@ -87,11 +114,13 @@ let userController = {
         res.render('error')
     },
 
+    /* editar el perfil del usuario */
     editmain: function(req, res) {
-        /* editar el perfil del usuario */
         let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
 
         let idBuscado = req.params.id
+
+        let userError
         
         /* Buscar el usuario por id y actualizar los datos */
         for (let user of users) {
@@ -122,11 +151,14 @@ let userController = {
                         user.image = uniqName
                     
                     } else {
-                        /* Se envia un mensaje de error */
                         userError = user
-                        return res.render('./users/profile', {user: user, imgError: true, passError: false})
                     } 
                 }
+
+                /* Actualiza la session con los nuevos valores */
+                req.session.userLogged.first_name = user.first_name
+                req.session.userLogged.last_name = user.last_name
+                req.session.userLogged.image = user.image
                 
             break
 
@@ -136,12 +168,17 @@ let userController = {
         /* Se sobre-escribe el JSON con el usuario editado*/
         fs.writeFileSync(usersFilePath, JSON.stringify(users,null,' '))
 
-        /* Si todo salio bien se muestra el perfil del usuario */
-        res.redirect(`/users/profile/${idBuscado}`)
+        if (userError) {
+             /* Se envia un mensaje de error por no poder guardar la imagen*/
+            return res.render('./users/profile', {user: userError, imgError: true, passError: false})
+        } else {
+            /* Si todo salio bien se muestra el perfil del usuario */
+            res.redirect(`/users/profile/${idBuscado}`)
+        }        
     },
 
+    /* Crear direccion para usuario*/
     createaddress: function(req, res) {
-        /* Crear direccion para usuario*/
         let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
         
         let idBuscado = req.params.id
@@ -183,8 +220,8 @@ let userController = {
         res.redirect(`/users/profile/${idBuscado}`)
     },
 
+     /* Crear pago para usuario*/
     createpayment: function(req, res) {
-        /* Crear pago para usuario*/
         let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
         
         let idBuscado = req.params.id
@@ -224,8 +261,8 @@ let userController = {
         res.redirect(`/users/profile/${idBuscado}`)
     },
 
+    /* Editar direccion del usuario*/
     editaddress: function(req, res) {
-        /* Editar direccion del usuario*/
         let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
         
         let idBuscado = req.params.id
@@ -261,8 +298,8 @@ let userController = {
         res.redirect(`/users/profile/${idBuscado}`)
     },
 
+    /* Editar pago del usuario*/
     editpayment: function(req, res) {
-        /* Editar pago del usuario*/
         let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
         
         let idBuscado = req.params.id
@@ -296,8 +333,8 @@ let userController = {
         res.redirect(`/users/profile/${idBuscado}`)
     },
 
+    /* Elimina direccion del usuario*/
     deleteaddress: function(req, res) {
-        /* Elimina direccion del usuario*/
         let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
         
         let idBuscado = req.params.id
@@ -327,8 +364,8 @@ let userController = {
         res.redirect(`/users/profile/${idBuscado}`)
     },
 
+    /* Elimina pago del usuario*/
     deletepayment: function(req, res) {
-        /* Elimina pago del usuario*/
         let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
         
         let idBuscado = req.params.id
@@ -358,8 +395,8 @@ let userController = {
         res.redirect(`/users/profile/${idBuscado}`)
     },
 
+    /* Editar contraseña del usuario*/
     editpass: function(req, res) {
-        /* Editar contraseña del usuario*/
         let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
         
         let idBuscado = req.params.id
@@ -375,7 +412,6 @@ let userController = {
                     user.password = bcrypt.hashSync(req.body.newpass, 10)
                 } else {
                     /* Se envia un mensaje de error */
-                    userError = user
                     return res.render('./users/profile', {user: user, imgError: false, passError: true})
                 }
                 

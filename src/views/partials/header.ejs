@@ -16,11 +16,18 @@
                     <div class="col-md-6 d-flex justify-content-end mb-md-0 mb-3 user-section">
                         <div class="social-media">
                         <p class="mb-0 d-flex">
-                            <a href="/users/register" class="user-text-link d-flex align-items-center justify-content-center"><span class="user-text">Registrarse</span></a>
-                            <a href="/users/login" class="user-text-link d-flex align-items-center justify-content-center"><span class="user-text">Ingresar</span></a>
-                            <!-- <a href="/users/profile" class="user-icons d-flex align-items-center justify-content-center"><span class="user-text">F</span></a> -->
-                            <!-- <a href="/users/profile" class="user-icons d-flex align-items-center justify-content-center"><img class="rounded-circle" src="/img/users/WhatsApp Image 2021-07-06 at 10.22.13 AM.jpeg" width="38" height="38" alt="logo"></a> -->
-                            <a href="/users/profile" class="user-icons d-flex align-items-center justify-content-center"><span class="fa fa-user"><i class="sr-only">Perfil</i></span></a>
+                            <% if (locals.isLogged) { %>
+                                <a href="/users/logout" class="user-text-link d-flex align-items-center justify-content-center"><span class="user-text">Salir</span></a>
+                                <!-- <a href="/users/profile" class="user-icons d-flex align-items-center justify-content-center"><span class="fa fa-user"><i class="sr-only">Perfil</i></span></a> -->
+                                <% if (locals.user.image) { %>
+                                <a href="/users/profile/<%= locals.user.id %>" class="user-icons d-flex align-items-center justify-content-center"><img class="rounded-circle" src="/img/users/<%= locals.user.image %>" width="38" height="38" alt="logo"></a>
+                                <% } else { %>
+                                    <a href="/users/profile/<%= locals.user.id %>" class="user-icons d-flex align-items-center justify-content-center"><span class="user-text"><%= locals.user.first_name[0].toUpperCase() %></span></a>
+                                <% } %>
+                            <% } else { %>
+                                <a href="/users/register" class="user-text-link d-flex align-items-center justify-content-center"><span class="user-text">Registrarse</span></a>
+                                <a href="/users/login" class="user-text-link d-flex align-items-center justify-content-center"><span class="user-text">Ingresar</span></a>
+                            <% } %>
                             <a href="/cart/resume" class="user-icons d-flex align-items-center justify-content-center"><span class="fa fa-shopping-cart"><i class="sr-only">Carro</i></span></a>
                         </p>
                         </div>

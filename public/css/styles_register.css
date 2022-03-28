@@ -238,10 +238,10 @@ a {
   background-color: rgb(199, 178, 153);
   border: none;
   margin-top:3%;
+  width: 100%;
 }
 
 
 .btn:hover {
   background-color:#0a1316;
 }
-

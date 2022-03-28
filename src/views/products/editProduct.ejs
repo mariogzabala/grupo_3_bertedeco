@@ -67,7 +67,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">$</span>
                   </div>
-                  <input type="text" class="form-control" id="price" name="price" pattern="[0-9]+" title="Solo ingrese numeros" value="<%=producto.price%>" required>
+                  <input type="text" class="form-control" id="price" name="price" pattern="[0-9]+" title="Solo ingrese numeros" value="<%= producto.discount ? producto.discount : producto.price%>" required>
                   <div class="invalid-feedback">
                     Se requiere un precio.
                     <br>
@@ -82,7 +82,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">%</span>
                   </div>
-                  <input type="text" class="form-control" id="discount" name="discount" pattern="[0-9]+" title="Solo ingrese numeros" value="<%=producto.discount%>">
+                  <input type="text" class="form-control" id="discount" name="discount" pattern="[0-9]+" title="Solo ingrese numeros" >
                   <div class="must-number2"></div>
                 </div>
               </div>
@@ -129,19 +129,24 @@
                 </div>
               </div>
             </div>
+
             <hr class="mb-4">
+
             <h4 class="mb-3">Seleccione las imágenes que desea borrar</h4>
-            <div class="row-image">
+            
+            <div class="row delete-images">
             <% for( let index = 0; index < producto.image.length; index++ ) { %>
-               <img src="/img/productos/<%=producto.image[index]%>" style="width:100px;" alt="<%=producto.image[index]%>"/> 
-                <div class="checkbox mb-3">
-                    <label>
-                    <input type="checkbox" name="borrar<%=index%>" value="<%=producto.image[index]%>"> Borrar
-                  </label>
+                <div class="col-md-3">
+                  <div class="custom-control custom-checkbox image-checkbox">
+                    <input type="checkbox" id="check<%=index%>" class="custom-control-input" name="borrar<%=index%>" value="<%=producto.image[index]%>"> 
+                    <label class="custom-control-label" for="check<%=index%>">
+                      <img src="/img/productos/<%=producto.image[index]%>" class="img-fluid" alt="<%=producto.image[index]%>"/> 
+                    </label>
+                  </div>
                 </div>
             <% } %>
-            
             </div>
+
             <hr class="mb-4">
             
             <h4 class="mb-3">Cargar Imagenes</h4>

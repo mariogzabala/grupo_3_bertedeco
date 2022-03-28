@@ -227,7 +227,7 @@ let productsController = {
     update: function(req, res) {
 
         /* Del formulario (body) obtenemos los datos (objeto)*/
-        const productoEditado = req.body
+        let productoEditado = req.body
         
         /* La id del producto */
         const idBuscado = req.body.id
@@ -264,21 +264,21 @@ let productsController = {
                 item.category = productoEditado.category
                 item.delivery = parseInt(productoEditado.delivery)
                 item.description = productoEditado.description
-                item.image = item.image
                 
                 /*borrar imagenes*/
                 let eliminar=[]
                 for( let index = 0; index < item.image.length; index++ ) {
-                    let borrar='borrar'+index
+                    let borrar = 'borrar' + index
             
-                    if (productoEditado[borrar]!==undefined){
+                    if (productoEditado[borrar]){
                         eliminar.push(productoEditado[borrar])
                     }
                 }   
             
                 let updateImages = item.image.filter(imagen => !eliminar.includes(imagen))
                 
-                item.image=updateImages
+                item.image = updateImages
+
                 /* Se elimina cada imagen del producto */
                 for (let eliminada of eliminar) {
                     fs.unlinkSync(storepath + eliminada)
@@ -306,6 +306,9 @@ let productsController = {
                         }
                     }
                 }
+
+            /* Maintiene el producto actualizado para devolverlo en caso de error */
+            productoEditado = item
                 
             break
 
