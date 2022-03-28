@@ -104,7 +104,13 @@ input:invalid+.must-number2+[type="submit"] {
 
 .delete-images {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  
+}
+
+img.img-fluid{
+  max-width: 50%;
+  height: auto;
 }
 
 .custom-control.image-checkbox {
@@ -141,6 +147,7 @@ input[type=checkbox] {
   position: relative;
   margin-bottom: 0;
   vertical-align: top;
+  text-align: center;
 }
 
 .custom-control.image-checkbox label img {
@@ -176,7 +183,7 @@ input[type=checkbox] {
 .custom-control.image-checkbox label:after, .custom-control.image-checkbox label:before {
   transition: opacity .3s ease !important;
   opacity: 0 !important;
-  left: 0.25rem !important;
+  left: 4.25rem;
 }
 
 .custom-control-label::after {
