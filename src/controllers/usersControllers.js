@@ -14,7 +14,7 @@ const imgList = ['image/png', 'image/jpeg']
 let userController = {
     /* Mostrar el formulario de login */
     login: function(req, res) {
-        res.render('./users/login', {error: false})
+        res.render('./users/login', {error: false, newUser: false})
     },
 
     /* Autenticar usuario */
@@ -47,14 +47,14 @@ let userController = {
                     return res.redirect(`/users/profile/${user.id}`)
                 } else {
                     /* Se envia un mensaje de error */
-                    return res.render('./users/login', {error: true})
+                    return res.render('./users/login', {error: true, newUser: false})
                 }        
             break
             }
         }
 
         /* Se envia un mensaje de error */
-        return res.render('./users/login', {error: true})
+        return res.render('./users/login', {error: true, newUser: false})
     },
 
     /* Cerrar sesión */
@@ -99,7 +99,7 @@ let userController = {
 
         users.push(new_user);
         fs.writeFileSync(usersFilePath, JSON.stringify(users,null,' '))
-        res.redirect ('/users/login')
+        res.render ('./users/login', {error: false, newUser: true})
     },
 
     /* Mostrar el perfil del usuario */

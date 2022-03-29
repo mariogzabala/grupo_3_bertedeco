@@ -21,15 +21,15 @@
     <!-- Formulario-->
     <form class="form-signin" method="POST" action="/users/auth/">
         <div class="text-center mb-4">
-          <h1 class="title mb-3 font-weight-normal">Bienvenido a Bertedeco</h1>
+          <h1 class="title mb-3 font-weight-normal"><%= newUser ? 'Su cuenta fue creada con exito' : 'Bienvenido a Bertedeco' %></h1>
           <p class="title">Por favor inica sesión</p>
         </div>
 
-        <div class="fail">
-            <% if (error) { %> 
-                <p>Correo Electronico o Contraseña incorrectos</p>
-            <% } %>  
-        </div>
+        <% if (error) { %>
+          <div class="fail">
+            <p>Correo Electronico o Contraseña incorrectos</p>
+          </div>
+        <% } %>  
       
         <div class="form-label-group">
           <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>

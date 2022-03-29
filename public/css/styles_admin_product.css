@@ -172,8 +172,8 @@ input[type=checkbox] {
   top: 0.25rem;
   left: -1.5rem;
   display: block;
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   pointer-events: none;
   content: "";
   background-color: #fff;
@@ -191,8 +191,8 @@ input[type=checkbox] {
   top: 0.25rem;
   left: -1.5rem;
   display: block;
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   content: "";
   background: no-repeat 50%/50% 50%;
 }

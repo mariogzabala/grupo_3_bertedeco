@@ -24,6 +24,13 @@
             <div class="col-md-12 order-md-1">
             <h3 class="mb-3 title">Bienvenido a BerteDeco</h3>
             <h4 class="mb-3 title">Crea una Cuenta</h4>
+            
+            <% if (existe) { %>
+              <div class="fail">
+                <p>El email ingresado ya se encuentra registrado</p>
+              </div>
+            <% } %>
+            
             <form class="needs-validation" method="POST" action="/users/register/" novalidate > 
             <div class="row">
                 <div class="col-md-6 mb-3">
@@ -60,13 +67,7 @@
                 <label for="inputPassword">Confirmar Contraseña</label>  
                 <input type="password" id="inputConfirmation" class="form-control" name="confirmation"  placeholder="Confirmar Contraseña" required>
                 
-              </div>  
-
-              <div class="fail">
-              <% if (existe) { %> 
-                  <p>El email ingresado ya se encuentra registrado</p>
-              <% } %>  
-              </div>  
+              </div> 
 
               <button class="btn btn-lg btn-primary btn-block" type="submit">Registrarse</button>
               <p class="mt-5 mb-3 text-center">Si ya tienes cuenta, <a href="/users/login">Inicia Sesión</a></p>            
