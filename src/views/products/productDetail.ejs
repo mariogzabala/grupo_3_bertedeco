@@ -28,19 +28,19 @@
                         <div class="product-image">
                             <div id="myCarousel-2" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-indicators">
-                                    <% for (j = 0; j < producto.image.length; j++) { %>
+                                    <% for (j = 0; j < producto.images.length; j++) { %>
                                     <button type="button" data-bs-target="#myCarousel-2" data-bs-slide-to="<%= j %>" class="active" aria-current="true" aria-label="Slide <%= j + 1 %>"></button>
                                     <% } %>
-                                    <% if (producto.image.length < 1) { %>
+                                    <% if (producto.images.length < 1) { %>
                                         <button type="button" data-bs-target="#myCarousel-2" data-bs-slide-to="0"mnclass="active" aria-current="true" aria-label="Slide 1"></button>
                                     <% } %>
                                 </div>
                                 <div class="carousel-inner">
-                                    <% for (k = 0; k < producto.image.length; k++) { %>
-                                        <div class="carousel-item<%= k == 0 ? " active" : null %>" style="background-image: url('/img/productos/<%= producto.image[k] ? producto.image[k] : "image-needed.png" %>')">
+                                    <% for (k = 0; k < producto.images.length; k++) { %>
+                                        <div class="carousel-item<%= k == 0 ? " active" : null %>" style="background-image: url('/img/productos/<%= producto.images[k].name ? producto.images[k].name : "image-needed.png" %>')">
                                         </div>
                                     <% } %>
-                                    <% if (producto.image.length < 1) { %>
+                                    <% if (producto.images.length < 1) { %>
                                         <div class="carousel-item active" style="background-image: url('/img/productos/image-needed.png')">
                                         </div>
                                     <% } %>
@@ -61,10 +61,10 @@
                         <h2 class="name">
                             <%=producto.name %>
                         </h2>
-                        <% if (typeof producto.discount === 'number') { %>
+                        <% if (producto.discount.id != 1) { %>
                         <h3 class="price-container">
                         <span class="text-muted text-decoration-line-through">$<%=producto.price %></span>
-                        $<%=producto.discount %>
+                        $<%=Math.round(producto.price - (producto.price * (producto.discount.percent / 100))) %>
                         <!-- <small>*includes tax</small> -->
                         </h3>
                         <% }  else { %>
@@ -94,7 +94,7 @@
                                 </li>
                                 <li>
                                     <% if (typeof producto.discount === 'number') { %>
-                                    <a href="javascript:void(0);">6 Cuotas Sin Interés De<span>$<%=Math.round(producto.discount / 6) %></span></a>
+                                    <a href="javascript:void(0);">6 Cuotas Sin Interés De<span>$<%=Math.round(producto.price - (producto.price * (producto.discount.percent / 100)) / 6) %></span></a>
                                     <% }  else { %>
                                     <a href="javascript:void(0);">6 Cuotas Sin Interés De<span>$<%=Math.round(producto.price / 6) %></span></a>
                                     <% } %>
@@ -112,7 +112,7 @@
                                 <div class="tab-pane fade show active" id="more-information">
                                     <br />
                                     <!-- <strong>Combinación de acero con pino recuperado</strong> -->
-                                    <p><%=producto.description %></p>
+                                    <p><%=producto.short_desc %></p>
                                 </div>
                                 <div class="tab-pane fade" id="specifications">
                                     <br />
@@ -134,7 +134,7 @@
                                 </div>
                                 <div class="tab-pane fade" id="reviews">
                                     <br />
-                                    <form method="post" class="well padding-bottom-10" onsubmit="return false;">
+                                    <form method="post" class="well padding-bottom-10" onsubmit="">
                                         <textarea rows="2" class="form-control" placeholder="Tu reseña"></textarea>
                                         <div class="review margin-top-10">
                                             <button type="submit" class="btn btn-sm btn-outline-dark pull-right">
@@ -235,12 +235,12 @@
                     <% for (i = 0; i < 4 && i < productos.length; i++) { %>
                     <div class="col mb-5">
                         <div class="card h-100">
-                            <% if (typeof productos[i].discount === 'number') { %>
+                            <% if (productos[i].discount.id != 1) { %>
                             <!-- Sale badge-->
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <% } %>
                             <!-- Product image-->
-                            <a class="link-image" href="/products/detail/<%=productos[i].id %>"><img class="card-img-top" src="/img/productos/<%= productos[i].image[0] ? productos[i].image[0] : 'image-needed.png' %>" alt="<%=productos[i].name %>" /></a>
+                            <a class="link-image" href="/products/detail/<%=productos[i].id %>"><img class="card-img-top" src="/img/productos/<%= productos[i].images[0].name ? productos[i].images[0].name : 'image-needed.png' %>" alt="<%=productos[i].images[0].name %>" /></a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
@@ -254,11 +254,11 @@
                                         <div class="fa fa-star"></div>
                                         <div class="fa fa-star-half"></div>
                                     </div> 
-                                    <% if (typeof productos[i].discount === 'number') { %>
+                                    <% if (productos[i].discount.id != 1) { %>
                                     <!-- Product price and Discount-->
                                     <span class="text-muted text-decoration-line-through">$<%=productos[i].price %></span>
-                                    $<%=productos[i].discount %><br>
-                                    <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(productos[i].discount / 6) %></strong></div>
+                                    $<%=Math.round(productos[i].price - (productos[i].price * (productos[i].discount.percent / 100))) %><br>
+                                    <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(productos[i].price - (productos[i].price * (productos[i].discount.percent / 100)) / 6) %></strong></div>
                                     <% } else { %>
                                     <!-- Product price-->
                                     $<%=productos[i].price %><br>

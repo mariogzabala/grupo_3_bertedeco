@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const db = require('../database/models') /* Mover a cada metodo por si no recarga */
 
 /* Donde esta el JSON */
 const productsFilePath = path.join(__dirname, '../database/productsDataBase.json')
@@ -15,38 +16,43 @@ let productsController = {
     /* Lista de productos */
     list: function(req, res) {
         
-        /* Lee y guarda el JSON en esta variable cada vez que se abre la lista de productos,
-        para tener todo actualizado */
-        let productsList = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'))
+        /* Trae todos los porductos de la base de datos */
+        db.Products.findAll({
+            include: [{association: 'images'}, {association: 'discount'}],
+            order: [['images', 'name', 'ASC']] /* Ordena las imagenes de forma ascendente */
+        })
+        .then(function(products) {
+            /* Rederiza la lista de productos pasandole la db completa*/
+            return res.render('./products/productList', {productos: products})
+            /* return res.send(products) */
+        })
 
-        /* Rederiza la lista de productos pasandole el JSON completo*/
-        res.render('./products/productList', {productos: productsList})
     },
     
     /* Detalle de producto */
     detail: function(req, res) {
 
-        /* Lee y guarda el JSON en esta variable cada vez que se abre el detalle de producto,
-        para tener todo actualizado */
-        let productsDet = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'))
-        
-        /* Del parametro id en la ruta se obtiene el id del producto deseado */
-        let idProductoSeleccionado = req.params.id
-        
-        /* El producto detail es null hasta encontrarlo en el JSON */
-        let productoDetail = null
+        var allProducts = null /* Para guardar todos lo productos */
 
-        /* Se busca el producto en el JSON */
-        for (let p of productsDet){
-            if (p.id == idProductoSeleccionado) {
-                /* Se encontró, ahora ya no es null, es todos los datos de ese producto en el JSON */
-                productoDetail = p
-                break
-            }
-        }
+        db.Products.findAll({
+            include: [{association: 'images'}, {association: 'discount'}],
+            order: [['images', 'name', 'ASC']] /* Ordena las imagenes de forma ascendente */
+        })
+        .then(function(products) {
+            allProducts = products
+            /* return res.send(products) */
+        })
 
-        /* Se renderiza el detalle pasandole el producto deseado y todos los productos para las tarjetas de "TE PUEDE INTERESAR" */
-        res.render('./products/productDetail', {productos: productsDet, producto: productoDetail})
+        db.Products.findByPk(req.params.id, {
+            include: [{association: 'images'}, {association: 'discount'}],
+            order: [['images', 'name', 'ASC']] /* Ordena las imagenes de forma ascendente */
+        })
+        .then(function(product) {
+            /* Se renderiza el detalle pasandole el producto deseado y todos los productos para las tarjetas de "TE PUEDE INTERESAR" */
+            return res.render('./products/productDetail', {productos: allProducts, producto: product})
+            /* return res.send(product) */  
+        })
+
     },
 
     /* Mostrar formulario crear producto */
