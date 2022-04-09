@@ -33,169 +33,189 @@
       </div>
     </div>
 
-    <% if (producto.id == '') { %>
+    <% if (producto === null) { %>
       <div class="user-fail">No se encuentra el producto: <strong><%=busqueda%></strong> Por favor introduzca un ID válido.</div>
     <% } %>
 
     <!--Form-->
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 order-md-1">
-          <h4 class="mb-3">Editar Producto</h4>
-          <form class="needs-validation" method="POST" action="/products/edit/<%=producto.id%>" enctype="multipart/form-data" novalidate>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="prodId">Identificador</label>
-                <input type="text" class="form-control" id="prodId" name="id" value="<%=producto.id%>" required readonly>
-                <div class="invalid-feedback">
-                  Se require un id de producto.
-                </div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="prodName">Nombre</label>
-                <input type="text" class="form-control" id="prodName" name="name" value="<%=producto.name%>" required>
-                <div class="invalid-feedback">
-                  Se requiere un nombre de producto.
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="price">Precio</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">$</span>
-                  </div>
-                  <input type="text" class="form-control" id="price" name="price" pattern="[0-9]+" title="Solo ingrese numeros" value="<%= producto.discount ? producto.discount : producto.price%>" required>
+    <% if (producto !== null) { %>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 order-md-1">
+            <h4 class="mb-3">Editar Producto</h4>
+            <form class="needs-validation" method="POST" action="/products/edit/<%=producto.id%>" enctype="multipart/form-data" novalidate>
+              
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="prodId">Identificador</label>
+                  <input type="text" class="form-control" id="prodId" name="id" value="<%=producto.id%>" required readonly>
                   <div class="invalid-feedback">
-                    Se requiere un precio.
-                    <br>
-                    <div class="must-number"></div>
+                    Se require un id de producto.
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="prodName">Nombre</label>
+                  <input type="text" class="form-control" id="prodName" name="name" value="<%=producto.name%>" required>
+                  <div class="invalid-feedback">
+                    Se requiere un nombre de producto.
                   </div>
                 </div>
               </div>
 
-              <div class="col-md-6 mb-3">
-                <label for="discount">% de Descuento <span class="text-muted">(Opcional)</span></label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">%</span>
-                  </div>
-                  <input type="text" class="form-control" id="discount" name="discount" pattern="[0-9]+" title="Solo ingrese numeros" >
-                  <div class="must-number2"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <label for="description">Descripción</label>
-              <textarea rows="2" class="form-control" id="description" name="description" required><%=producto.description%></textarea>
-              <div class="invalid-feedback">
-                Se requiere una descripción.
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="category">Categoria</label>
-                <select class="custom-select d-block w-100" id="category" name="category" required>
-                  <option value="">Categorias</option>
-                  <% let categorias = ['Bancos', 'Espejos', 'Accesorios', 'Mesas y Escritorios', 'Percheros y Repisas'] %>
-                  <% for (const categoria of categorias) { %>
-                    <option value="<%= categoria %>" <%= categoria == producto.category ? 'selected' : null %>>
-                      <%= categoria %>
-                    </option>
-                  <% } %>
-                </select>
-                <div class="invalid-feedback">
-                  Se requiere una categoria.
-                </div>
-              </div>
-
-              <div class="col-md-6 mb-3">
-                <label for="delivery">Tiempo de entrega minimo</label>
-                <select class="custom-select d-block w-100" id="delivery" name="delivery" required>
-                  <option value="">Días</option>
-                  <% let dias = ['1', '2', '3', '4', '5','6','7'] %>
-                  <% for (const dia of dias) { %>
-                    <option value="<%= dia %>" <%= dia == producto.delivery ? 'selected' : null %>>
-                      <%= dia %>
-                    </option>
-                  <% } %>
-                </select>
-                <div class="invalid-feedback">
-                  Se requiere un tiempo de entrega.
-                </div>
-              </div>
-            </div>
-
-            <hr class="mb-4">
-
-            <h4 class="mb-3">Seleccione las imágenes que desea borrar</h4>
-            
-            <div class="row delete-images">
-            <% for( let index = 0; index < producto.image.length; index++ ) { %>
-                <div class="col-md-3">
-                  <div class="custom-control custom-checkbox image-checkbox">
-                    <input type="checkbox" id="check<%=index%>" class="custom-control-input" name="borrar<%=index%>" value="<%=producto.image[index]%>"> 
-                    <label class="custom-control-label" for="check<%=index%>">
-                      <img src="/img/productos/<%=producto.image[index]%>" class="img-fluid" alt="<%=producto.image[index]%>"/> 
-                    </label>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="price">Precio</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">$</span>
+                    </div>
+                    <input type="text" class="form-control" id="price" name="price" pattern="[0-9]+" title="Solo ingrese numeros" value="<%=producto.price%>" required>
+                    <div class="invalid-feedback">
+                      Se requiere un precio.
+                      <br>
+                      <div class="must-number"></div>
+                    </div>
                   </div>
                 </div>
-            <% } %>
-            </div>
 
-            <hr class="mb-4">
-            
-            <h4 class="mb-3">Cargar Imagenes</h4>
-            
-            <div class="row">
-              <div class="input-group mb-3">
-                <input type="file" class="form-control" name="foto" id="inputFile" multiple>
-                <label class="input-group-text" for="inputFile">Imagenes</label>
+                <div class="col-md-6 mb-3">
+                  <label for="stock">Cantidad en Stock</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">#</span>
+                    </div>
+                    <input type="text" class="form-control" id="stock" name="stock" pattern="[0-9]+" title="Solo ingrese numeros" value="<%=producto.stock%>"required>
+                    <div class="invalid-feedback">
+                      Se requiere un stock.
+                      <br>
+                      <div class="must-number"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="discount_id">Descuento (Opcional)</label>
+                  <select class="custom-select d-block w-100" id="discount_id" name="discount_id">
+                    <% for (const discount of discounts) { %>
+                      <option value="<%= discount.id %>" <%= discount.name == producto.discount.name ? 'selected' : null %>>
+                        <%= discount.name %> <%= discount.percent %>%
+                      </option>
+                    <% } %>
+                  </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="active">Producto listo para vender</label>
+                  <select class="custom-select d-block w-100" id="active" name="active" required>
+                    <% for( let index = 0; index <= 1; index++ ) { %>
+                      <option value="<%= index %>" <%= index == producto.active ? 'selected' : null %>>
+                        <%= index == 0 ? 'No' : 'Si' %>
+                      </option>
+                    <% } %>
+                  </select>
+                  <div class="invalid-feedback">
+                    Se requiere saber si el producto esta listo.
+                  </div>
+                </div>
+
+              </div>
+  
+              <div class="mb-3">
+                <label for="prod_desc">Descripción</label>
+                <textarea rows="2" class="form-control" id="prod_desc" name="prod_desc" required><%=producto.prod_desc%></textarea>
                 <div class="invalid-feedback">
-                  Se requieren imagenes del producto.
+                  Se requiere una descripción.
                 </div>
               </div>
-            </div>
 
-            <% if (noguardado.length > 0) { %>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="category">Categoria</label>
+                  <select class="custom-select d-block w-100" id="category" name="category" required>
+                    <option value="">Categorias</option>
+                    <% let categorias = ['Bancos', 'Espejos', 'Accesorios', 'Mesas y Escritorios', 'Percheros y Repisas'] %>
+                    <% for (const categoria of categorias) { %>
+                      <option value="<%= categoria %>" <%= categoria == producto.category ? 'selected' : null %>>
+                        <%= categoria %>
+                      </option>
+                    <% } %>
+                  </select>
+                  <div class="invalid-feedback">
+                    Se requiere una categoria.
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="delivery">Tiempo de entrega minimo</label>
+                  <select class="custom-select d-block w-100" id="delivery" name="delivery" required>
+                    <option value="">Días</option>
+                    <% let dias = ['1', '2', '3', '4', '5','6','7'] %>
+                    <% for (const dia of dias) { %>
+                      <option value="<%= dia %>" <%= dia == producto.delivery ? 'selected' : null %>>
+                        <%= dia %> <%= dia == 1 ? 'Día' : 'Días' %> 
+                      </option>
+                    <% } %>
+                  </select>
+                  <div class="invalid-feedback">
+                    Se requiere un tiempo de entrega.
+                  </div>
+                </div>
+              </div>
+
               <hr class="mb-4">
-              <div class="not-saved">
-                No se guardaron los siguientes archivos:
-                <% for (let archivo of noguardado) { %>
-                  <p><%= archivo %></p>
-                <% } %>
-                Solo se aceptan archivos .jpg .jpeg .png de 500kb o menos.
-              </div>
-            <% } %>
 
+              <h4 class="mb-3">Seleccione las imágenes que desea borrar</h4>
+              
+              <div class="row delete-images">
+              <% for( let index = 0; index < producto.images.length; index++ ) { %>
+                  <div class="col-md-3">
+                    <div class="custom-control custom-checkbox image-checkbox">
+                      <input type="checkbox" id="check<%=index%>" class="custom-control-input" name="delete-image-<%=index%>" value="<%=producto.images[index].id%>"> 
+                      <label class="custom-control-label" for="check<%=index%>">
+                        <img src="/img/productos/<%=producto.images[index].name%>" class="img-fluid" alt="<%=producto.images[index].name%>"/> 
+                      </label>
+                    </div>
+                  </div>
+              <% } %>
+              </div>
+
+              <hr class="mb-4">
+              
+              <h4 class="mb-3">Cargar Imagenes</h4>
+              
+              <div class="row">
+                <div class="input-group mb-3">
+                  <input type="file" class="form-control" name="images" id="inputFile" multiple>
+                  <label class="input-group-text" for="inputFile">Imagenes</label>
+                </div>
+              </div>
+
+              <% if (noguardado.length > 0) { %>
+                <hr class="mb-4">
+                <div class="not-saved">
+                  No se guardaron los siguientes archivos:
+                  <% for (let archivo of noguardado) { %>
+                    <p><%= archivo %></p>
+                  <% } %>
+                  Solo se aceptan archivos .jpg .jpeg .png de 500kb o menos.
+                </div>
+              <% } %>
+
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Editar Producto</button>  
+            
+            </form>
+            
             <hr class="mb-4">
             
-            <% if (producto.id == '') { %> 
-              <button class="btn btn-primary btn-lg btn-block" type="submit" style="display:none">Editar Producto</button>
-            <% } else { %>
-              <button class="btn btn-primary btn-lg btn-block" type="submit">Editar Producto</button>  
-            <% } %>
-          
-          </form>
-          
-          <hr class="mb-4">
-          
-          <form action="/products/delete/<%=producto.id%>?_method=DELETE" method="POST">
-            
-            <% if (producto.id == '') { %>  
-              <button class="btn btn-danger btn-lg btn-block" type="submit" style="display:none">Eliminar Producto</button>
-            <% } else { %>
-              <button class="btn btn-danger btn-lg btn-block" type="submit">Eliminar Producto</button>
-            <% } %>
-          
-          </form>
+            <form action="/products/delete/<%=producto.id%>?_method=DELETE" method="POST">
+                <button class="btn btn-danger btn-lg btn-block" type="submit">Eliminar Producto</button>  
+            </form>
+
+          </div>
         </div>
       </div>
-    </div>
+    <% } %>
 
     <footer></footer>
 

@@ -8,11 +8,11 @@ function bertedecoData(sequelize, DataTypes) {
         desc: {type: DataTypes.TEXT, allowNull: false},
         percent: {type: DataTypes.DECIMAL, allowNull: false},
         active: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true},
-        created_at: {type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW},
-        updated_at: {type: DataTypes.DATE},
+        createdAt: { type: DataTypes.DATE, field: 'created_at' },
+        updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
     }
 
-    config = {tableName: "discount", camelCase: false, timestamps: false}
+    config = {tableName: "discount", camelCase: false, underscored: true, timestamps: true}
 
     const Discount = sequelize.define(alias, cols, config)
 

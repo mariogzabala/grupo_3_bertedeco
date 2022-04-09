@@ -58,7 +58,7 @@
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                         <% } %>
                         <!-- Product image-->
-                        <a class="link-image" href="/products/detail/<%=p.id %>"><img class="card-img-top" src="/img/productos/<%= p.images[0].name ? p.images[0].name : 'image-needed.png' %>" alt="<%=p.images[0].name %>"/></a>
+                        <a class="link-image" href="/products/detail/<%=p.id %>"><img class="card-img-top" src="/img/productos/<%= p.images.length > 0 ? p.images[0].name : 'image-needed.png' %>" alt="<%= p.images.length > 0 ? p.images[0].name : 'image-needed.png' %>"/></a>
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">

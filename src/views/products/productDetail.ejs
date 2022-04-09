@@ -81,7 +81,7 @@
                         <i class="fa fa-star-half text-muted"></i>
                         <span class="votos fa fa-2x">(109) Votos</span>
                         <a href="javascript:void(0);">27 reseñas</a>
-                        <h6>SKU: 000<%=producto.id %></h6>
+                        <h6>SKU: <%=producto.sku %></h6>
                         <hr />
                         <div class="certified">
                             <ul>
@@ -112,7 +112,7 @@
                                 <div class="tab-pane fade show active" id="more-information">
                                     <br />
                                     <!-- <strong>Combinación de acero con pino recuperado</strong> -->
-                                    <p><%=producto.short_desc %></p>
+                                    <p><%=producto.prod_desc %></p>
                                 </div>
                                 <div class="tab-pane fade" id="specifications">
                                     <br />
@@ -240,7 +240,7 @@
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <% } %>
                             <!-- Product image-->
-                            <a class="link-image" href="/products/detail/<%=productos[i].id %>"><img class="card-img-top" src="/img/productos/<%= productos[i].images[0].name ? productos[i].images[0].name : 'image-needed.png' %>" alt="<%=productos[i].images[0].name %>" /></a>
+                            <a class="link-image" href="/products/detail/<%=productos[i].id %>"><img class="card-img-top" src="/img/productos/<%= productos[i].images.length > 0 ? productos[i].images[0].name : 'image-needed.png' %>" alt="<%= productos[i].images.length > 0 ? productos[i].images[0].name : 'image-needed.png' %>" /></a>
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">

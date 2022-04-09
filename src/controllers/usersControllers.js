@@ -1,9 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const bcrypt = require('bcryptjs')
-
-/* Donde esta el JSON */
-const usersFilePath = path.join(__dirname, '../database/usersDataBase.json')
+const db = require('../database/models')
 
 /* Donde se guardan las imagenes */
 const storepath = path.join(__dirname, '../../public/img/users/')
@@ -21,20 +19,24 @@ let userController = {
     authentication: function(req, res) {
 
         /* felipeag */
-        /* asdfg */
-        /* bertedeco */
+        /* marioz */
+        /* julianv */
+        /* francys */
 
-        let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
-        
-        for (let user of users) {
-            if(user.email == req.body.email) {
-                /* console.log(bcrypt.hashSync(req.body.password, 10)) */
+        db.Users.findOne({where: {email: req.body.email}})
+            .then(function(user) {
+
+                if (!user) {
+                    /* Se envia un mensaje de error si no se encuentra el usuario*/
+                    return res.render('./users/login', {error: true, newUser: false})
+                }
+
                 if (bcrypt.compareSync(req.body.password, user.password)) {
                     /* borrar informacion sensible para no pasarla a la session */
                     delete user.password
                     delete user.phone
-                    delete user.address_list
-                    delete user.payment_list
+                    delete user.createdAt
+                    delete user.updatedAt
                     req.session.userLogged = user
 
                     /* Crear cookie */
@@ -45,16 +47,14 @@ let userController = {
                     }
 
                     return res.redirect(`/users/profile/${user.id}`)
-                } else {
-                    /* Se envia un mensaje de error */
-                    return res.render('./users/login', {error: true, newUser: false})
-                }        
-            break
-            }
-        }
 
-        /* Se envia un mensaje de error */
-        return res.render('./users/login', {error: true, newUser: false})
+                } else {
+                    /* Se envia un mensaje de error por contraseña incorrecta */
+                    return res.render('./users/login', {error: true, newUser: false})
+                }
+                
+            })
+        
     },
 
     /* Cerrar sesión */
@@ -64,367 +64,246 @@ let userController = {
         return res.redirect('/home')
     },
 
-     /* Mostrar el formulario de registro */
+    /* Mostrar el formulario de registro */
     register: function(req, res) {
-        let existe = false;
-        
-        res.render('./users/register', {existe: existe})
+        return res.render('./users/register', {existe: false})
     },
 
     /* Guardar un usuario nuevo */
     store: function(req, res) {
-        let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))  
-        
-        let existe = true;        
-        
-        /*buscar el e-mail para saber que no esta registrado el usuario */
-        for (let user of users){
-            if (user.email == req.body.email) {
-                return res.render('./users/register', {existe: existe})
-            }
-        }
 
-        let new_user = {
-            id: users[users.length-1].id + 1,
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            email: req.body.email,
-            password: bcrypt.hashSync(req.body.password, 10),
-            category: "users",
-            image: "",
-            phone: "",
-            address_list: [],
-            payment_list: []
-        }
+        db.Users.findOne({where: {email: req.body.email}})
+            .then(function(user) {
+                
+                /* Verificarmos si el usuario ya esta registrado */
+                if (user) {
 
-        users.push(new_user);
-        fs.writeFileSync(usersFilePath, JSON.stringify(users,null,' '))
-        res.render ('./users/login', {error: false, newUser: true})
+                    /* Se envia un mensaje de error */
+                    return res.render('./users/register', {existe: true})
+                    
+                } else {
+                    
+                    /* Se guarda el nuevo usuario */
+                    let newUser = {
+                        first_name: req.body.first_name,
+                        last_name: req.body.last_name,
+                        email: req.body.email,
+                        password: bcrypt.hashSync(req.body.password, 10),
+                    }
+            
+                    db.Users.create(newUser)
+                        .then(function(user) {
+                            return res.render ('./users/login', {error: false, newUser: true})
+                        })
+                }
+            })
+  
     },
 
     /* Mostrar el perfil del usuario */
     profile: function(req, res) {
-        let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
-        
-        for (let user of users) {
-            if (user.id == req.params.id) {
+
+        db.Users.findOne({where: {id: req.params.id}, include: [{association: 'address_list'}, {association: 'payment_list'}]})
+            .then(function(user) {
                 return res.render('./users/profile', {user: user,  imgError: false, passError: false})
-            }
-        }
-        res.render('error')
+            })
+
     },
 
     /* editar el perfil del usuario */
     editmain: function(req, res) {
-        let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
 
-        let idBuscado = req.params.id
-
-        let userError
-        
-        /* Buscar el usuario por id y actualizar los datos */
-        for (let user of users) {
-            if (user.id == idBuscado) {
-                user.first_name = req.body.first_name
-                user.last_name = req.body.last_name
-                user.phone = req.body.phone
-
-                /* Si se subio imagen porque no es obligatorio */
-                if (req.files !== null) {
-                    let image = req.files.image
-                    let name = image.name
-                    let uniqName = 'User' + Date.now() + name
-                    let extName = image.mimetype
-                    
-                    /* Si la imagen cumple con los requisitos se guarda */
-                    if (imgList.includes(extName) && image.size <= 512000) {
-                        
-                        /* Borrar imagen anterior */
-                        if (user.image != "") {
-                            fs.unlinkSync(storepath + user.image)
-                        }
-
-                        image.mv(storepath + uniqName, (err) => {
-                            if (err) {res.send(err)}
-                        })
-
-                        user.image = uniqName
-                    
-                    } else {
-                        userError = user
-                    } 
-                }
-
-                /* Actualiza la session con los nuevos valores */
-                req.session.userLogged.first_name = user.first_name
-                req.session.userLogged.last_name = user.last_name
-                req.session.userLogged.image = user.image
-                
-            break
-
-            }
+        let newData = {
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            phone: req.body.phone,
         }
 
-        /* Se sobre-escribe el JSON con el usuario editado*/
-        fs.writeFileSync(usersFilePath, JSON.stringify(users,null,' '))
+        /* Actualizar usuario */
+        let updateUser = db.Users.update(newData, {where: {id: req.params.id}})
 
-        if (userError) {
-             /* Se envia un mensaje de error por no poder guardar la imagen*/
-            return res.render('./users/profile', {user: userError, imgError: true, passError: false})
-        } else {
-            /* Si todo salio bien se muestra el perfil del usuario */
-            res.redirect(`/users/profile/${idBuscado}`)
-        }        
+        Promise.all([updateUser])
+            .then(function(updUser) {
+
+                /* Buscar el usuario actualizado para devolver esos datos en caso de error */
+                db.Users.findOne({where: {id: req.params.id}, include: [{association: 'address_list'}, {association: 'payment_list'}]})
+                    .then(function(user) {
+
+                        let userError
+
+                        /* Si se subio imagen porque no es obligatorio */
+                        if (req.files) {
+                            let image = req.files.image
+                            let name = image.name
+                            let uniqName = 'User' + Date.now() + name
+                            let extName = image.mimetype
+                    
+                            /* Si la imagen cumple con los requisitos se guarda */
+                            if (imgList.includes(extName) && image.size <= 512000) {
+                            
+                                /* Borrar imagen anterior */
+                                if (user.image) {
+                                    fs.unlinkSync(storepath + user.image)
+                                }
+                                
+                                /* Guardar archivo */
+                                image.mv(storepath + uniqName, (err) => {
+                                    if (err) {res.send(err)}
+                                })
+
+                                db.Users.update({image: uniqName}, {where: {id: req.params.id}})
+                                /* Actualiza la session con los nuevos valores */
+                                req.session.userLogged.image = uniqName
+                        
+                            } else {
+                                userError = user
+                            } 
+                        }
+
+                        /* Actualiza la session con los nuevos valores */
+                        req.session.userLogged.first_name = user.first_name
+                        req.session.userLogged.last_name = user.last_name
+                        
+                        if (userError) {
+                            /* Se envia un mensaje de error por no poder guardar la imagen*/
+                            return res.render('./users/profile', {user: userError, imgError: true, passError: false})
+                        } else {
+                            /* Si todo salio bien se muestra el perfil del usuario */
+                            return res.redirect(`/users/profile/${req.params.id}`)
+                        }
+
+                    })
+
+            })
+
     },
 
     /* Crear direccion para usuario*/
     createaddress: function(req, res) {
-        let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
-        
-        let idBuscado = req.params.id
-        
-        /* Buscar el usuario por id y actualizar los datos */
-        for (let user of users) {
-            if (user.id == idBuscado) {
-                /* se inicializa como nada (undefined) */
-                let address_id
-                /* Miramos si hay al menos una direccion */
-                if (user.address_list.length > 0) {
-                    /* Si hay, pasamos el id de la direccion que sera creada */
-                    address_id = user.address_list[user.address_list.length-1].address_id + 1
-                } else {
-                    address_id = 1 /* No hay, empezamos en 1 */
-                }
 
-                let newAddress = {
-                    address_id: address_id,
-                    place: req.body.place,
-                    address: req.body.address,
-                    neighborhood: req.body.neighborhood,
-                    zipcode: req.body.zipcode,
-                    country: req.body.country,
-                    estate: req.body.estate
-                }
-
-                user.address_list.push(newAddress)
-                
-            break
-
-            }
+        let newAddress = {
+            place: req.body.place,
+            address: req.body.address,
+            neighborhood: req.body.neighborhood,
+            zipcode: req.body.zipcode,
+            city: req.body.city,
+            country: req.body.country,
+            estate: req.body.estate,
+            user_id: req.params.id,
         }
 
-        /* Se sobre-escribe el JSON con el usuario editado*/
-        fs.writeFileSync(usersFilePath, JSON.stringify(users,null,' '))
+        db.UserAddresses.create(newAddress)
+            .then(function() {
+                return res.redirect(`/users/profile/${req.params.id}`)
 
-        /* Si todo salio bien se muestra el perfil del usuario */
-        res.redirect(`/users/profile/${idBuscado}`)
+            })
+
     },
 
      /* Crear pago para usuario*/
     createpayment: function(req, res) {
-        let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
-        
-        let idBuscado = req.params.id
-        
-        /* Buscar el usuario por id y actualizar los datos */
-        for (let user of users) {
-            if (user.id == idBuscado) {
-                /* se inicializa como nada (undefined) */
-                let payment_id
-                /* Miramos si hay al menos una tarjeta */
-                if (user.payment_list.length > 0) {
-                    /* Si hay, pasamos el id de la tarjeta que sera creada */
-                    payment_id = user.payment_list[user.payment_list.length-1].payment_id + 1
-                } else {
-                    payment_id = 1 /* No hay, empezamos en 1 */
-                }
-
-                let newPayment = { /* Encriptar */
-                    payment_id: payment_id,
-                    name: req.body.name,
-                    number: req.body.number,
-                    date: req.body.date,
-                    cvv: req.body.cvv
-                }
-
-                user.payment_list.push(newPayment)
-                
-            break
-
-            }
+    
+        let newPayment = { /* Encriptar */
+            owner: req.body.owner,
+            number: req.body.number.replace(/\D+/g, ""),
+            expiry_month: req.body.expiry_month,
+            expiry_year: req.body.expiry_year,
+            cvv: req.body.cvv,
+            user_id: req.params.id,
         }
 
-        /* Se sobre-escribe el JSON con el usuario editado*/
-        fs.writeFileSync(usersFilePath, JSON.stringify(users,null,' '))
+        db.UserPayments.create(newPayment)
+            .then(function() {
+                return res.redirect(`/users/profile/${req.params.id}`)
 
-        /* Si todo salio bien se muestra el perfil del usuario */
-        res.redirect(`/users/profile/${idBuscado}`)
+            })
+
     },
 
     /* Editar direccion del usuario*/
     editaddress: function(req, res) {
-        let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
-        
-        let idBuscado = req.params.id
 
-        let direcBuscada = req.params.add_id
-        
-        /* Buscar el usuario por id y actualizar los datos */
-        for (let user of users) {
-            if (user.id == idBuscado) {
-                
-                /* Buscar la direccion por id y actualizar los datos */
-                for (let address of user.address_list) {
-                    
-                    if (address.address_id == direcBuscada) {
-                        address.place = req.body.place
-                        address.address = req.body.address
-                        address.neighborhood = req.body.neighborhood
-                        address.zipcode = req.body.zipcode
-                        address.country = req.body.country
-                        address.estate = req.body.estate
-                    }
-                }
-                
-            break
-
-            }
+        let updatedAddress = {
+            place: req.body.place,
+            address: req.body.address,
+            neighborhood: req.body.neighborhood,
+            zipcode: req.body.zipcode,
+            city: req.body.city,
+            country: req.body.country,
+            estate: req.body.estate,
         }
 
-        /* Se sobre-escribe el JSON con el usuario editado*/
-        fs.writeFileSync(usersFilePath, JSON.stringify(users,null,' '))
+        db.UserAddresses.update(updatedAddress, {where: {id: req.params.add_id}})
+            .then(function() {
+                return res.redirect(`/users/profile/${req.params.id}`)
 
-        /* Si todo salio bien se muestra el perfil del usuario */
-        res.redirect(`/users/profile/${idBuscado}`)
+            })
+
     },
 
     /* Editar pago del usuario*/
     editpayment: function(req, res) {
-        let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
         
-        let idBuscado = req.params.id
-
-        let payBuscada = req.params.pay_id
-        
-        /* Buscar el usuario por id y actualizar los datos */
-        for (let user of users) {
-            if (user.id == idBuscado) {
-                
-                /* Buscar la tarjeta por id y actualizar los datos */
-                for (let payment of user.payment_list) {
-                    
-                    if (payment.payment_id == payBuscada) { /* Encriptar */
-                        payment.name = req.body.name
-                        payment.number = req.body.number
-                        payment.date = req.body.date
-                        payment.cvv = req.body.cvv
-                    }
-                }
-                
-            break
-
-            }
+        let updatedPayment = { /* Encriptar */
+            owner: req.body.owner,
+            number: req.body.number.replace(/\D+/g, ""),
+            expiry_month: req.body.expiry_month,
+            expiry_year: req.body.expiry_year,
+            cvv: req.body.cvv,
         }
 
-        /* Se sobre-escribe el JSON con el usuario editado*/
-        fs.writeFileSync(usersFilePath, JSON.stringify(users,null,' '))
+        db.UserPayments.update(updatedPayment, {where: {id: req.params.pay_id}})
+            .then(function() {
+                return res.redirect(`/users/profile/${req.params.id}`)
 
-        /* Si todo salio bien se muestra el perfil del usuario */
-        res.redirect(`/users/profile/${idBuscado}`)
+            })
     },
 
     /* Elimina direccion del usuario*/
     deleteaddress: function(req, res) {
-        let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
+
+        db.UserAddresses.destroy({where: {id: req.params.add_id}})
+            .then(function() {
+                return res.redirect(`/users/profile/${req.params.id}`)
+
+            })
         
-        let idBuscado = req.params.id
-
-        let direcBuscada = req.params.add_id
-        
-        /* Buscar el usuario por id y actualizar los datos */
-        for (let user of users) {
-            if (user.id == idBuscado) {
-
-                /* Con filter se obtiene una nueva variable con todos las direcciones menos la eliminada */
-                let addressUpdate = user.address_list.filter(function(item) {
-                    return item.address_id != direcBuscada
-                })
-
-                user.address_list = addressUpdate
-                
-            break
-
-            }
-        }
-
-        /* Se sobre-escribe el JSON con el usuario editado*/
-        fs.writeFileSync(usersFilePath, JSON.stringify(users,null,' '))
-
-        /* Si todo salio bien se muestra el perfil del usuario */
-        res.redirect(`/users/profile/${idBuscado}`)
     },
 
     /* Elimina pago del usuario*/
     deletepayment: function(req, res) {
-        let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
         
-        let idBuscado = req.params.id
+        db.UserPayments.destroy({where: {id: req.params.pay_id}})
+            .then(function() {
+                return res.redirect(`/users/profile/${req.params.id}`)
 
-        let payBuscada = req.params.pay_id
-
-        /* Buscar el usuario por id y actualizar los datos */
-        for (let user of users) {
-            if (user.id == idBuscado) {
-
-                /* Con filter se obtiene una nueva variable con todos las tarjetas menos la eliminada */
-                let paymentUpdate = user.payment_list.filter(function(item) {
-                    return item.payment_id != payBuscada
-                })
-
-                user.payment_list = paymentUpdate
-                
-            break
-
-            }
-        }
-
-        /* Se sobre-escribe el JSON con el usuario editado*/
-        fs.writeFileSync(usersFilePath, JSON.stringify(users,null,' '))
-
-        /* Si todo salio bien se muestra el perfil del usuario */
-        res.redirect(`/users/profile/${idBuscado}`)
+            })
     },
 
     /* Editar contraseña del usuario*/
     editpass: function(req, res) {
-        let users = JSON.parse(fs.readFileSync(usersFilePath, 'utf-8'))
-        
-        let idBuscado = req.params.id
-        
-        /* Buscar el usuario por id y actualizar los datos */
-        for (let user of users) {
-            if (user.id == idBuscado) {
+
+        /* Se busca al usuario para comparar contraseña guardada y antigua(body) */
+        db.Users.findOne({where: {id: req.params.id}, include: [{association: 'address_list'}, {association: 'payment_list'}]})
+            .then(function(user) {
                 
-                /* hacer todo lo del cifrado */
                 /* Se actualiza la contraseña si se logra validar la antigua */
-        
+
                 if (bcrypt.compareSync(req.body.oldpass, user.password)) {
-                    user.password = bcrypt.hashSync(req.body.newpass, 10)
+                    let newPassword = bcrypt.hashSync(req.body.newpass, 10)
+                    db.Users.update({password: newPassword}, {where: {id: req.params.id}})
+                        .then(function() {
+                            /* Si todo salio bien se muestra el perfil del usuario */
+                            return res.redirect(`/users/profile/${req.params.id}`)
+                        })
+                    
                 } else {
                     /* Se envia un mensaje de error */
                     return res.render('./users/profile', {user: user, imgError: false, passError: true})
                 }
-                
-            break
 
-            }
-        }
+            })
 
-        /* Se sobre-escribe el JSON con el usuario editado*/
-        fs.writeFileSync(usersFilePath, JSON.stringify(users,null,' '))
-
-        /* Si todo salio bien se muestra el perfil del usuario */
-        res.redirect(`/users/profile/${idBuscado}`)
     }
 
 }

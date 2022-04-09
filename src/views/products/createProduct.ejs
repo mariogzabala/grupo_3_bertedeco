@@ -43,6 +43,7 @@
         <div class="col-md-12 order-md-1">
           <h4 class="mb-3">Crear Producto</h4>
           <form class="needs-validation" method="POST" action="/products/create/<%=idNuevo%>" enctype="multipart/form-data" novalidate>
+            
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="prodId">Identificador</label>
@@ -77,20 +78,47 @@
               </div>
 
               <div class="col-md-6 mb-3">
-                <label for="discount">% de Descuento <span class="text-muted">(Opcional)</span></label>
+                <label for="stock">Cantidad en Stock</label>
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text">%</span>
+                    <span class="input-group-text">#</span>
                   </div>
-                  <input type="text" class="form-control" id="discount" name="discount" pattern="[0-9]+" title="Solo ingrese numeros">
-                  <div class="must-number2"></div>
+                  <input type="text" class="form-control" id="stock" name="stock" pattern="[0-9]+" title="Solo ingrese numeros" required>
+                  <div class="invalid-feedback">
+                    Se requiere un stock.
+                    <br>
+                    <div class="must-number"></div>
+                  </div>
                 </div>
               </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="discount_id">Descuento (Opcional)</label>
+                <select class="custom-select d-block w-100" id="discount_id" name="discount_id">
+                  <% for (const discount of discounts) { %>
+                    <option value="<%= discount.id %>">
+                      <%= discount.name %> <%= discount.percent %>%
+                    </option>
+                  <% } %>
+                </select>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="active">Producto listo para vender</label>
+                <select class="custom-select d-block w-100" id="active" name="active" required>
+                  <option value="1">Sí</option>
+                  <option value="0">No</option>
+                </select>
+                <div class="invalid-feedback">
+                  Se requiere saber si el producto esta listo.
+                </div>
+              </div>
+
             </div>
 
             <div class="mb-3">
-              <label for="description">Descripción</label>
-              <textarea rows="2" class="form-control" id="description" name="description" required></textarea>
+              <label for="prod_desc">Descripción</label>
+              <textarea rows="2" class="form-control" id="prod_desc" name="prod_desc" required></textarea>
               <div class="invalid-feedback">
                 Se requiere una descripción.
               </div>
@@ -117,13 +145,13 @@
                 <label for="delivery">Tiempo de entrega minimo</label>
                 <select class="custom-select d-block w-100" id="delivery" name="delivery" required>
                   <option value="">Días</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
+                  <option value="1">1 Día</option>
+                  <option value="2">2 Días</option>
+                  <option value="3">3 Días</option>
+                  <option value="4">4 Días</option>
+                  <option value="5">5 Días</option>
+                  <option value="6">6 Días</option>
+                  <option value="7">7 Días</option>
                 </select>
                 <div class="invalid-feedback">
                   Se requiere un tiempo de entrega.
@@ -137,7 +165,7 @@
 
             <div class="row">
               <div class="input-group mb-3">
-                <input type="file" class="form-control" id="inputFile" name="foto" multiple required>
+                <input type="file" class="form-control" id="inputFile" name="images" multiple required>
                 <label class="input-group-text" for="inputFile">Imagenes</label>
                 <div class="invalid-feedback">
                   Se requiren imagenes del producto.

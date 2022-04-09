@@ -8,16 +8,15 @@ function bertedecoData(sequelize, DataTypes) {
         name: {type: DataTypes.STRING(100), allowNull: false},
         price: {type: DataTypes.FLOAT, allowNull: false},
         category: {type: DataTypes.STRING(45), allowNull: false},
-        short_desc: {type: DataTypes.STRING(100), allowNull: false},
-        long_desc: {type: DataTypes.TEXT},
+        prod_desc: {type: DataTypes.TEXT, allowNull: false},
         stock: {type: DataTypes.INTEGER, allowNull: false},
         delivery: {type: DataTypes.INTEGER, allowNull: false},
         active: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true},
-        created_at: {type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW},
-        updated_at: {type: DataTypes.DATE},
+        createdAt: { type: DataTypes.DATE, field: 'created_at' },
+        updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
     }
 
-    config = {tableName: "product", camelCase: false, timestamps: false}
+    config = {tableName: "product", camelCase: false, underscored: true, timestamps: true}
 
     const Product = sequelize.define(alias, cols, config)
 
