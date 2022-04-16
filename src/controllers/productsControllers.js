@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const db = require('../database/models')
+const { Op } = require("sequelize")
 
 /* Donde se guardan las imagenes */
 const storepath = path.join(__dirname, '../../public/img/productos/')
@@ -12,9 +13,16 @@ let productsController = {
 
     /* Lista de productos */
     list: function(req, res) {
+
+        let wanted = '%'
         
-        /* Trae todos los porductos de la base de datos */
+        if (req.query.find) {
+            wanted = '%' + req.query.find + '%'
+        }
+        
+        /* Trae todos los porductos de la base de datos que esten activos*/
         db.Products.findAll({
+            where: { [Op.or] : {name: {[Op.like]: wanted}, category: {[Op.like]: wanted}}, active: true},
             include: [{association: 'images'}, {association: 'discount'}],
             order: [['images', 'id', 'ASC']] /* Ordena las imagenes de forma ascendente */
         })
@@ -26,26 +34,26 @@ let productsController = {
     },
     
     /* Detalle de producto */
-    detail: function(req, res) {
-
-        /* Trae todos los porductos de la base de datos */
-        let findProducts = db.Products.findAll({
-            include: [{association: 'images'}, {association: 'discount'}],
-            order: [['images', 'id', 'ASC']] /* Ordena las imagenes de forma ascendente */
-        })
+    detail: async function(req, res) {
         
         /* Trae el producto deseado buscandolo por id */
-        let findProduct = db.Products.findByPk(req.params.id, {
+        let product = await db.Products.findByPk(req.params.id, {
             include: [{association: 'images'}, {association: 'discount'}],
             order: [['images', 'id', 'ASC']] /* Ordena las imagenes de forma ascendente */
         })
-        
-        /* Esperamos a que las dos busquedas se cumplan para renderizar la vista */
-        Promise.all([findProducts, findProduct])
-            .then(function([products, product]) {
-                /* Se renderiza el detalle pasandole el producto deseado y todos los productos para las tarjetas de "TE PUEDE INTERESAR" */
-                return res.render('./products/productDetail', {productos: products, producto: product})
-            })
+
+        /* Esperamos a encontrar el producto */
+        /* Trae todos los porductos de la base de datos que sean de la misma categoria*/
+        db.Products.findAll({
+            where: {id: {[Op.ne]: product.id}, category: product.category, active: true},
+            include: [{association: 'images'}, {association: 'discount'}],
+            order: [['images', 'id', 'ASC']] /* Ordena las imagenes de forma ascendente */
+        })
+        .then(function(products) {
+            /* Se renderiza el detalle pasandole el producto deseado y todos los productos para las tarjetas de "TE PUEDE INTERESAR" */
+            return res.render('./products/productDetail', {productos: products, producto: product})
+        })
+
     },
 
     /* Mostrar formulario crear producto */
@@ -151,10 +159,10 @@ let productsController = {
 
                 /* Esperamos a que las dos busquedas se cumplan para renderizar la vista */
                 Promise.all([findProduct, findDiscounts])
-                .then(function([productForEdit, discounts]) {
-                    /* Si hay archivos no guardados se pasan a editar producto para ser mostrados */
-                    return res.render('./products/editProduct', {producto: productForEdit, discounts: discounts, noguardado: notSave})
-                })
+                    .then(function([productForEdit, discounts]) {
+                        /* Si hay archivos no guardados se pasan a editar producto para ser mostrados */
+                        return res.render('./products/editProduct', {producto: productForEdit, discounts: discounts, noguardado: notSave})
+                    })
             } else {
                 /* Si todo salio bien se muestra el detalle del producto creado */
                 return res.redirect(`/products/detail/${product.id}`)
@@ -280,10 +288,10 @@ let productsController = {
     
                     /* Esperamos a que las dos busquedas se cumplan para renderizar la vista */
                     Promise.all([findProduct, findDiscounts])
-                    .then(function([productForEdit, discounts]) {
-                        /* Si hay archivos no guardados se pasan a editar producto para ser mostrados */
-                        return res.render('./products/editProduct', {producto: productForEdit, discounts: discounts, noguardado: notSave})
-                    })
+                        .then(function([productForEdit, discounts]) {
+                            /* Si hay archivos no guardados se pasan a editar producto para ser mostrados */
+                            return res.render('./products/editProduct', {producto: productForEdit, discounts: discounts, noguardado: notSave})
+                        })
                 } else {
                     /* Si todo salio bien se muestra el detalle del producto creado */
                     return res.redirect(`/products/detail/${req.params.id}`)
@@ -295,31 +303,93 @@ let productsController = {
     },
 
     /* Eliminar producto desde editar */
-    destroy: function(req, res) {
+    destroy: async function(req, res) {
         
         /* Encontrar las imagenes para borrar */
-        let findImages = db.ProdImages.findAll({where: {product_id: req.params.id}}, {order: [['id', 'ASC']]})
+        let images = await db.ProdImages.findAll({where: {product_id: req.params.id}}, {order: [['id', 'ASC']]})
 
         /* Esperamos encontrar las imagenes para borrarlas */
-        let deleteImages = Promise.all([findImages])
-            .then(function([images]) {
-                for( let image of images ) {
-                    db.ProdImages.destroy({where: {id: image.id}})
-                        .then(function(deleted) {
-                            fs.unlinkSync(storepath + image.name)
-                        })
+        for( let image of images ) {
+            db.ProdImages.destroy({where: {id: image.id}})
+                .then(function(deleted) {
+                    fs.unlinkSync(storepath + image.name)
+                })
+        }
+
+        /* Despues de borrar todas las imagenes, borramos el producto */
+        db.Products.destroy({where: {id: req.params.id}})
+            .then(function() {return res.redirect('/products/')})
+
+    },
+
+    /* Mostrar descuentos */
+    discounts: function(req, res) {
+
+        /* Trae todos los descuentos de la base de datos */
+        db.Discounts.findAll({where: {id: {[Op.ne]: 1}}}, {order: [['id', 'ASC']]})
+            .then(function(discounts) {
+                /* Miramos si hay al menos un producto en la db */
+                if (discounts !== null) {
+                    let newId = discounts[discounts.length-1].id + 1
+                    /* Se renderiza crear producto pasandole la id del producto que sera creado*/
+                    return res.render('./products/discounts', {newId, discounts})
+                } else {
+                    /* Si no hay, pasamos el id del producto que sera creado */
+                    return res.render('./products/discounts', {newId: 2, discounts})
                 }
-                
+            
             })
-        
-        /* Esperamos a que se borren las imagenes para borrar el producto */
-        Promise.all([deleteImages])
-            .then(function([deleted]) {
-                db.Products.destroy({where: {id: req.params.id}})
-                    .then(function() {return res.redirect('/products/')})
+
+    },
+
+    /* Crear descuento */
+    creatediscount: function(req, res) {
+
+        let newDiscount = {
+            id: req.params.id,
+            name: req.body.name,
+            desc: req.body.desc,
+            percent: parseInt(req.body.percent.replace(/\D+/g, "")),
+            active: req.body.active
+        }
+
+        db.Discounts.create(newDiscount)
+            .then(function() {
+                return res.redirect('/products/discounts')
+            })
+
+    },
+
+    /* Actualizar descuento */
+    editdiscount: function(req, res) {
+
+        let updatedDiscount = {
+            name: req.body.name,
+            desc: req.body.desc,
+            percent: parseInt(req.body.percent.replace(/\D+/g, "")),
+            active: req.body.active
+        }
+
+        db.Discounts.update(updatedDiscount, {where: {id: req.params.id}})
+            .then(function() {
+                return res.redirect('/products/discounts')
+            })
+
+    },
+
+    /* Eliminar descuento */
+    deletediscount: async function(req, res) {
+
+        /* Cambiar a sin descuento en todos los productos que tengan el descuento a eliminar */
+        let updateProducts = await db.Products.update({discount_id: 1}, {where: {discount_id: req.params.id}})
+
+        db.Discounts.destroy({where: {id: req.params.id}})
+            .then(function() {
+                return res.redirect('/products/discounts')
             })
 
     }
+
 }
 
 module.exports = productsController

@@ -9,7 +9,7 @@ let indexController = {
             order: [['images', 'id', 'ASC']] /* Ordena las imagenes de forma ascendente */
         })
         .then(function(products) {
-            res.render('index', {productos: products})
+            return res.render('index', {productos: products})
         })
         
     }

@@ -111,7 +111,7 @@ let userController = {
     },
 
     /* editar el perfil del usuario */
-    editmain: function(req, res) {
+    editmain: async function(req, res) {
 
         let newData = {
             first_name: req.body.first_name,
@@ -120,61 +120,55 @@ let userController = {
         }
 
         /* Actualizar usuario */
-        let updateUser = db.Users.update(newData, {where: {id: req.params.id}})
+        let updateUser = await db.Users.update(newData, {where: {id: req.params.id}})
 
-        Promise.all([updateUser])
-            .then(function(updUser) {
+        /* Buscar el usuario actualizado para devolver esos datos en caso de error */
+        let user = await db.Users.findOne({where: {id: req.params.id}, include: [{association: 'address_list'}, {association: 'payment_list'}]})
 
-                /* Buscar el usuario actualizado para devolver esos datos en caso de error */
-                db.Users.findOne({where: {id: req.params.id}, include: [{association: 'address_list'}, {association: 'payment_list'}]})
-                    .then(function(user) {
+        let userError
 
-                        let userError
+        /* Si se subio imagen porque no es obligatorio */
+        if (req.files) {
+            let image = req.files.image
+            let name = image.name
+            let uniqName = 'User' + Date.now() + name
+            let extName = image.mimetype
+    
+            /* Si la imagen cumple con los requisitos se guarda */
+            if (imgList.includes(extName) && image.size <= 512000) {
 
-                        /* Si se subio imagen porque no es obligatorio */
-                        if (req.files) {
-                            let image = req.files.image
-                            let name = image.name
-                            let uniqName = 'User' + Date.now() + name
-                            let extName = image.mimetype
-                    
-                            /* Si la imagen cumple con los requisitos se guarda */
-                            if (imgList.includes(extName) && image.size <= 512000) {
-                            
-                                /* Borrar imagen anterior */
-                                if (user.image) {
-                                    fs.unlinkSync(storepath + user.image)
-                                }
-                                
-                                /* Guardar archivo */
-                                image.mv(storepath + uniqName, (err) => {
-                                    if (err) {res.send(err)}
-                                })
+                /* Actualiza la session con los nuevos valores */
+                req.session.userLogged.image = uniqName
+            
+                /* Borrar imagen anterior */
+                if (user.image) {
+                    fs.unlinkSync(storepath + user.image)
+                }
+                
+                /* Guardar archivo */
+                image.mv(storepath + uniqName, (err) => {
+                    if (err) {res.send(err)}
+                })
 
-                                db.Users.update({image: uniqName}, {where: {id: req.params.id}})
-                                /* Actualiza la session con los nuevos valores */
-                                req.session.userLogged.image = uniqName
-                        
-                            } else {
-                                userError = user
-                            } 
-                        }
+                db.Users.update({image: uniqName}, {where: {id: req.params.id}})
+                
+        
+            } else {
+                userError = user
+            } 
+        }
 
-                        /* Actualiza la session con los nuevos valores */
-                        req.session.userLogged.first_name = user.first_name
-                        req.session.userLogged.last_name = user.last_name
-                        
-                        if (userError) {
-                            /* Se envia un mensaje de error por no poder guardar la imagen*/
-                            return res.render('./users/profile', {user: userError, imgError: true, passError: false})
-                        } else {
-                            /* Si todo salio bien se muestra el perfil del usuario */
-                            return res.redirect(`/users/profile/${req.params.id}`)
-                        }
-
-                    })
-
-            })
+        /* Actualiza la session con los nuevos valores */
+        req.session.userLogged.first_name = user.first_name
+        req.session.userLogged.last_name = user.last_name
+        
+        if (userError) {
+            /* Se envia un mensaje de error por no poder guardar la imagen*/
+            return res.render('./users/profile', {user: userError, imgError: true, passError: false})
+        } else {
+            /* Si todo salio bien se muestra el perfil del usuario */
+            return res.redirect(`/users/profile/${req.params.id}`)
+        }
 
     },
 

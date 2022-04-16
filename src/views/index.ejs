@@ -103,7 +103,7 @@
                     <% for (i = 0; i < 8 && i < productos.length; i++) { %>
                     <div class="col mb-5">
                         <div class="card h-100">
-                            <% if (productos[i].discount.id != 1) { %>
+                            <% if (productos[i].discount.id != 1 && productos[i].discount.active) { %>
                             <!-- Sale badge-->
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <% } %>
@@ -122,7 +122,7 @@
                                         <div class="fa fa-star"></div>
                                         <div class="fa fa-star-half"></div>
                                     </div> 
-                                    <% if (productos[i].discount.id != 1) { %>
+                                    <% if (productos[i].discount.id != 1 && productos[i].discount.active) { %>
                                     <!-- Product price and Discount-->
                                     <span class="text-muted text-decoration-line-through">$<%=productos[i].price %></span>
                                     $<%=Math.round(productos[i].price - (productos[i].price * (productos[i].discount.percent / 100))) %><br>

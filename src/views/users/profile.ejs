@@ -382,39 +382,35 @@
 
                     <!-- Seguridad -->
                     <div class="tab-pane fade p-3 py-5" id="safe">
-                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" data-bs-toggle="modal" data-bs-target="#editSafe">Cambiar Contraseña</button></div>
-                    </div>
-
-                    <!-- Edit Safe -->
-                    <div id="editSafe" class="modal fade">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form action="/users/profile/edit/pass/<%=user.id%>?_method=PUT" method="POST">
-                                    <div class="modal-header">						
-                                        <h4 class="modal-title">Cambiar Contraseña</h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">					
-                                        <div class="form-group">
-                                            <label>Contraseña Actual</label>
-                                            <input type="password" name="oldpass" id="oldpass" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Nueva Contraseña</label>
-                                            <input type="password" name="newpass" id="newpass" class="form-control" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Confirmar Contraseña</label>
-                                            <input type="password" name="confpass" id="confpass" class="form-control" required>
-                                        </div>			
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-primary profile-button">Guardar Cambios</button>
-                                    </div>
-                                </form>
+                        <form class="needs-validation" action="/users/profile/edit/pass/<%=user.id%>?_method=PUT" method="POST" novalidate>
+                            <div class="col-md-12">						
+                                <h4>Cambiar Contraseña</h4>
                             </div>
-                        </div>
+                            <div class="col-md-12">					
+                                <div class="form-group">
+                                    <label>Contraseña Actual</label>
+                                    <input type="password" name="oldpass" id="oldpass" class="form-control" required>
+                                    <div class="invalid-feedback">
+                                        La contraseña es necesaria para validar su identidad.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nueva Contraseña</label>
+                                    <input type="password" name="newpass" id="newpass" class="form-control" required>
+                                    <div class="invalid-feedback">
+                                        La contraseña nueva debe ser diferente a la actual.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirmar Contraseña</label>
+                                    <input type="password" name="confpass" id="confpass" class="form-control" required>
+                                    <div class="invalid-feedback">
+                                        Nueva contraseña y confirmar contraseña no coinciden.
+                                    </div>
+                                </div>			
+                            </div>
+                            <div class="mt-5 text-center"><button type="submit" class="btn btn-primary profile-button">Cambiar Contraseña</button></div>
+                        </form>
                     </div>
                 </div>
             <!-- <div class="col-md-4"> ULTIMAS COMPRAS - FAVORITOS
@@ -432,26 +428,7 @@
     <!-- Footer-->
     <%- include('../partials/footer') %>
 
-    <!-- <script>
-        var old_password = document.getElementById("oldpass");
-        var password = document.getElementById("newpass");
-        var confirm_password = document.getElementById("confpass");
-
-        function validatePassword(){
-            if (password.value == "" || old_password.value == ""){
-                confirm_password.setCustomValidity("Complete todos los campos");
-            } else if (password.value != confirm_password.value){
-                confirm_password.setCustomValidity("Contraseñas no coinciden"); 
-            } else if (old_password.value == password.value){
-                password.setCustomValidity("La contraseña nueva debe ser diferente a la actual");    
-            } else {
-                password.setCustomValidity('');
-            }
-        }
-
-        password.onchange = validatePassword;
-        confirm_password.onkeyup = validatePassword;
-    </script> -->
+    <script src="/js/password.js"></script>
 
 </body>
 </html>

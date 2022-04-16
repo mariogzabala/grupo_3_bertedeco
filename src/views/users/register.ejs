@@ -21,7 +21,7 @@
     <!-- Formulario-->
     <div class="container">
         <div class=" row">
-            <div class="col-md-12 order-md-1">
+          <div class="col-md-12 order-md-1">
             <h3 class="mb-3 title">Bienvenido a BerteDeco</h3>
             <h4 class="mb-3 title">Crea una Cuenta</h4>
             
@@ -60,62 +60,30 @@
             <div class="mb-3">
                 <label for="inputPassword">Contraseña</label>
                 <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Contraseña" required>
-                
-              </div>
+                <div class="invalid-feedback">
+                  Este campo es obligatorio.
+                </div>
+            </div>
 
-              <div class="mb-3">
-                <label for="inputPassword">Confirmar Contraseña</label>  
-                <input type="password" id="inputConfirmation" class="form-control" name="confirmation" placeholder="Confirmar Contraseña" required>
-                
-              </div> 
+            <div class="mb-3">
+              <label for="inputPassword">Confirmar Contraseña</label>  
+              <input type="password" id="inputConfirmation" class="form-control" name="confirmation" placeholder="Confirmar Contraseña" required>
+              <div class="invalid-feedback">
+                Contraseña y confirmar contraseña no coinciden.
+              </div>
+            </div> 
 
               <button class="btn btn-lg btn-primary btn-block" type="submit">Registrarse</button>
               <p class="mt-5 mb-3 text-center">Si ya tienes cuenta, <a href="/users/login">Inicia Sesión</a></p>            
             </form>
-        </div>
+          </div>
         </div>
     </div>
 
     <!-- Footer-->
     <%- include('../partials/footer') %>
-    
-    <!-- <script>
-      var password = document.getElementById("inputPassword"),
-      confirm_password = document.getElementById("inputConfirmation");
 
-      function validatePassword(){
-        if(password.value != confirm_password.value) {
-        confirm_password.setCustomValidity("Contraseña no coinciden");
-        } 
-        else {
-        confirm_password.setCustomValidity('');
-        }
-      }
-      password.onchange = validatePassword;
-      confirm_password.onkeyup = validatePassword;
-    </script> -->
-
-    <script> 
-    (function () {
-        'use strict'
-      
-        window.addEventListener('load', function () {
-          // Fetch all the forms we want to apply custom Bootstrap validation styles to
-          var forms = document.getElementsByClassName('needs-validation')
-      
-          // Loop over them and prevent submission
-          Array.prototype.filter.call(forms, function (form) {
-            form.addEventListener('submit', function (event) {
-              if (form.checkValidity() === false) {
-                event.preventDefault()
-                event.stopPropagation()
-              }
-              form.classList.add('was-validated')
-            }, false)
-          })
-        }, false)
-      }())
-      </script>
+    <script src="/js/register.js"></script>
 
 </body>
 </html>

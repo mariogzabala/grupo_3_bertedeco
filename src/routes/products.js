@@ -22,6 +22,18 @@ router.get('/edit', productsController.edit)
 router.post('/edit/:id', productsController.update)
 
 /* Elimiar producto desde formulario de edicion*/
-router.delete('/delete/:id', productsController.destroy) 
+router.delete('/delete/:id', productsController.destroy)
+
+/* Mostrar descuentos*/
+router.get('/discounts', productsController.discounts)
+
+/* Mostrar descuentos*/
+router.post('/discounts/create/:id', productsController.creatediscount)
+
+/* Mostrar descuentos*/
+router.put('/discounts/edit/:id', productsController.editdiscount)
+
+/* Mostrar descuentos*/
+router.delete('/discounts/delete/:id', productsController.deletediscount)
 
 module.exports = router
