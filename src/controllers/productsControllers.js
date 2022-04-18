@@ -20,14 +20,21 @@ let productsController = {
             wanted = '%' + req.query.find + '%'
         }
         
-        /* Trae todos los porductos de la base de datos que esten activos*/
+        /* Trae todos los productos de la db que esten activos y coincidan con la busqueda*/
         db.Products.findAll({
-            where: { [Op.or] : {name: {[Op.like]: wanted}, category: {[Op.like]: wanted}}, active: true},
+            where: { 
+                [Op.or] : {
+                    name: {[Op.like]: wanted},
+                    category: {[Op.like]: wanted},
+                    sku: {[Op.like]: wanted}
+                },
+                active: true
+            },
             include: [{association: 'images'}, {association: 'discount'}],
             order: [['images', 'id', 'ASC']] /* Ordena las imagenes de forma ascendente */
         })
         .then(function(products) {
-            /* Rederiza la lista de productos pasandole la db completa*/
+            /* Renderiza la lista de productos pasandole la db completa*/
             return res.render('./products/productList', {productos: products})
         })
 
@@ -328,13 +335,13 @@ let productsController = {
         /* Trae todos los descuentos de la base de datos */
         db.Discounts.findAll({where: {id: {[Op.ne]: 1}}}, {order: [['id', 'ASC']]})
             .then(function(discounts) {
-                /* Miramos si hay al menos un producto en la db */
+                /* Miramos si hay al menos un descuento en la db */
                 if (discounts !== null) {
                     let newId = discounts[discounts.length-1].id + 1
-                    /* Se renderiza crear producto pasandole la id del producto que sera creado*/
+                    /* Se renderiza los descuentos pasandole la id del descuento que sera creado*/
                     return res.render('./products/discounts', {newId, discounts})
                 } else {
-                    /* Si no hay, pasamos el id del producto que sera creado */
+                    /* Si no hay, pasamos el id del descuento que sera creado */
                     return res.render('./products/discounts', {newId: 2, discounts})
                 }
             

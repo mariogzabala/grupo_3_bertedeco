@@ -221,6 +221,11 @@ input[type=checkbox] {
   background-color:#0a1316;
 }
 
+.btn:focus {
+  background: rgb(0,0,0);
+  box-shadow: none
+}
+
 .btn-danger:hover {
   background-color: rgb(241, 11, 11);
 }

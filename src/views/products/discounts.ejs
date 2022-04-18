@@ -25,7 +25,7 @@
             <div class="col-md-12 order-md-1">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Descuentos</h4>
-                    <div class="mt-2"><button class="btn btn-primary profile-button" type="button" data-bs-toggle="modal" data-bs-target="#addDisc">Agregar Descuento</button></div>
+                    <div class="mt-2"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#addDisc">Agregar Descuento</button></div>
                 </div>
                 <% for (let discount of discounts) { %>
                     <div class="col-md-12"><label class="labels">Nombre</label><input type="text" class="form-control" value="<%=discount.name%>" readonly></div>
@@ -43,7 +43,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="mt-3"><button class="btn btn-primary profile-button" type="button" data-bs-toggle="modal" data-bs-target="#editDisc<%=discount.id%>">Editar</button></div>
+                    <div class="mt-3"><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#editDisc<%=discount.id%>">Editar</button></div>
                     <hr class="mb-4">
                     <!-- Edit Discount -->
                     <div id="editDisc<%=discount.id%>" class="modal fade">
@@ -79,7 +79,7 @@
                                         </div>				
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary profile-button">Guardar Cambios</button>
+                                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                                     </div>
                                 </form>
                                 <div class="modal-footer">
@@ -127,7 +127,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary profile-button">Agregar</button>
+                        <button type="submit" class="btn btn-primary">Agregar</button>
                     </div>
                 </form>
             </div>

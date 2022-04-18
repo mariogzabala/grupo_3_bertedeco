@@ -41,8 +41,6 @@ let userController = {
 
                     /* Crear cookie */
                     if (req.body.remember) {
-                        /* let randomNumber = Math.random().toString()
-                        randomNumber = randomNumber.substring(2, randomNumber.length) */
                         res.cookie("userEmail", user.email, { maxAge: 600000 * 144, httpOnly: true })
                     }
 
