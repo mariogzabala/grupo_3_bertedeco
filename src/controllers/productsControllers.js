@@ -45,9 +45,10 @@ let productsController = {
         
         /* Trae el producto deseado buscandolo por id */
         let product = await db.Products.findByPk(req.params.id, {
-            include: [{association: 'images'}, {association: 'discount'}],
+            include: [{association: 'images'} , {association: 'discount'}, {association: 'order_items'}],
             order: [['images', 'id', 'ASC']] /* Ordena las imagenes de forma ascendente */
         })
+         
 
         /* Esperamos a encontrar el producto */
         /* Trae todos los porductos de la base de datos que sean de la misma categoria*/

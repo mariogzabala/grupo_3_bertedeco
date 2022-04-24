@@ -16,7 +16,7 @@ function bertedecoData(sequelize, DataTypes) {
         updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
     }
 
-    config = {tableName: "product", camelCase: false, underscored: true, timestamps: true}
+    config = {tableName: "product", camelCase: false, underscored: true, timestamps: false}
 
     const Product = sequelize.define(alias, cols, config)
 
@@ -32,6 +32,13 @@ function bertedecoData(sequelize, DataTypes) {
         Product.belongsTo(models.Discounts, {
             as: "discount",
             foreignKey: "discount_id" /* Nombre de la foreignKey que ira en la tabla product (esta) */
+        })
+
+
+        /*Un producto tiene muchas  order_items*/
+        Product.hasMany(models.OrderItems, {
+            as: "order_items",
+            foreignKey: "product_id" 
         })
 
     }
