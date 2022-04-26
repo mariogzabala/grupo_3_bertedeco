@@ -20,7 +20,7 @@ function bertedecoData(sequelize, DataTypes) {
 
         /* Un descuento tiene muchos productos */
         Discount.hasMany(models.Products, {
-            as: "product",
+            as: "products",
             foreignKey: "discount_id" /* Nombre de la foreignKey que ira en la tabla product */
         })
 

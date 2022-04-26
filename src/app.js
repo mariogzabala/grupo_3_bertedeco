@@ -29,6 +29,7 @@ const indexRouter = require('./routes/index.js')
 const productsRouter = require('./routes/products.js')
 const usersRouter = require('./routes/users.js')
 const cartRouter = require('./routes/cart.js')
+const adminRouter = require('./routes/admin.js')
 
 //npm start
 app.listen(process.env.PORT || 3030, () => console.log('Servidor corriendo'))
@@ -49,21 +50,11 @@ app.use('/cart', cartRouter)
 //usar localhost:3030/users
 app.use('/users', usersRouter)
 
+//pagina de administrador
+//usar localhost:3030/admin
+app.use('/admin', adminRouter)
+
 // ************ NO TOCAR ************
 // ************ catch 404 and forward to error handler ************
 
-app.use(function(req, res, next) {
-  next(createError(404))
-})
 
-// ************ error handler ************
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message
-  res.locals.path = req.path
-  res.locals.error = req.app.get('env') === 'development' ? err : {} 
-
-  // render the error page
-  res.status(err.status || 500)
-  res.render('error')
-})
