@@ -12,10 +12,13 @@ function loggedMiddleware(req, res, next) {
                 /* Maintiene la sesión con los datos de la cookie */
                 if (userCookie && req.session) {
                     /* borrar informacion sensible para no pasarla a la session */
-                    delete userCookie.password
-                    delete userCookie.phone
-                    delete userCookie.createdAt
-                    delete userCookie.updatedAt
+                    delete userCookie._previousDataValues
+                    delete userCookie.uniqno
+                    delete userCookie.isNewRecord
+                    delete userCookie.dataValues.password
+                    delete userCookie.dataValues.phone
+                    delete userCookie.dataValues.createdAt
+                    delete userCookie.dataValues.updatedAt
                     req.session.userLogged = userCookie
                 }
             })

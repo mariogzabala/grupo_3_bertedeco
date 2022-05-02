@@ -32,6 +32,11 @@ function bertedecoData(sequelize, DataTypes) {
             foreignKey: "user_id" /* Nombre de la foreignKey que ira en la tabla user_payment */
         })
 
+        User.hasMany(models.Carts, {
+            as: "carts",
+            foreignKey: "user_id"
+        })
+
     }
 
     return User

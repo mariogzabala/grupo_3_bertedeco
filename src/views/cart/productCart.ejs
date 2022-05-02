@@ -6,416 +6,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>BerteDeco</title>
     <!-- Bootstrap CSS and CSS Style-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/styles_cart.css" />
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     <!-- Bootstrap icons Fontawesome icons-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="/img/icon.jpg" />
-    <!-- plantilla html-->
-    <link 
-    href="https://http2.mlstatic.com/frontend-assets/ui-navigation/5.18.5/mercadolibre/navigation-mobile-MCO.css"
-    rel="stylesheet" type="text/css" media="(max-width: 1023px)">
-    <link
-    href="https://http2.mlstatic.com/resources/frontend/statics/buyingflow-frontend-core/cart-core_ui/styles/cart-core_ui__large-71f8560ee5.css"
-    rel="stylesheet" type="text/css">
-    <link
-    href="https://http2.mlstatic.com/resources/frontend/statics/buyingflow-frontend-core/styles/cho__large-01a75e881b.css"
-    rel="stylesheet" type="text/css">
-    <!-- plantilla html-->   
+    <link rel="icon" type="image/x-icon" href="/img/icon.jpg" />   
 </head>
 <body>
     <!-- Header and Navbar-->
     <%- include('../partials/header') %>
 
     <!-- Cart -->
-    <main class="container-fluid">
-        <div
-             data-js="external-js">
-        </div>
-        <div data-js="bundle-type">
-            <svg xmlns="http://www.w3.org/2000/svg" class="svg-hide">
-            <symbol id="ui-icon--location" viewBox="0 0 48 48">
-                <path
-                    d="M24.53 35.03l-.531.53-.53-.53c-5.125-5.127-7.716-9.795-7.716-14.034a8.246 8.246 0 1 1 16.492 0c0 4.24-2.591 8.907-7.716 14.034zm-7.277-14.034c0 3.627 2.231 7.781 6.746 12.435 4.515-4.654 6.746-8.808 6.746-12.435a6.746 6.746 0 0 0-13.492 0zM24 24.76a3.755 3.755 0 1 1 0-7.51 3.755 3.755 0 0 1 0 7.51zm0-1.5a2.255 2.255 0 1 0 0-4.51 2.255 2.255 0 0 0 0 4.51z"
-                    fill="#3483FA" >
-                </path>
-            </symbol>
-        </svg>
-        </div>
-        <div>    
-        <div class="cart-main-container cart-main-container--aside-present row" data-js="cart-main-container">
-            <div id="app-container" class="cart-content col-md-5 col-sm-12 col-xs-12">
-                <div>
-                    <div data-component="shipping-selection">
-                        <div data-component="shipping-context">
-                            <div>
-                                <div data-component="shipping-context">
-                                    <div class="shipping-context">
-                                        <div class="step-title   ">
-                                            <h1 class="cart-title--primary " data-js="stepTitle-heading" tabindex="-1">
-                                                Opciones de envío a
-                                            </h1>
-
-
-                                         </div>
-                                            <h3 class="block-title"> </h3>
-                                            <div data-id="hero-shipping" class="hero hero-shipping  hero--contained hero--ellipsis">
-                                                        <div class="hero__wrapper">
-                                                            <div class="hero__table-row">
-                                                                <div class="hero__icon" data-js="hero-icon">
-                                                                    <span class="ui-badge ui-badge--small ">
-                                                                        <svg viewBox="0 0 100 100" role="presentation"
-                                                                            class="ui-icon ui-icon--location ui-badge__icon ui-badge__icon--medium">
-                                                                            <use 
-                                                                            xmlns:xlink="http://www.w3.org/1999/xlink"xlink:href="#ui-icon--location">
-                                                                            </use>
-                                                                        </svg>
-                                                                    </span>
-                                                                </div>
-
-                                                                <div class="hero__main-content" data-js="hero-main-content">
-                                                                    <div class="hero__main-content-wrapper">
-                                                                        <div class="hero__info" data-js="hero-info">
-                                                                            <h3 data-id="hero-shipping-title" class="hero__info-title">
-                                                                            Calle 17 #37A-80
-                                                                            </h3>
-                                                                            <span data-id="hero-shipping-subtitle" class="hero__info-subtitle ">
-                                                                                Castropol, poblado, Urbanización
-                                                                                providencia - Medellín, Antioquia
-                                                                            </span>
-                                                                        </div>
-                                                                        <div class="hero__action" data-js="hero-action">
-                                                                            <form data-js="show-addresses" method="post">
-                                                                                <button data-js="next-step"
-                                                                                    data-input-id="nextStepAddressChange"
-                                                                                    class=" hero__action-button u-link"
-                                                                                    type="submit"
-                                                                                    name="nextStepAddressChange"
-                                                                                    value="nextStepAddressChange">
-                                                                                    Editar o elegir otro
-                                                                                </button>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
+    <main class="page">
+        <section class="shopping-cart dark">
+            <div class="container">
+               <div class="block-heading">
+                 <h2>Carro de Compras</h2>
+                 <p>Verifique los detalles de su compra y de click en el boton de pagar</p>
+               </div>
+               <form action="/products/delete/?_method=DELETE" method="POST">
+                <div class="content">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-8">
+                                <div class="items">
+                                    <div class="product">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <img class="img-fluid mx-auto d-block image" src="/img/productos/abanico-kenia-0.jpg">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="info">
+                                                    <div class="row">
+                                                        <div class="col-md-5 product-name">
+                                                            <div class="product-name">
+                                                                <a href="link a detalle">Nombre producto</a>
+                                                                <div class="product-info">
+                                                                    <div>Display: <span class="value">5 inch</span></div>
+                                                                    <div>RAM: <span class="value">4GB</span></div>
+                                                                    <div>Memory: <span class="value">32GB</span></div>
                                                                 </div>
                                                             </div>
-
-                                                            <div class="hero__table-row">
-                                                                <div class="hero__table-cell">
-                                                                </div>
-                                                                <div class="hero__table-cell"></div>
-                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 quantity">
+                                                            <label for="quantity">Cantidad</label>
+                                                            <input id="quantity" type="number" min="1" value="1" name="quantity" class="form-control quantity-input">
+                                                            <button type="button" class="btn btn-primary btn-lg btn-block"><i class="fa fa-trash"></i></button>
+                                                        </div>
+                                                        <div class="col-md-3 price">
+                                                            <span>$120 ARS</span>
+                                                            <!-- DESCUENTO OPCIONAL -->
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div data-component="shipping-context"></div>
-                                    <div data-component="shipping-address-info" data-js="shipping-address-info-region"></div>
-                                     <div data-component="cart-packages">
-                                        <ul class="cart-packages">
-                                            <li class="cart-package cart-packages__single-option">
-                                                <article data-id="cart-package-666321970" class="cart-package">
-                                                    <header class="cart-package__id">
-                                                        <h3 class="block-title">Paquete 1</h3>
-                                                    </header>
-
-                                                    <div class="cart-package__data ">
-                                                        <div data-js="cart-package__shipping"
-                                                            class="cart-package__shipping">
-                                                            <div class="cart-package__option-button ">
-                                                                <div class="cart-package__shipping-box">
-                                                                    <div class="cart-package__shipping-header">
-                                                                        <div data-id="shipping-option-name"
-                                                                            class="cart-package__shipping__title">
-                                                                            Llega el miércoles a tu dirección
-                                                                        </div>
-                                                                    </div>
-                                                                    <span class="cart-package__shipping-price">
-                                                                        <span
-                                                                            class="cart-package__shipping-price-container">
-                                                                            <span data-id="shipping-option-price-free"
-                                                                                class="shipping-option-price price-free u-text--green">
-                                                                                <span
-                                                                                    class="shipping-option-price__text">Gratis</span>
-                                                                                <p
-                                                                                    class="loyalty-benefits__shipping-info">
-                                                                                    Único envío disponible
-
-                                                                                </p>
-                                                                            </span>
-
-                                                                        </span>
-                                                                    </span>
+                                    <div class="product">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <img class="img-fluid mx-auto d-block image" src="/img/productos/abanico-kenia-0.jpg">
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="info">
+                                                    <div class="row">
+                                                        <div class="col-md-5 product-name">
+                                                            <div class="product-name">
+                                                                <a href="#">Lorem Ipsum dolor</a>
+                                                                <div class="product-info">
+                                                                    <div>Display: <span class="value">5 inch</span></div>
+                                                                    <div>RAM: <span class="value">4GB</span></div>
+                                                                    <div>Memory: <span class="value">32GB</span></div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <section class="cart-package__items">
-                                                            <ul class="cart-package__list">
-                                                                <li class="cart-package__list__list-item">
-                                                                    <article class="item clearfix">
-                                                                        <figure
-                                                                            class="item__image item__image--circular item__image--dimmer">
-                                                                            <img class=""
-                                                                               
-                                                                                srcset="/img/productos/estante-0.jpg"
-                                                                                alt="Audífonos Gamer Kotion G2000 Negro Y Rojo Con Luz Led"
-                                                                                width="48" height="48"
-                                                                                data-object-fit="cover">
-                                                                        </figure>
-                                                                        <div class="item__information ">
-                                                                            <h2 class="item__title ">Estante Vitrina
-                                                                            </h2>
-                                                                            
-                                                                            <p class="item__units">
-                                                                                <span>
-                                                                                    <span
-                                                                                        class="u-text--single-line">Cantidad:
-                                                                                        1</span>
-
-                                                                                </span>
-                                                                            </p>
-                                                                            <p class="item__units-price"
-                                                                                aria-label="53957 pesos ">
-                                                                                <span aria-hidden="true">
-                                                                                    <span class="price-tag "
-                                                                                        itemprop="offers" itemscope=""
-                                                                                        itemtype="http://schema.org/Offer">
-                                                                                        <meta itemprop="price"
-                                                                                            content="53.957">
-
-                                                                                        <span class="price-tag-symbol"
-                                                                                            itemprop="priceCurrency"
-                                                                                            aria-hidden="true">$</span>
-                                                                                        <span
-                                                                                            class="price-tag-fraction">54.000</span>
-
-
-                                                                                    </span>
-                                                                                </span>
-                                                                                <span class="price-each">ARS</span>
-                                                                                <button data-js="next-step"
-                                                                                    data-input-id="nextStepAddressChange"
-                                                                                    class=" hero__action-button u-link"
-                                                                                    type="submit"
-                                                                                    name="nextStepAddressChange"
-                                                                                    value="nextStepAddressChange">
-                                                                                    Eliminar Producto
-                                                                                </button>
-                                                                            </p>
-                                                                        </div>
-                                                                    </article>
-                                                                </li>
-                                                                <li class="cart-package__list__list-item">
-                                                                    <article class="item clearfix">
-                                                                        <figure
-                                                                            class="item__image item__image--circular item__image--dimmer">
-                                                                            <img class=""
-                                                                                
-                                                                                srcset="/img/productos/mesa-detalle-1.jpg"
-                                                                                
-                                                                                width="48" height="48"
-                                                                                data-object-fit="cover">
-                                                                        </figure>
-                                                                        <div class="item__information ">
-                                                                            <h2 class="item__title ">Mesa comedor Griffin</h2>
-                                                                            <p class="item__units">
-                                                                                <span>
-                                                                                    <span
-                                                                                        class="u-text--single-line">Cantidad:
-                                                                                        1</span>
-                                                                                        
-
-                                                                                </span>
-                                                                            </p>
-
-                                                                            <p class="item__units">
-                                                                                <span>
-                                                                                    <span
-                                                                                        class="u-text--single-line">6 cuotas sin interes</span>
-                                                                                        
-
-                                                                                </span>
-                                                                            </p>
-
-                                                                            <p class="item__units-price"
-                                                                                aria-label="41918 pesos ">
-                                                                                <span aria-hidden="true">
-                                                                                    <span class="price-tag "
-                                                                                        itemprop="offers" itemscope=""
-                                                                                        itemtype="http://schema.org/Offer">
-                                                                                        <meta itemprop="price"
-                                                                                            content="41.918">
-
-                                                                                        <span class="price-tag-symbol"
-                                                                                            itemprop="priceCurrency"
-                                                                                            aria-hidden="true">$</span>
-                                                                                        <span
-                                                                                            class="price-tag-fraction">38.184</span>
-
-
-                                                                                    </span>
-                                                                                </span>
-                                                                                <span class="price-each">ARS</span>
-                                                                                <button data-js="next-step"
-                                                                                    data-input-id="nextStepAddressChange"
-                                                                                    class=" hero__action-button u-link"
-                                                                                    type="submit"
-                                                                                    name="nextStepAddressChange"
-                                                                                    value="nextStepAddressChange">
-                                                                                    Eliminar Producto
-                                                                                </button>
-                                                                            </p>
-
-                                                                            
-                                                                            
-                                                                        </div>
-                                                                    </article>
-                                                                </li>
-                                                            </ul>
-                                                        </section>
+                                                        <div class="col-md-4 quantity">
+                                                            <label for="quantity">Quantity:</label>
+                                                            <input id="quantity" type="number" value ="1" class="form-control quantity-input">
+                                                        </div>
+                                                        <div class="col-md-3 price">
+                                                            <span>$120</span>
+                                                        </div>
                                                     </div>
-                                                </article>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div data-component="summary-component" class="summary-component">
-                                        <div>
-                                            <div data-component="summary-component">
-                                                <section class="summary ">
-                                                    <form data-js="summary-action-form" class="summary__form"
-                                                        method="post" action="">
-                                                        <div class="summary__row ">
-                                                            <div class="summary__column-container">
-                                                                <div class="summary__column">
-
-                                                                    <div
-                                                                        class="rich-disclaimer rich-disclaimer--contained">
-                                                                        
-
-                                                                        Bertedeco Design
-
-                                                                    </div>
-                                                                </div>
-                                                                <div class="summary__column">
-                                                                    <span class="summary__label">
-                                                                        Costo de envío
-                                                                    </span>
-                                                                    <span data-id="summary-price"
-                                                                        class="summary__price">
-                                                                        <span class="u-text--green">Gratis</span>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-
-                                                        <div class="summary__actions">
-                                                            <input data-id="summary-action-button" type="submit"
-                                                            class="btn btn-secondary btn-outline-dark btn-lg"  value="Continuar">
-                                                        </div>
-                                                    </form>
-                                                </section>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- resumen de compra -->
-                        <div id="aside-container" class="cart-aside col-md-5 col-sm-12 col-xs-12">
-                            <div>
-                                <div data-component="aside">
-                                    <aside class="" data-aside="target">
-                                        <section class="cart-aside__content">
-                                            <h3 class="overview-component__heading">
-                                                <span class="overview-component__heading-text">Resumen de compra</span>
-                                            </h3>
-
-                                            <div class="overview__table-container">
-                                                <div class="overview-component__amounts">
-                                                    <div class="overview-component__table">
-                                                        <div class="overview-component__row">
-                                                            <div data-id="overview-items-quantity"
-                                                                class="overview-component__column">
-                                                                Productos (2)
-                                                            </div>
-                                                            <div data-id="overview-items-price"
-                                                                class="overview-component__column"
-                                                                aria-label="95875 pesos">
-                                                                <span aria-hidden="true">
-                                                                    <span class="price-tag " itemprop="offers"
-                                                                        itemscope="" itemtype="http://schema.org/Offer">
-                                                                        <meta itemprop="price" content="95.875">
-
-                                                                        <span class="price-tag-symbol"
-                                                                            itemprop="priceCurrency"
-                                                                            aria-hidden="true">$</span>
-                                                                        <span class="price-tag-fraction">283.100</span>
-
-
-                                                                    </span>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="overview-component__row">
-                                                            <div class="overview-component__column">
-                                                                Envío
-                                                            </div>
-                                                            <div data-id="overview-shipping-amount"
-                                                                class="overview-component__column" aria-label="Gratis">
-                                                                <span aria-hidden="true">
-                                                                    <span class="price-free u-text--green">
-                                                                        Gratis
-
-                                                                    </span>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                
-                                                <div class="overview-component__total">
-                                                    <div class="overview-component__table">
-                                                        <div class="overview-component__column">
-                                                            Total
-                                                        </div>
-                                                        <div class="overview-component__column"
-                                                            aria-label="95875 pesos">
-                                                            
-                                                                <meta itemprop="price" content="95.875">
-
-                                                                
-                                                                <span class="price-tag-fraction">283.100</span>
-
-
-                                                            </span>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-
-                                        </section>
-
-                                    </aside>
+                            <div class="col-md-12 col-lg-4">
+                                <div class="summary">
+                                    <h3>Resumen</h3>
+                                    <div class="summary-item"><span class="text">Subtotal</span><span class="price">$360 ARS</span></div>
+                                    <div class="summary-item"><span class="text">Descuento</span><span class="price">$0 ARS</span></div>
+                                    <div class="summary-item"><span class="text">Envio</span><span class="price">$0 ARS</span></div>
+                                    <div class="summary-item"><span class="text">Total</span><span class="price">$360 ARS</span></div>
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block">Pagar</button>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     </div>
-                </div>
+                </form>
             </div>
-        </div>
-    </main>
+       </section>
+   </main>
     
     <!-- Footer-->
     <%- include('../partials/footer') %>
