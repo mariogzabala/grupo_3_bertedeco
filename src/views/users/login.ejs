@@ -19,7 +19,7 @@
     <%- include('../partials/header') %>
 
     <!-- Formulario-->
-    <form class="form-signin" method="POST" action="/users/auth/">
+    <form class="form-signin needs-validation" method="POST" action="/users/auth/" novalidate>
         <div class="text-center mb-4">
           <h1 class="title mb-3 font-weight-normal"><%= newUser ? 'Su cuenta fue creada con exito' : 'Bienvenido a Bertedeco' %></h1>
           <p class="title">Por favor inica sesión</p>
@@ -34,11 +34,17 @@
         <div class="form-label-group">
           <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
           <label for="inputEmail">Correo Electronico</label>
+          <div class="invalid-feedback">
+            Se requiere un Email válido.
+         </div>
         </div>
       
         <div class="form-label-group">
           <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
           <label for="inputPassword">Contraseña</label>
+          <div class="invalid-feedback">
+            Este campo es obligatorio.
+         </div>
         </div>
       
         <div class="checkbox mb-3">
@@ -53,6 +59,8 @@
 
      <!-- Footer-->
     <%- include('../partials/footer') %>
+
+    <script  src="/js/login.js"></script>
 
 </body>
 </html>
