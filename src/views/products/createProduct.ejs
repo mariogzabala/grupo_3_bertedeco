@@ -56,7 +56,7 @@
                 <label for="prodName">Nombre</label>
                 <input type="text" class="form-control" id="prodName" name="name" required>
                 <div class="invalid-feedback">
-                  Se requiere un nombre de producto.
+                  Se requiere al menos 5 carácteres.
                 </div>
               </div>
             </div>
@@ -70,9 +70,7 @@
                   </div>
                   <input type="text" class="form-control" id="price" name="price" pattern="[0-9]+" title="Solo ingrese numeros" required>
                   <div class="invalid-feedback">
-                    Se requiere un precio.
-                    <br>
-                    <div class="must-number"></div>
+                    Este campo debe contener solo números.
                   </div>
                 </div>
               </div>
@@ -85,9 +83,7 @@
                   </div>
                   <input type="text" class="form-control" id="stock" name="stock" pattern="[0-9]+" title="Solo ingrese numeros" required>
                   <div class="invalid-feedback">
-                    Se requiere un stock.
-                    <br>
-                    <div class="must-number"></div>
+                    Este campo debe contener solo números.
                   </div>
                 </div>
               </div>
@@ -120,7 +116,7 @@
               <label for="prod_desc">Descripción</label>
               <textarea rows="2" class="form-control" id="prod_desc" name="prod_desc" required></textarea>
               <div class="invalid-feedback">
-                Se requiere una descripción.
+                La descripción debe ser al menos 20 carácteres
               </div>
             </div>
 
@@ -189,27 +185,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <script>
-      (function () {
-        'use strict'
-
-        window.addEventListener('load', function () {
-          // Fetch all the forms we want to apply custom Bootstrap validation styles to
-          var forms = document.getElementsByClassName('needs-validation')
-
-          // Loop over them and prevent submission
-          Array.prototype.filter.call(forms, function (form) {
-            form.addEventListener('submit', function (event) {
-              if (form.checkValidity() === false) {
-                event.preventDefault()
-                event.stopPropagation()
-              }
-              form.classList.add('was-validated')
-            }, false)
-          })
-        }, false)
-      }())
-    </script>
+    <script src="/js/validProduct.js"></script>">   
             
 </body>
 </html>
