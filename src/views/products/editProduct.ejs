@@ -57,11 +57,10 @@
                   <label for="prodName">Nombre</label>
                   <input type="text" class="form-control" id="prodName" name="name" value="<%=producto.name%>" required>
                   <div class="invalid-feedback">
-                    Se requiere un nombre de producto.
+                    Se requiere al menos 5 carácteres.
                   </div>
                 </div>
               </div>
-
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="price">Precio</label>
@@ -71,13 +70,10 @@
                     </div>
                     <input type="text" class="form-control" id="price" name="price" pattern="[0-9]+" title="Solo ingrese numeros" value="<%=producto.price%>" required>
                     <div class="invalid-feedback">
-                      Se requiere un precio.
-                      <br>
-                      <div class="must-number"></div>
+                      Este campo solo debe contener números.
                     </div>
                   </div>
                 </div>
-
                 <div class="col-md-6 mb-3">
                   <label for="stock">Cantidad en Stock</label>
                   <div class="input-group">
@@ -86,13 +82,10 @@
                     </div>
                     <input type="text" class="form-control" id="stock" name="stock" pattern="[0-9]+" title="Solo ingrese numeros" value="<%=producto.stock%>"required>
                     <div class="invalid-feedback">
-                      Se requiere un stock.
-                      <br>
-                      <div class="must-number"></div>
+                      Este campo solo debe contener números
                     </div>
                   </div>
                 </div>
-
                 <div class="col-md-6 mb-3">
                   <label for="discount_id">Descuento (Opcional)</label>
                   <select class="custom-select d-block w-100" id="discount_id" name="discount_id">
@@ -103,7 +96,6 @@
                     <% } %>
                   </select>
                 </div>
-
                 <div class="col-md-6 mb-3">
                   <label for="active">Producto listo para vender</label>
                   <select class="custom-select d-block w-100" id="active" name="active" required>
@@ -117,17 +109,15 @@
                     Se requiere saber si el producto esta listo.
                   </div>
                 </div>
-
               </div>
   
               <div class="mb-3">
                 <label for="prod_desc">Descripción</label>
                 <textarea rows="2" class="form-control" id="prod_desc" name="prod_desc" required><%=producto.prod_desc%></textarea>
                 <div class="invalid-feedback">
-                  Se requiere una descripción.
+                  Se requiere al menos 20 carácteres.
                 </div>
               </div>
-
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="category">Categoria</label>
@@ -144,7 +134,6 @@
                     Se requiere una categoria.
                   </div>
                 </div>
-
                 <div class="col-md-6 mb-3">
                   <label for="delivery">Tiempo de entrega minimo</label>
                   <select class="custom-select d-block w-100" id="delivery" name="delivery" required>
@@ -161,9 +150,7 @@
                   </div>
                 </div>
               </div>
-
               <hr class="mb-4">
-
               <h4 class="mb-3">Seleccione las imágenes que desea borrar</h4>
               
               <div class="row delete-images">
@@ -178,7 +165,6 @@
                   </div>
               <% } %>
               </div>
-
               <hr class="mb-4">
               
               <h4 class="mb-3">Cargar Imagenes</h4>
@@ -189,7 +175,6 @@
                   <label class="input-group-text" for="inputFile">Imagenes</label>
                 </div>
               </div>
-
               <% if (noguardado.length > 0) { %>
                 <hr class="mb-4">
                 <div class="not-saved">
@@ -200,7 +185,6 @@
                   Solo se aceptan archivos .jpg .jpeg .png de 500kb o menos.
                 </div>
               <% } %>
-
               <hr class="mb-4">
               <button class="btn btn-primary btn-lg btn-block" type="submit">Editar Producto</button>  
             
@@ -211,7 +195,6 @@
             <form action="/products/delete/<%=producto.id%>?_method=DELETE" method="POST">
                 <button class="btn btn-danger btn-lg btn-block" type="submit">Eliminar Producto</button>  
             </form>
-
           </div>
         </div>
       </div>
@@ -226,27 +209,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <script>
-      (function () {
-        'use strict'
-
-        window.addEventListener('load', function () {
-          // Fetch all the forms we want to apply custom Bootstrap validation styles to
-          var forms = document.getElementsByClassName('needs-validation')
-
-          // Loop over them and prevent submission
-          Array.prototype.filter.call(forms, function (form) {
-            form.addEventListener('submit', function (event) {
-              if (form.checkValidity() === false) {
-                event.preventDefault()
-                event.stopPropagation()
-              }
-              form.classList.add('was-validated')
-            }, false)
-          })
-        }, false)
-      }())
-    </script>
+    <script src="/js/validProduct.js"></script>
             
 </body>
 </html>
