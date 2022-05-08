@@ -1,39 +1,73 @@
 (function () {
-    'use strict'
+  'use strict'
 
-    window.addEventListener('load', function () {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName('needs-validation')
+  window.addEventListener('load', function () {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation')
+    var wasValidated = true
+    var oldPass = forms[0].elements[0]
+    var newPass = forms[0].elements[1]
+    var confPass = forms[0].elements[2]
 
-      // Loop over them and prevent submission
-      Array.prototype.filter.call(forms, function (form) {
-        var validity = function (event) {
-          // Remove is-invalid if its necessary
-          if (forms[0].elements[1].classList.contains('is-invalid')) {
-            forms[0].elements[1].classList.remove('is-invalid')
-          }
-          if (forms[0].elements[2].classList.contains('is-invalid')) {
-            forms[0].elements[2].classList.remove('is-invalid')
-          }
-          if (form.checkValidity() === false) {
-            event.preventDefault()
-            event.stopPropagation()
-          // Validate Password and Confirmation
-          } if (forms[0].elements[0].value == forms[0].elements[1].value) {
-            forms[0].elements[1].classList.add('is-invalid')
-            event.preventDefault()
-            event.stopPropagation()
-          } if (forms[0].elements[1].value != forms[0].elements[2].value) {
-            forms[0].elements[2].classList.add('is-invalid')
-            event.preventDefault()
-            event.stopPropagation()
-          }
-          form.classList.add('was-validated')
+    const patternPassword =/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
+
+    // Loop over them and prevent submission
+    Array.prototype.filter.call(forms, function (form) {
+      form.addEventListener('submit', function (event) {
+        if (form.checkValidity() === false || !wasValidated) {
+          event.preventDefault()
+          event.stopPropagation()
         }
-        // Call de validity function when subimt or on change
-        form.addEventListener('submit', validity, false);
-        form.addEventListener('change', validity, false);
-      })
-    }, false)
+          form.classList.add('was-validated')
+      }, false)
+    })
 
+    // Valida que antigua y nueva contraseña sean diferentes
+    oldPass.addEventListener('change', function(event){
+      if(oldPass.value == newPass.value){
+        oldPass.classList.add('is-invalid')
+        wasValidated = false
+      } else{
+        oldPass.classList.remove('is-invalid')
+        wasValidated = true
+      }
+    });
+    
+    // Valida antigua y nueva contraseñas
+    newPass.addEventListener('change', function(event) {
+      if (!patternPassword.test(newPass.value)){
+        newPass.classList.add('is-invalid')
+        wasValidated = false
+      } else {
+        newPass.classList.remove('is-invalid')
+        wasValidated = true
+      }
+      if(oldPass.value == newPass.value){
+        oldPass.classList.add('is-invalid')
+        wasValidated = false
+      } else{
+        oldPass.classList.remove('is-invalid')
+        wasValidated = true
+      }
+      if (newPass.value != confPass.value) {
+        confPass.classList.add('is-invalid')
+        wasValidated = false
+      } else {
+        confPass.classList.remove('is-invalid')
+        wasValidated = true
+      }
+    });
+
+    // Valida que nueva y confirmar coincidan
+    confPass.addEventListener('change', function(event) {
+      if (newPass.value != confPass.value) {
+        confPass.classList.add('is-invalid')
+        wasValidated = false
+      } else {
+        confPass.classList.remove('is-invalid')
+        wasValidated = true
+      }
+    });
+
+  }, false)
 }())

@@ -11,7 +11,7 @@
     var confPass = forms[0].elements[4]
 
     const patternEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const patternPassword = /^(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#\$%\^&\*])(?=.{8,})/
+    const patternPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
 
     // Loop over them and prevent submission
     Array.prototype.filter.call(forms, function (form) {
@@ -50,7 +50,7 @@
     
     // Valida los campos de contraseñas
     pass.addEventListener('change', function(event) {
-      if (!pass.value.match(patternPassword)){
+      if (!patternPassword.test(pass.value)){
         pass.classList.add('is-invalid')
         wasValidated = false
       } else {
