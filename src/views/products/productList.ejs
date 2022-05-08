@@ -76,7 +76,7 @@
                                 <!-- Product price and Discount-->
                                 <span class="text-muted text-decoration-line-through">$<%=p.price %></span>
                                 $<%=Math.round(p.price - (p.price * (p.discount.percent / 100))) %><br>
-                                <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(p.price - (p.price * (p.discount.percent / 100)) / 6) %></strong></div>
+                                <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(Math.round(p.price - (p.price * (p.discount.percent / 100))) / 6) %></strong></div>
                                 <% } else { %>
                                 <!-- Product price-->
                                 $<%=p.price %><br>
@@ -86,7 +86,7 @@
                         </div>
                         <!-- Product actions-->
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/additem/<%= locals.isLogged ? locals.user.id : '0' %>/<%= p.id %>">Agregar al carro</a></div>
                         </div>
                     </div>
                 </div>

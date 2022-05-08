@@ -4,9 +4,9 @@ function bertedecoData (sequelize, DataTypes) {
     
     let cols = {
         id: {type: DataTypes.INTEGER, primaryKey: true, autoincrement: true},
-        shipping: {type: DataTypes.FLOAT, allowNull: false},
-        subtotal: {type: DataTypes.FLOAT, allowNull: false},
+        subtotal: {type: DataTypes.FLOAT},
         total_discount: {type: DataTypes.FLOAT},
+        shipping: {type: DataTypes.FLOAT},
         total: {type: DataTypes.FLOAT, allowNull: false},
         active: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true},
         created_at: {type: DataTypes.DATE, allowNull: false, defaultValue: DataTypes.NOW},

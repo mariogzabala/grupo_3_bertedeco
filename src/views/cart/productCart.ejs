@@ -26,88 +26,65 @@
                  <h2>Carro de Compras</h2>
                  <p>Verifique los detalles de su compra y de click en el boton de pagar</p>
                </div>
-               <form action="/products/delete/?_method=DELETE" method="POST">
                 <div class="content">
-                        <div class="row">
-                            <div class="col-md-12 col-lg-8">
-                                <div class="items">
-                                    <div class="product">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <img class="img-fluid mx-auto d-block image" src="/img/productos/abanico-kenia-0.jpg">
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="info">
-                                                    <div class="row">
-                                                        <div class="col-md-5 product-name">
-                                                            <div class="product-name">
-                                                                <a href="link a detalle">Nombre producto</a>
-                                                                <div class="product-info">
-                                                                    <div>Display: <span class="value">5 inch</span></div>
-                                                                    <div>RAM: <span class="value">4GB</span></div>
-                                                                    <div>Memory: <span class="value">32GB</span></div>
-                                                                </div>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-8">
+                            <div class="items">
+                            <% for( let item of cart.cart_items ) { %>
+                                <div class="product">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img class="img-fluid mx-auto d-block image" src="/img/productos/<%= item.product.images.length > 0 ? item.product.images[0].name : 'image-needed.png' %>" alt="<%= item.product.images.length > 0 ? item.product.images[0].name : 'image-needed.png' %>" />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="info">
+                                                <div class="row">
+                                                    <div class="col-md-5 product-name">
+                                                        <div class="product-name">
+                                                            <a href="/products/detail/<%=item.product.id %>"><%=item.product.name %></a>
+                                                            <div class="product-info">
+                                                                <div>Descripción: <span class="value"><%= item.product.prod_desc %></span></div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-4 quantity">
-                                                            <label for="quantity">Cantidad</label>
-                                                            <input id="quantity" type="number" min="1" value="1" name="quantity" class="form-control quantity-input">
-                                                            <button type="button" class="btn btn-primary btn-lg btn-block"><i class="fa fa-trash"></i></button>
-                                                        </div>
-                                                        <div class="col-md-3 price">
-                                                            <span>$120 ARS</span>
-                                                            <!-- DESCUENTO OPCIONAL -->
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <img class="img-fluid mx-auto d-block image" src="/img/productos/abanico-kenia-0.jpg">
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="info">
-                                                    <div class="row">
-                                                        <div class="col-md-5 product-name">
-                                                            <div class="product-name">
-                                                                <a href="#">Lorem Ipsum dolor</a>
-                                                                <div class="product-info">
-                                                                    <div>Display: <span class="value">5 inch</span></div>
-                                                                    <div>RAM: <span class="value">4GB</span></div>
-                                                                    <div>Memory: <span class="value">32GB</span></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4 quantity">
-                                                            <label for="quantity">Quantity:</label>
-                                                            <input id="quantity" type="number" value ="1" class="form-control quantity-input">
-                                                        </div>
-                                                        <div class="col-md-3 price">
-                                                            <span>$120</span>
-                                                        </div>
+                                                    <div class="col-md-4 quantity">
+                                                        <label for="quantity">Cantidad</label>
+                                                        <input id="quantity" type="number" min="1" value="1" name="quantity" class="form-control quantity-input">
+                                                        <form action="/cart/deleteitem/<%=locals.user.id%>/<%=item.id%>?_method=DELETE" method="POST">
+                                                            <button type="submit" class="btn btn-primary btn-lg btn-block"><i class="fa fa-trash"></i></button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-md-3 price">
+                                                        <% if (item.product.discount.id != 1 && item.product.discount.active) { %>
+                                                            <!-- Product price and Discount-->
+                                                            <span class="text-muted text-decoration-line-through">$<%= item.product.price %></span>
+                                                            <br>
+                                                            <span>$<%=Math.round(item.product.price - (item.product.price * (item.product.discount.percent / 100))) %></span>
+                                                            <% } else { %>
+                                                            <!-- Product price-->
+                                                            <span>$<%= item.product.price %></span>
+                                                        <% } %>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            <% } %>
                             </div>
-                            <div class="col-md-12 col-lg-4">
-                                <div class="summary">
-                                    <h3>Resumen</h3>
-                                    <div class="summary-item"><span class="text">Subtotal</span><span class="price">$360 ARS</span></div>
-                                    <div class="summary-item"><span class="text">Descuento</span><span class="price">$0 ARS</span></div>
-                                    <div class="summary-item"><span class="text">Envio</span><span class="price">$0 ARS</span></div>
-                                    <div class="summary-item"><span class="text">Total</span><span class="price">$360 ARS</span></div>
-                                    <button type="submit" class="btn btn-primary btn-lg btn-block">Pagar</button>
-                                </div>
+                        </div>
+                        <div class="col-md-12 col-lg-4">
+                            <div class="summary">
+                                <h3>Resumen</h3>
+                                <div class="summary-item"><span class="text">Subtotal</span><span class="price"><%= cart.subtotal %></span></div>
+                                <div class="summary-item"><span class="text">Descuento</span><span class="price"><%= cart.total_discount %></span></div>
+                                <div class="summary-item"><span class="text">Envio</span><span class="price"><%= cart.shipping %></span></div>
+                                <div class="summary-item"><span class="text">Total</span><span class="price"><%= cart.total %> ARS</span></div>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Pagar</button>
                             </div>
-                        </div> 
-                    </div>
-                </form>
+                        </div>
+                    </div> 
+                </div>
             </div>
        </section>
    </main>

@@ -4,7 +4,7 @@ function bertedecoData (sequelize, DataTypes) {
     
     let cols = {
         id: {type: DataTypes.INTEGER, primaryKey: true, autoincrement: true},
-        quantity: {type: DataTypes.INTEGER, allowNull: false},
+        quantity: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 1},
         active: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true},      
         }
         
