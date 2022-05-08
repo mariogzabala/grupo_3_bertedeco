@@ -37,7 +37,7 @@
                 <label for="firstName">Nombres</label>
                 <input type="text" class="form-control" id="firstName" name="first_name" required>
                 <div class="invalid-feedback">
-                    Este campo es obligatorio.
+                    El nombre debe de tener al menos 2 letras.
                 </div>
                 </div>
                 <div class="col-md-6 mb-3">
@@ -53,7 +53,7 @@
                 <label for="email">Email </label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="tucorreo@mail.com" required>
                 <div class="invalid-feedback">
-                    Este campo es obligatorio.
+                   Se requiere un Email válido.
                 </div>
             </div>
             
@@ -61,7 +61,7 @@
                 <label for="inputPassword">Contraseña</label>
                 <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Contraseña" required>
                 <div class="invalid-feedback">
-                  Este campo es obligatorio.
+                  La contraseña debe tener al menos 8 carácteres y una Mayúscula, una minúscula, un número y un carácter especial.
                 </div>
             </div>
 
@@ -83,7 +83,7 @@
     <!-- Footer-->
     <%- include('../partials/footer') %>
 
-    <script src="/js/register.js"></script>
+    <script  src="/js/register.js"></script>
 
 </body>
 </html>
