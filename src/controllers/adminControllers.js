@@ -27,10 +27,7 @@ let adminController = {
 
                 if (bcrypt.compareSync(req.body.password, admin.password)) {
                     /* borrar informacion sensible para no pasarla a la session */
-                    delete admin.password
-                    delete admin.phone
-                    delete admin.createdAt
-                    delete admin.updatedAt
+                    delete admin.dataValues.password
                     req.session.adminLogged = admin
 
                     /* Crear cookie */
@@ -58,5 +55,3 @@ let adminController = {
 }    
     
 module.exports = adminController
-
-
