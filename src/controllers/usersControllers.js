@@ -33,10 +33,13 @@ let userController = {
 
                 if (bcrypt.compareSync(req.body.password, user.password)) {
                     /* borrar informacion sensible para no pasarla a la session */
-                    delete user.password
-                    delete user.phone
-                    delete user.createdAt
-                    delete user.updatedAt
+                    delete user._previousDataValues
+                    delete user.uniqno
+                    delete user.isNewRecord
+                    delete user.dataValues.password
+                    delete user.dataValues.phone
+                    delete user.dataValues.createdAt
+                    delete user.dataValues.updatedAt
                     req.session.userLogged = user
 
                     /* Crear cookie */

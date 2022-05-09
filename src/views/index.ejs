@@ -96,7 +96,7 @@
     <h3>DECO Y MUCHO MAS...</h3>
     
     <!-- Products-->
-    <% if (productos.length > 1) { %>
+    <% if (productos.length > 0) { %>
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -126,7 +126,7 @@
                                     <!-- Product price and Discount-->
                                     <span class="text-muted text-decoration-line-through">$<%=productos[i].price %></span>
                                     $<%=Math.round(productos[i].price - (productos[i].price * (productos[i].discount.percent / 100))) %><br>
-                                    <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(productos[i].price - (productos[i].price * (productos[i].discount.percent / 100)) / 6) %></strong></div>
+                                    <div class="label-line">6 cuotas sin interés de <strong>$<%=Math.round(Math.round(productos[i].price - (productos[i].price * (productos[i].discount.percent / 100))) / 6 )%></strong></div>
                                     <% } else { %>
                                     <!-- Product price-->
                                     $<%=productos[i].price %><br>
@@ -136,7 +136,7 @@
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/resume">Agregar al carro</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/cart/additem/<%= locals.isLogged ? locals.user.id : '0' %>/<%= productos[i].id %>">Agregar al carro</a></div>
                             </div>
                         </div>
                     </div>

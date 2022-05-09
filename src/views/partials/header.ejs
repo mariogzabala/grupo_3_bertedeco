@@ -24,11 +24,11 @@
                                 <% } else { %>
                                     <a href="/users/profile/<%= locals.user.id %>" class="user-icons d-flex align-items-center justify-content-center"><span class="user-text"><%= locals.user.first_name[0].toUpperCase() %></span></a>
                                 <% } %>
+                                <a href="/cart/resume/<%= locals.user.id %>" class="user-icons d-flex align-items-center justify-content-center"><span class="fa fa-shopping-cart"><i class="sr-only">Carro</i></span></a>
                             <% } else { %>
                                 <a href="/users/register" class="user-text-link d-flex align-items-center justify-content-center"><span class="user-text">Registrarse</span></a>
                                 <a href="/users/login" class="user-text-link d-flex align-items-center justify-content-center"><span class="user-text">Ingresar</span></a>
                             <% } %>
-                            <a href="/cart/resume" class="user-icons d-flex align-items-center justify-content-center"><span class="fa fa-shopping-cart"><i class="sr-only">Carro</i></span></a>
                         </p>
                         </div>
                     </div>

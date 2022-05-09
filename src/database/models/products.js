@@ -34,6 +34,11 @@ function bertedecoData(sequelize, DataTypes) {
             foreignKey: "discount_id" /* Nombre de la foreignKey que ira en la tabla product (esta) */
         })
 
+        Product.hasMany(models.CartItems, {
+            as: "cart_items",
+            foreignKey: "product_id"
+        })
+
     }
 
     return Product
