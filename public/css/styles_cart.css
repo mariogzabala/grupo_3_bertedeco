@@ -358,6 +358,11 @@ a {
   box-shadow: none
 }
 
+.buy-btn {
+  text-align: center;
+  margin-top: 1rem;
+}
+
 @media (min-width: 768px) {
 	.shopping-cart .items .product .info {
 		padding-top: 25px;
