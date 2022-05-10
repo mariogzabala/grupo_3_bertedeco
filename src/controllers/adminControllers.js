@@ -42,6 +42,8 @@ let adminController = {
                     return res.render('./admin/login', {error: true, newUser: false})
                 }
                 
+            }).catch (err => {
+                return res.render('error')
             })
         
     },

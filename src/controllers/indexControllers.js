@@ -10,6 +10,8 @@ let indexController = {
         })
         .then(function(products) {
             return res.render('index', {productos: products})
+        }).catch (err => {
+            return res.redirect('error')
         })
         
     }

@@ -54,6 +54,8 @@ let userController = {
                     return res.render('./users/login', {error: true, newUser: false})
                 }
                 
+            }).catch (err => {
+                return res.render('error')
             })
         
     },
@@ -95,8 +97,12 @@ let userController = {
                     db.Users.create(newUser)
                         .then(function(user) {
                             return res.render ('./users/login', {error: false, newUser: true})
+                        }).catch (err => {
+                            return res.render('error')
                         })
                 }
+            }).catch (err => {
+                return res.render('error')
             })
   
     },
@@ -107,6 +113,8 @@ let userController = {
         db.Users.findOne({where: {id: req.params.id}, include: [{association: 'address_list'}, {association: 'payment_list'}]})
             .then(function(user) {
                 return res.render('./users/profile', {user: user,  imgError: false, passError: false})
+            }).catch (err => {
+                return res.render('error')
             })
 
     },
@@ -120,55 +128,59 @@ let userController = {
             phone: req.body.phone,
         }
 
-        /* Actualizar usuario */
-        let updateUser = await db.Users.update(newData, {where: {id: req.params.id}})
+        try {
+            /* Actualizar usuario */
+            let updateUser = await db.Users.update(newData, {where: {id: req.params.id}})
 
-        /* Buscar el usuario actualizado para devolver esos datos en caso de error */
-        let user = await db.Users.findOne({where: {id: req.params.id}, include: [{association: 'address_list'}, {association: 'payment_list'}]})
+            /* Buscar el usuario actualizado para devolver esos datos en caso de error */
+            let user = await db.Users.findOne({where: {id: req.params.id}, include: [{association: 'address_list'}, {association: 'payment_list'}]})
 
-        let userError
+            let userError
 
-        /* Si se subio imagen porque no es obligatorio */
-        if (req.files) {
-            let image = req.files.image
-            let name = image.name
-            let uniqName = 'User' + Date.now() + name
-            let extName = image.mimetype
-    
-            /* Si la imagen cumple con los requisitos se guarda */
-            if (imgList.includes(extName) && image.size <= 512000) {
+            /* Si se subio imagen porque no es obligatorio */
+            if (req.files) {
+                let image = req.files.image
+                let name = image.name
+                let uniqName = 'User' + Date.now() + name
+                let extName = image.mimetype
+        
+                /* Si la imagen cumple con los requisitos se guarda */
+                if (imgList.includes(extName) && image.size <= 512000) {
 
-                /* Actualiza la session con los nuevos valores */
-                req.session.userLogged.image = uniqName
+                    /* Actualiza la session con los nuevos valores */
+                    req.session.userLogged.image = uniqName
+                
+                    /* Borrar imagen anterior */
+                    if (user.image) {
+                        fs.unlinkSync(storepath + user.image)
+                    }
+                    
+                    /* Guardar archivo */
+                    image.mv(storepath + uniqName, (err) => {
+                        if (err) {res.send(err)}
+                    })
+
+                    /* Sin then y catch */
+                    db.Users.update({image: uniqName}, {where: {id: req.params.id}})
             
-                /* Borrar imagen anterior */
-                if (user.image) {
-                    fs.unlinkSync(storepath + user.image)
-                }
-                
-                /* Guardar archivo */
-                image.mv(storepath + uniqName, (err) => {
-                    if (err) {res.send(err)}
-                })
+                } else {
+                    userError = user
+                } 
+            }
 
-                db.Users.update({image: uniqName}, {where: {id: req.params.id}})
-                
-        
+            /* Actualiza la session con los nuevos valores */
+            req.session.userLogged.first_name = user.first_name
+            req.session.userLogged.last_name = user.last_name
+            
+            if (userError) {
+                /* Se envia un mensaje de error por no poder guardar la imagen*/
+                return res.render('./users/profile', {user: userError, imgError: true, passError: false})
             } else {
-                userError = user
-            } 
-        }
-
-        /* Actualiza la session con los nuevos valores */
-        req.session.userLogged.first_name = user.first_name
-        req.session.userLogged.last_name = user.last_name
-        
-        if (userError) {
-            /* Se envia un mensaje de error por no poder guardar la imagen*/
-            return res.render('./users/profile', {user: userError, imgError: true, passError: false})
-        } else {
-            /* Si todo salio bien se muestra el perfil del usuario */
-            return res.redirect(`/users/profile/${req.params.id}`)
+                /* Si todo salio bien se muestra el perfil del usuario */
+                return res.redirect(`/users/profile/${req.params.id}`)
+            }
+        } catch (err) {
+            return res.render('error')
         }
 
     },
@@ -191,6 +203,8 @@ let userController = {
             .then(function() {
                 return res.redirect(`/users/profile/${req.params.id}`)
 
+            }).catch (err => {
+                return res.render('error')
             })
 
     },
@@ -211,6 +225,8 @@ let userController = {
             .then(function() {
                 return res.redirect(`/users/profile/${req.params.id}`)
 
+            }).catch (err => {
+                return res.render('error')
             })
 
     },
@@ -232,6 +248,8 @@ let userController = {
             .then(function() {
                 return res.redirect(`/users/profile/${req.params.id}`)
 
+            }).catch (err => {
+                return res.render('error')
             })
 
     },
@@ -251,6 +269,8 @@ let userController = {
             .then(function() {
                 return res.redirect(`/users/profile/${req.params.id}`)
 
+            }).catch (err => {
+                return res.render('error')
             })
     },
 
@@ -261,6 +281,8 @@ let userController = {
             .then(function() {
                 return res.redirect(`/users/profile/${req.params.id}`)
 
+            }).catch (err => {
+                return res.render('error')
             })
         
     },
@@ -272,6 +294,8 @@ let userController = {
             .then(function() {
                 return res.redirect(`/users/profile/${req.params.id}`)
 
+            }).catch (err => {
+                return res.render('error')
             })
     },
 
@@ -290,6 +314,8 @@ let userController = {
                         .then(function() {
                             /* Si todo salio bien se muestra el perfil del usuario */
                             return res.redirect(`/users/profile/${req.params.id}`)
+                        }).catch (err => {
+                            return res.render('error')
                         })
                     
                 } else {
@@ -297,6 +323,8 @@ let userController = {
                     return res.render('./users/profile', {user: user, imgError: false, passError: true})
                 }
 
+            }).catch (err => {
+                return res.render('error')
             })
 
     }
