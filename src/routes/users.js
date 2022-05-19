@@ -47,4 +47,10 @@ router.delete('/profile/delete/payment/:id/:pay_id', usersController.deletepayme
 /* Editar contraseña del usuario*/
 router.put('/profile/edit/pass/:id', usersController.editpass)
 
+/* Api lista de usuarios*/
+router.get('/api/users', usersController.apiusers)
+
+/* Api Detalle de usuario*/
+router.get('/api/users/:id', usersController.apiusersid)
+
 module.exports = router
