@@ -19,7 +19,7 @@ let userController = {
     authentication: function(req, res) {
 
         /* felipeag */
-        /* marioz */
+        /* mario */
         /* julianv */
         /* francys */
 
@@ -327,8 +327,57 @@ let userController = {
                 return res.render('error')
             })
 
+    },
+    apiusers: function (req, res) {
+        db.Users.findAll () 
+        .then (function (users){
+            let userlist= [];
+            for (user of users) {
+                   
+               let obj = {
+                id: user.id,
+                nombre:  user.first_name,
+                apellido: user.last_name,
+                email:  user.email,
+                detalle: [user.image, user.createdAt]
+               }
+               userlist.push(obj)
+           }
+                res.json({
+                total_de_usuarios: userlist.length,
+                descripcion: "Lista de usuarios",
+                codigo: 200,
+                data: userlist})
+            })
+            .catch (err => {
+                res.json({
+                codigo: 404,
+                data: "pagina no encontrada"                    
+                })
+            })
+    }, 
+
+    apiusersid: function (req, res) {
+        db.Users.findByPk (req.params.id) 
+        .then (function (user){
+                let userId= {
+                    nombre:  user.first_name,
+                    apellido: user.last_name,
+                    email:  user.email,
+                    detail: [user.image, user.createdAt] 
+                }
+                res.json({
+                    codigo: 200,
+                    data: userId
+                })
+        })
+        .catch (err => {
+            res.json({
+                codigo: 204,
+                data: "solicitud no encontrada"                    
+            })
+        })
     }
-
+    
 }
-
 module.exports = userController
