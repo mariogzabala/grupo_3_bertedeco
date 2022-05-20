@@ -456,6 +456,76 @@ let productsController = {
             return res.render('error')
         }
 
+    },
+    apiproducts: function (req, res) {
+        db.Products.findAll({
+            include: [{association: 'images'}, {association: 'discount'}],
+            order: [['images', 'id', 'ASC']] /* Ordena las imagenes de forma ascendente */
+        }) 
+        .then (function (products){
+            let productList= [];
+           /*  let categories = {
+                Bancos : 0,
+                Espejos:0,
+                Accesorios:0,
+
+            } */
+            for (product of products) {
+                   
+               let obj = {
+                id: product.id,
+                nombre:  product.name,
+                descricion: product.description,
+                imagenes:  product.images,
+                detalle: 'URL del producto '
+               }
+               productList.push(obj)
+           }
+                res.json({
+                total_de_productos: productList.length,
+                descripcion: "Lista de productos",
+                codigo: 200,
+                data: productList})
+            })
+            .catch (err => {
+                res.json({
+                codigo: 404,
+                data: "pagina no encontrada"                    
+                })
+            })
+    }, 
+
+    apiproductsid: function (req, res) {
+        db.Products.findByPk (req.params.id, {
+            include: [{association: 'images'}, {association: 'discount'}],
+            order: [['images', 'id', 'ASC']] /* Ordena las imagenes de forma ascendente */
+        })
+        .then (function (product){
+                let productId= {
+                    id: product.id,
+                    sku:product.sku,
+                    nombre: product.name,
+                    precio: product.price,
+                    descuento:product.discount,
+                    listo:product.active,
+                    stock:product.stock,
+                    categoria:product.categories,
+                    entrega:product.delivery,
+                    imagen: 'URL de imagen',
+                    imagenes:  product.images,
+                    descricion:product.description
+                }
+                res.json({
+                    codigo: 200,
+                    data: productId
+                })
+        })
+        .catch (err => {
+            res.json({
+                codigo: 204,
+                data: "solicitud no encontrada"                    
+            })
+        })
     }
 
 }

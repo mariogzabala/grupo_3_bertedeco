@@ -36,4 +36,10 @@ router.put('/discounts/edit/:id', productsController.editdiscount)
 /* Mostrar descuentos*/
 router.delete('/discounts/delete/:id', productsController.deletediscount)
 
+/* Api products*/
+router.get('/api/products', productsController.apiproducts)
+
+/* Api products id*/
+router.get('/api/products/:id', productsController.apiproductsid)
+
 module.exports = router
