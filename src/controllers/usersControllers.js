@@ -328,56 +328,65 @@ let userController = {
             })
 
     },
-    apiusers: function (req, res) {
-        db.Users.findAll () 
-        .then (function (users){
-            let userlist= [];
-            for (user of users) {
-                   
-               let obj = {
-                id: user.id,
-                nombre:  user.first_name,
-                apellido: user.last_name,
-                email:  user.email,
-                detalle: [user.image, user.createdAt]
-               }
-               userlist.push(obj)
-           }
-                res.json({
-                total_de_usuarios: userlist.length,
-                descripcion: "Lista de usuarios",
-                codigo: 200,
-                data: userlist})
-            })
-            .catch (err => {
-                res.json({
-                codigo: 404,
-                data: "pagina no encontrada"                    
+
+    /* Api lista de usuarios */
+    apiusers: function(req, res) {
+
+        db.Users.findAll() 
+            .then(function(users) {
+                let userslist = []
+                for(const user of users) {
+                    let obj = {
+                        id: user.id,
+                        name:  user.first_name,
+                        lastname: user.last_name,
+                        email:  user.email,
+                        detail: "url para ir a detalle"
+                    }
+                    userslist.push(obj)
+                }
+                return res.status(200).json({
+                    status: 200,
+                    message: "User list Request was successfully",
+                    count: userslist.length,
+                    users: userslist
+                })    
+            }).catch (err => {
+                return res.status(400).json({
+                    status: 400,
+                    message: "Bad Request",
+                    errors: err                   
                 })
             })
+
     }, 
 
-    apiusersid: function (req, res) {
-        db.Users.findByPk (req.params.id) 
-        .then (function (user){
-                let userId= {
-                    nombre:  user.first_name,
-                    apellido: user.last_name,
+    /* Api del detalle de usuario */
+    apiusersid: function(req, res) {
+
+        db.Users.findByPk(req.params.id) 
+            .then(function(user) {
+                let userDetail = {
+                    name:  user.first_name,
+                    lastname: user.last_name,
                     email:  user.email,
-                    detail: [user.image, user.createdAt] 
+                    image: "url de la imagen de perfil"
                 }
-                res.json({
-                    codigo: 200,
-                    data: userId
+                return res.status(200).json({
+                    status: 200,
+                    message: "User Request was successfully",
+                    data: userDetail
                 })
-        })
-        .catch (err => {
-            res.json({
-                codigo: 204,
-                data: "solicitud no encontrada"                    
+            }).catch (err => {
+                return res.status(400).json({
+                    status: 400,
+                    message: "Bad Request",
+                    errors: err                   
+                })
             })
-        })
+
     }
     
 }
+
 module.exports = userController

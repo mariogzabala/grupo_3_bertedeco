@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const db = require('../database/models')
+const Sequelize = require('sequelize')
 const { Op } = require("sequelize")
 
 /* Donde se guardan las imagenes */
@@ -457,75 +458,95 @@ let productsController = {
         }
 
     },
-    apiproducts: function (req, res) {
+
+    /* Api lista de productos */
+    apiproducts: function(req, res) {
+
+        let countByCategory
+        
+        db.Products.findAll({
+            group: ['category'],
+            attributes: ['category', [Sequelize.fn('COUNT', 'category'), 'count']],
+            order: [[Sequelize.literal('count'), 'DESC']],
+            raw: true,
+        }).then(function(categories) {
+            countByCategory = categories
+        }).catch (err => {
+            return res.status(400).json({
+                status: 400,
+                message: "Bad Request",
+                errors: err                   
+            })
+        })
+
         db.Products.findAll({
             include: [{association: 'images'}, {association: 'discount'}],
             order: [['images', 'id', 'ASC']] /* Ordena las imagenes de forma ascendente */
         }) 
-        .then (function (products){
-            let productList= [];
-           /*  let categories = {
-                Bancos : 0,
-                Espejos:0,
-                Accesorios:0,
-
-            } */
-            for (product of products) {
-                   
-               let obj = {
-                id: product.id,
-                nombre:  product.name,
-                descricion: product.description,
-                imagenes:  product.images,
-                detalle: 'URL del producto '
-               }
-               productList.push(obj)
-           }
-                res.json({
-                total_de_productos: productList.length,
-                descripcion: "Lista de productos",
-                codigo: 200,
-                data: productList})
+        .then(function(products) {
+            let productsList = []
+            for (const product of products) {   
+                let obj = {
+                    id: product.id,
+                    name: product.name,
+                    description: product.prod_desc,
+                    images: product.images,
+                    detail: 'URL del producto '
+                }
+                productsList.push(obj)
+            }
+            return res.status(200).json({
+                status: 200,
+                message: "Product list Request was successfully",
+                count: productsList.length,
+                count_by_category: countByCategory,
+                products: productsList
             })
-            .catch (err => {
-                res.json({
-                codigo: 404,
-                data: "pagina no encontrada"                    
+            }).catch (err => {
+                return res.status(400).json({
+                    status: 400,
+                    message: "Bad Request",
+                    errors: err                   
                 })
             })
+
     }, 
 
-    apiproductsid: function (req, res) {
-        db.Products.findByPk (req.params.id, {
+    /* Api detalle de producto */
+    apiproductsid: function(req, res) {
+
+        db.Products.findByPk(req.params.id, {
             include: [{association: 'images'}, {association: 'discount'}],
             order: [['images', 'id', 'ASC']] /* Ordena las imagenes de forma ascendente */
         })
-        .then (function (product){
-                let productId= {
-                    id: product.id,
-                    sku:product.sku,
-                    nombre: product.name,
-                    precio: product.price,
-                    descuento:product.discount,
-                    listo:product.active,
-                    stock:product.stock,
-                    categoria:product.categories,
-                    entrega:product.delivery,
-                    imagen: 'URL de imagen',
-                    imagenes:  product.images,
-                    descricion:product.description
-                }
-                res.json({
-                    codigo: 200,
-                    data: productId
-                })
-        })
-        .catch (err => {
-            res.json({
-                codigo: 204,
-                data: "solicitud no encontrada"                    
+        .then(function(product){
+            let productDetail= {
+                id: product.id,
+                sku: product.sku,
+                name: product.name,
+                price: product.price,
+                stock: product.stock,
+                discount: product.discount,
+                active: product.active,
+                description: product.prod_desc,
+                category: product.category,
+                delivery: product.delivery,
+                image: 'URL de imagen',
+                images: product.images
+            }
+            return res.status(200).json({
+                status: 200,
+                description: "Product Request was successfully",
+                data: productDetail
+            })
+        }).catch (err => {
+            return res.status(400).json({
+                status: 400,
+                message: "Bad Request",
+                errors: err                   
             })
         })
+
     }
 
 }
