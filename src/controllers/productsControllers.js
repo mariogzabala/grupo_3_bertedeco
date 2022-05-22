@@ -465,6 +465,7 @@ let productsController = {
         let countByCategory
         
         db.Products.findAll({
+            where: {active: true},
             group: ['category'],
             attributes: ['category', [Sequelize.fn('COUNT', 'category'), 'count']],
             order: [[Sequelize.literal('count'), 'DESC']],
@@ -480,8 +481,9 @@ let productsController = {
         })
 
         db.Products.findAll({
+            where: {active: true},
             include: [{association: 'images'}, {association: 'discount'}],
-            order: [['images', 'id', 'ASC']] /* Ordena las imagenes de forma ascendente */
+            order: [['id', 'ASC']] /* Ordena las imagenes de forma ascendente */
         }) 
         .then(function(products) {
             let productsList = []
@@ -489,9 +491,11 @@ let productsController = {
                 let obj = {
                     id: product.id,
                     name: product.name,
+                    stock: product.stock,
                     description: product.prod_desc,
+                    category: product.category,
                     images: product.images,
-                    detail: 'URL del producto '
+                    detail: `https://bertedeco.herokuapp.com/products/detail/${product.id}`
                 }
                 productsList.push(obj)
             }
@@ -531,7 +535,7 @@ let productsController = {
                 description: product.prod_desc,
                 category: product.category,
                 delivery: product.delivery,
-                image: 'URL de imagen',
+                image: `https://bertedeco.herokuapp.com/img/productos/${product.images[0].name}`,
                 images: product.images
             }
             return res.status(200).json({

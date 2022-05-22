@@ -5,10 +5,13 @@ const methodOverride =  require('method-override'); // Para poder usar los méto
 const expressFileUpload = require('express-fileupload')
 const session = require('express-session')
 const cookies = require('cookie-parser')
-const { check } = require('express-validator') // requerir en el archivo deseado y despues borrar esta linea
 const logged = require('./middlewares/userLoggedMiddleware')
+const cors = require('cors')
 
 const app = express()
+
+// allow cross-origin requests
+app.use(cors())
 
 /* Middlewares */
 app.use(cookies())
